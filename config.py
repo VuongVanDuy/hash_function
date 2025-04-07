@@ -1,7 +1,7 @@
 from dataclasses import dataclass, field
 
 @dataclass
-class SateWidget():
+class StateWidget():
     timeSkip: int = 700
     # set color green for QGroupBox
     GroupActive: str = '''QGroupBox {

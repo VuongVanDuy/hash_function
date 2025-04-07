@@ -1,9 +1,8 @@
 from PySide6.QtWidgets import QApplication, QTabWidget, QFileDialog, QPushButton
 from PySide6.QtCore import QTimer
 from form import Ui_Form
-from config import SateWidget
+from config import StateWidget
 from hash.md5 import MD5
-import time
 
 class mainHandle(Ui_Form, QTabWidget):
     def __init__(self):
@@ -126,6 +125,8 @@ class mainHandle(Ui_Form, QTabWidget):
                                      active=False)
                 self.hash_hex.setText(self.md5Control.hash_hex)
 
+        self.visual_state_change_step()
+
     def pre_step(self):
         curr_block = self.currentBlock.value()
         current_step_of_round = self.stepRound.value()
@@ -178,6 +179,7 @@ class mainHandle(Ui_Form, QTabWidget):
             self.set_state_buffer_of_step(curr_block, newRound, newStepRound, buffer_AC_SC, buffer_ABCDF, None)
 
         self.btnNextStep.setEnabled(True)
+        self.visual_state_change_step()
 
     def next_round(self):
         curr_block = self.currentBlock.value()
@@ -380,8 +382,18 @@ class mainHandle(Ui_Form, QTabWidget):
         self.labelWord15.setText(str(integers_little_endian[14]) + '\n' + hexs_big_endian[14])
         self.labelWord16.setText(str(integers_little_endian[15]) + '\n' + hexs_big_endian[15])
 
+    def visual_state_change_step(self):
+        current_step_of_round = self.stepRound.value()
+        current_round = self.round.value()
+        step = (current_round - 1) * 16 + (current_step_of_round - 1)
+        states = StateWidget()
+        timeSkip = states.timeSkip // 2
+        groupBoxWord = self.get_groupBox_of_word(step)
+        groupBoxWord.setStyleSheet(states.GroupActive)
+        QTimer.singleShot(timeSkip, lambda: groupBoxWord.setStyleSheet(states.GroupDeFault))
+
     def visual_state_change_block(self, notStart=True):
-        states = SateWidget()
+        states = StateWidget()
         if notStart:
             self.btnState.setStyleSheet(states.ButtonNextBlockActive)
         self.groupH1.setStyleSheet(states.GroupRes)
@@ -407,7 +419,12 @@ class mainHandle(Ui_Form, QTabWidget):
 
 
     def visual_step_round(self):
-        states = SateWidget()
+        current_step_of_round = self.stepRound.value()
+        current_round = self.round.value()
+        step = (current_round - 1) * 16 + (current_step_of_round - 1)
+        word_object = self.get_groupBox_of_word(step)
+
+        states = StateWidget()
         self.groupB.setStyleSheet(states.GroupActive)
         QTimer.singleShot(states.timeSkip, lambda: self.next_object(self.groupB, states.GroupDeFault))
         QTimer.singleShot(states.timeSkip, lambda: self.next_object(self.groupC, states.GroupActive))
@@ -425,11 +442,11 @@ class mainHandle(Ui_Form, QTabWidget):
         QTimer.singleShot(5 * states.timeSkip, lambda: self.next_object(self.labelPlus1, states.OperatorDefault))
         QTimer.singleShot(5 * states.timeSkip, lambda: self.next_object(self.groupA, states.GroupDeFault))
         QTimer.singleShot(5 * states.timeSkip, lambda: self.next_object(self.groupF, states.GroupDeFault))
-        QTimer.singleShot(5 * states.timeSkip, lambda: self.next_object(self.group_1, states.GroupActive))
+        QTimer.singleShot(5 * states.timeSkip, lambda: self.next_object(word_object, states.GroupActive))
         QTimer.singleShot(5 * states.timeSkip, lambda: self.next_object(self.labelPlus2, states.OperatorActive))
 
         QTimer.singleShot(6 * states.timeSkip, lambda: self.next_object(self.labelPlus2, states.OperatorDefault))
-        QTimer.singleShot(6 * states.timeSkip, lambda: self.next_object(self.group_1, states.GroupDeFault))
+        QTimer.singleShot(6 * states.timeSkip, lambda: self.next_object(word_object, states.GroupDeFault))
         QTimer.singleShot(6 * states.timeSkip, lambda: self.next_object(self.groupAC, states.GroupActive))
         QTimer.singleShot(6 * states.timeSkip, lambda: self.next_object(self.labelPlus3, states.OperatorActive))
 
@@ -464,31 +481,54 @@ class mainHandle(Ui_Form, QTabWidget):
     def next_object(self, object, styleSheet):
         object.setStyleSheet(styleSheet)
 
-    # def get_group_step(self, step):
-    #     if step == 1:
-    #         return self.group_1
-    #     elif step == 2:
-    #         return self.group_2
-    #     elif step == 3:
-    #         return self.group_3
-    #     elif step == 4:
-    #         return self.group_4
-    #     elif step == 5:
-    #         return self.group_5
-    #     elif step == 6:
-    #         return self.group_6
-    #     elif step == 7:
-    #         return self.group_71227
-    #     elif step == 8:
-    #         return self.group_8
-    #     elif step == 9:
-    #         return self.group_9
-    #     elif step == 10:
-    #         return self.group_10
-    #     elif step == 11:
-    #         return self.group_11
-    #     elif step == 12:
-    #         return self.group_12
+    def get_word_of_step(self, step):
+        if step < 16:
+            word = step
+        elif step < 32:
+            word = (5 * step + 1) % 16
+        elif step < 48:
+            word = (3 * step + 5) % 16
+        else:
+            word = (7 * step) % 16
+
+        return word
+
+    def get_groupBox_of_word(self, step):
+        word = self.get_word_of_step(step) + 1
+
+        if word == 1:
+            return self.group_1
+        elif word == 2:
+            return self.group_2
+        elif word == 3:
+            return self.group_3
+        elif word == 4:
+            return self.group_4
+        elif word == 5:
+            return self.group_5
+        elif word == 6:
+            return self.group_6
+        elif word == 7:
+            return self.group_7
+        elif word == 8:
+            return self.group_8
+        elif word == 9:
+            return self.group_9
+        elif word == 10:
+            return self.group_10
+        elif word == 11:
+            return self.group_11
+        elif word == 12:
+            return self.group_12
+        elif word == 13:
+            return self.group_13
+        elif word == 14:
+            return self.group_14
+        elif word == 15:
+            return self.group_15
+        elif word == 16:
+            return self.group_16
+
 if __name__ == "__main__":
     import sys
 
