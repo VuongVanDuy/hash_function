@@ -37,4 +37,14 @@ class SateWidget():
     }
     '''
 
-
+    ButtonNextBlockDefault: str = '''QPushButton {
+        border: 3px solid green;
+        border-radius: 5px;
+    }
+    '''
+    ButtonNextBlockActive: str = '''QPushButton {
+            background-color: #00ff00; 
+            border: 2px solid #8f8f91;
+            border-radius: 5px;
+    }
+    '''

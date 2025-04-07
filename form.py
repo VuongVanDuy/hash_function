@@ -790,20 +790,21 @@ class Ui_Form(object):
 
         self.registerLayoutBottom.addItem(self.horizontalSpacer_3)
 
-        self.pushButton_2 = QPushButton(self.tab_md5)
-        self.pushButton_2.setObjectName(u"pushButton_2")
-        self.pushButton_2.setEnabled(False)
-        sizePolicy.setHeightForWidth(self.pushButton_2.sizePolicy().hasHeightForWidth())
-        self.pushButton_2.setSizePolicy(sizePolicy)
-        self.pushButton_2.setMinimumSize(QSize(60, 40))
-        self.pushButton_2.setMaximumSize(QSize(60, 40))
-        self.pushButton_2.setStyleSheet(u"background-color: rgb(0, 255, 127);")
+        self.btnState = QPushButton(self.tab_md5)
+        self.btnState.setObjectName(u"btnState")
+        self.btnState.setEnabled(True)
+        sizePolicy.setHeightForWidth(self.btnState.sizePolicy().hasHeightForWidth())
+        self.btnState.setSizePolicy(sizePolicy)
+        self.btnState.setMinimumSize(QSize(60, 40))
+        self.btnState.setMaximumSize(QSize(60, 40))
+        self.btnState.setStyleSheet(u"border: 3px solid green;\n"
+"border-radius: 5px;")
         icon6 = QIcon()
-        icon6.addFile(u":/icons/iconsDark/arrow-left-circle.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
-        self.pushButton_2.setIcon(icon6)
-        self.pushButton_2.setIconSize(QSize(30, 30))
+        icon6.addFile(u":/icons/iconsDark/plus-circle.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        self.btnState.setIcon(icon6)
+        self.btnState.setIconSize(QSize(35, 35))
 
-        self.registerLayoutBottom.addWidget(self.pushButton_2)
+        self.registerLayoutBottom.addWidget(self.btnState)
 
         self.horizontalSpacer = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
 
@@ -878,17 +879,6 @@ class Ui_Form(object):
 
         self.hashLayout = QHBoxLayout()
         self.hashLayout.setObjectName(u"hashLayout")
-        self.label_4 = QLabel(self.tab_md5)
-        self.label_4.setObjectName(u"label_4")
-
-        self.hashLayout.addWidget(self.label_4)
-
-        self.hash_bin = QLineEdit(self.tab_md5)
-        self.hash_bin.setObjectName(u"hash_bin")
-        self.hash_bin.setReadOnly(True)
-
-        self.hashLayout.addWidget(self.hash_bin)
-
         self.label_2 = QLabel(self.tab_md5)
         self.label_2.setObjectName(u"label_2")
 
@@ -899,6 +889,12 @@ class Ui_Form(object):
         self.hash_hex.setReadOnly(True)
 
         self.hashLayout.addWidget(self.hash_hex)
+
+        self.finish = QPushButton(self.tab_md5)
+        self.finish.setObjectName(u"finish")
+        self.finish.setIcon(icon5)
+
+        self.hashLayout.addWidget(self.finish)
 
 
         self.verticalLayout_md5.addLayout(self.hashLayout)
@@ -932,19 +928,35 @@ class Ui_Form(object):
 
         self.navLayout.addWidget(self.btnNextStep)
 
+        self.btnPreviousRound = QPushButton(self.tab_md5)
+        self.btnPreviousRound.setObjectName(u"btnPreviousRound")
+        self.btnPreviousRound.setEnabled(False)
+        icon10 = QIcon()
+        icon10.addFile(u":/icons/iconsDark/rewind.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        self.btnPreviousRound.setIcon(icon10)
+
+        self.navLayout.addWidget(self.btnPreviousRound)
+
         self.btnNextRound = QPushButton(self.tab_md5)
         self.btnNextRound.setObjectName(u"btnNextRound")
         self.btnNextRound.setEnabled(False)
-        icon10 = QIcon()
-        icon10.addFile(u":/icons/iconsDark/fast-forward.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
-        self.btnNextRound.setIcon(icon10)
+        icon11 = QIcon()
+        icon11.addFile(u":/icons/iconsDark/fast-forward.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        self.btnNextRound.setIcon(icon11)
 
         self.navLayout.addWidget(self.btnNextRound)
+
+        self.btnPreviousBlock = QPushButton(self.tab_md5)
+        self.btnPreviousBlock.setObjectName(u"btnPreviousBlock")
+        self.btnPreviousBlock.setEnabled(False)
+        self.btnPreviousBlock.setIcon(icon10)
+
+        self.navLayout.addWidget(self.btnPreviousBlock)
 
         self.btnNextBlock = QPushButton(self.tab_md5)
         self.btnNextBlock.setObjectName(u"btnNextBlock")
         self.btnNextBlock.setEnabled(False)
-        self.btnNextBlock.setIcon(icon10)
+        self.btnNextBlock.setIcon(icon11)
 
         self.navLayout.addWidget(self.btnNextBlock)
 
@@ -1112,7 +1124,7 @@ class Ui_Form(object):
         self.labelValueH3.setText("")
         self.groupH4.setTitle(QCoreApplication.translate("Form", u"H4", None))
         self.labelValueH4.setText("")
-        self.pushButton_2.setText("")
+        self.btnState.setText("")
         self.groupB_new.setTitle(QCoreApplication.translate("Form", u"B", None))
         self.labelValueB_new.setText("")
         self.groupC_new.setTitle(QCoreApplication.translate("Form", u"C", None))
@@ -1121,12 +1133,14 @@ class Ui_Form(object):
         self.labelValueD_new.setText("")
         self.groupA_new.setTitle(QCoreApplication.translate("Form", u"A", None))
         self.labelValueA_new.setText("")
-        self.label_4.setText(QCoreApplication.translate("Form", u"Hash value (bin):", None))
         self.label_2.setText(QCoreApplication.translate("Form", u"Hash value (hex):", None))
+        self.finish.setText(QCoreApplication.translate("Form", u"finish process", None))
         self.btnDetailStep.setText(QCoreApplication.translate("Form", u"Detail step", None))
         self.btnPreviousStep.setText(QCoreApplication.translate("Form", u"Previous Step", None))
         self.btnNextStep.setText(QCoreApplication.translate("Form", u"Next Step", None))
+        self.btnPreviousRound.setText(QCoreApplication.translate("Form", u"Previous Round", None))
         self.btnNextRound.setText(QCoreApplication.translate("Form", u"Next Round", None))
+        self.btnPreviousBlock.setText(QCoreApplication.translate("Form", u"Previous Block", None))
         self.btnNextBlock.setText(QCoreApplication.translate("Form", u"Next Block", None))
         Form.setTabText(Form.indexOf(self.tab_md5), QCoreApplication.translate("Form", u"md5", None))
         self.labelTitle_sha1.setText(QCoreApplication.translate("Form", u"Performing compression step", None))

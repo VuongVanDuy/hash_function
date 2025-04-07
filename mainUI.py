@@ -1,10 +1,9 @@
-from turtledemo.clock import current_day
-
 from PySide6.QtWidgets import QApplication, QTabWidget, QFileDialog, QPushButton
 from PySide6.QtCore import QTimer
 from form import Ui_Form
 from config import SateWidget
 from hash.md5 import MD5
+import time
 
 class mainHandle(Ui_Form, QTabWidget):
     def __init__(self):
@@ -15,14 +14,17 @@ class mainHandle(Ui_Form, QTabWidget):
         self.btnChooseFile.setEnabled(self.File.isChecked())
         self.File.toggled.connect(self.change_radio_btn_file)
         self.plaintext.textChanged.connect(self.change_plain_text)
-        self.btnDetailStep.clicked.connect(self.step_round)
+        self.btnDetailStep.clicked.connect(self.visual_step_round)
         self.btnChooseFile.clicked.connect(self.choose_file)
         self.Ok.clicked.connect(self.AcceptPlainText)
         self.start.clicked.connect(self.start_round)
         self.btnNextStep.clicked.connect(self.next_step)
         self.btnPreviousStep.clicked.connect(self.pre_step)
         self.btnNextRound.clicked.connect(self.next_round)
+        self.btnPreviousRound.clicked.connect(self.pre_round)
         self.btnNextBlock.clicked.connect(self.next_block)
+        self.btnPreviousBlock.clicked.connect(self.pre_block)
+        self.finish.clicked.connect(self.finish_process)
 
     def change_radio_btn_file(self):
         self.btnChooseFile.setEnabled(self.File.isChecked())
@@ -60,20 +62,30 @@ class mainHandle(Ui_Form, QTabWidget):
         self.start.setEnabled(True)
 
     def start_round(self):
-        curr_block = self.currentBlock.value()
         initialize_MD_buffer = self.md5Control.cache["initialize_MD_buffer"]
         buffer_H = initialize_MD_buffer.copy()
         buffer_ABCDF = initialize_MD_buffer.copy()
-        buffer_ABCDF["little_endian"] += self.steps_of_block[curr_block]["buffers_state"]["little_endian"][0][2:]
-        buffer_ABCDF["big_endian"] += self.steps_of_block[curr_block]["buffers_state"]["big_endian"][0][2:]
+        buffer_ABCDF["little_endian"] += self.steps_of_block[0]["buffers_state"]["little_endian"][0][2:]
+        buffer_ABCDF["big_endian"] += self.steps_of_block[0]["buffers_state"]["big_endian"][0][2:]
         buffer_AC_SC = {
-            "little_endian": self.steps_of_block[curr_block]["buffers_state"]["little_endian"][0][:2],
-            "big_endian": self.steps_of_block[curr_block]["buffers_state"]["big_endian"][0][:2]
+            "little_endian": self.steps_of_block[0]["buffers_state"]["little_endian"][0][:2],
+            "big_endian": self.steps_of_block[0]["buffers_state"]["big_endian"][0][:2]
         }
-        self.set_words_of_block(curr_block)
+        self.set_words_of_block(0)
         self.set_state_buffer_of_step(0, 1, 1, buffer_AC_SC, buffer_ABCDF, buffer_H)
-        self.set_enable_btn([self.btnDetailStep, self.btnNextStep, self.btnPreviousStep,
-                             self.btnNextRound, self.btnNextBlock])
+        self.set_enable_btns(list_btns=[self.btnDetailStep, self.btnNextStep, self.btnNextRound, self.btnNextBlock],
+                             active=True)
+        self.set_enable_btns(list_btns=[self.btnPreviousStep, self.btnPreviousRound, self.btnPreviousBlock],
+                             active=False)
+
+    def finish_process(self):
+        self.currentBlock.setValue(len(self.md5Control.blocks) - 1)
+        self.round.setValue(4)
+        self.set_words_of_block(len(self.md5Control.blocks) - 1)
+        buffer_H = self.steps_of_block[-2]["end_of_block"]
+        self.set_MD_buffer_H1234(buffer_H["little_endian"], buffer_H["big_endian"])
+        self.stepRound.setValue(15)
+        self.next_step()
 
     def next_step(self):
         curr_block = self.currentBlock.value()
@@ -81,7 +93,11 @@ class mainHandle(Ui_Form, QTabWidget):
         current_round = self.round.value()
         step = (current_round - 1) * 16 + (current_step_of_round - 1)
 
-        if step >= 63:
+        if step == 63:
+            if curr_block >= len(self.md5Control.blocks) - 1:
+                self.set_enable_btns(list_btns=[self.btnNextStep, self.btnNextRound, self.btnNextBlock],
+                                     active=False)
+                return
             self.next_block()
         else:
             if (step + 1) % 16 == 0:
@@ -102,26 +118,46 @@ class mainHandle(Ui_Form, QTabWidget):
                 "big_endian": self.steps_of_block[curr_block]["buffers_state"]["big_endian"][step + 1][:2]
             }
 
+            self.btnPreviousStep.setEnabled(True)
             self.set_state_buffer_of_step(curr_block, newRound, newStepRound, buffer_AC_SC, buffer_ABCDF, None)
+            if (self.currentBlock.value() == len(self.md5Control.blocks) - 1 and
+                    newRound == 4 and newStepRound == 16):
+                self.set_enable_btns(list_btns=[self.btnNextStep, self.btnNextRound, self.btnNextBlock],
+                                     active=False)
+                self.hash_hex.setText(self.md5Control.hash_hex)
 
     def pre_step(self):
         curr_block = self.currentBlock.value()
         current_step_of_round = self.stepRound.value()
         current_round = self.round.value()
         step = (current_round - 1) * 16 + (current_step_of_round - 1)
-        if step == 0 and curr_block == 0 and current_round == 1:
-            return
-        elif step == 0 and curr_block > 0 and current_round == 1:
-            curr_block -= 1
-            step = 63
-            newStepRound = 16
-            newRound = 4
-            buffer_H = {
-                "little_endian": self.steps_of_block[curr_block]["buffers_state"]["little_endian"][step - 1][2:],
-                "big_endian": self.steps_of_block[curr_block]["buffers_state"]["big_endian"][step - 1][2:]
-            }
+        if step == 0:
+            if curr_block == 0:
+                return
+            else:
+                curr_block -= 1
+                self.currentBlock.setValue(curr_block)
+                self.set_words_of_block(curr_block)
+                if curr_block == 0:
+                    buffer_H = self.md5Control.cache["initialize_MD_buffer"]
+                    self.set_MD_buffer_H1234(buffer_H["little_endian"], buffer_H["big_endian"])
+                else:
+                    buffer_H = {
+                        "little_endian": self.steps_of_block[curr_block - 1]["end_of_block"]["little_endian"],
+                        "big_endian": self.steps_of_block[curr_block - 1]["end_of_block"]["big_endian"]
+                    }
+                    self.set_MD_buffer_H1234(buffer_H["little_endian"], buffer_H["big_endian"])
+                self.round.setValue(4)
+                self.stepRound.setValue(15)
+                self.next_step()
+        elif step == 1:
+            if curr_block == 0:
+                self.start_round()
+            else:
+                self.currentBlock.setValue(curr_block + 1)
+                self.pre_block()
         else:
-            if step % 16 == 1:
+            if step % 16 == 0:
                 newRound = current_round - 1
                 newStepRound = 16
             else:
@@ -141,33 +177,18 @@ class mainHandle(Ui_Form, QTabWidget):
 
             self.set_state_buffer_of_step(curr_block, newRound, newStepRound, buffer_AC_SC, buffer_ABCDF, None)
 
-    def pre_round(self):
-        curr_block = self.currentBlock.value()
-        current_round = self.round.value()
-        if current_round == 1:
-            pass
-        elif current_round > 1:
-            newRound = current_round - 1
-            newStepRound = 1
-            step = (newRound - 1) * 16
-            buffer_ABCDF = {
-                "little_endian": self.steps_of_block[curr_block]["buffers_state"]["little_endian"][step - 2][2:6]
-                                 + self.steps_of_block[curr_block]["buffers_state"]["little_endian"][step - 1][2:],
-                "big_endian": self.steps_of_block[curr_block]["buffers_state"]["big_endian"][step - 2][2:6]
-                                + self.steps_of_block[curr_block]["buffers_state"]["big_endian"][step - 1][2:]
-            }
-            buffer_AC_SC = {
-                "little_endian": self.steps_of_block[curr_block]["buffers_state"]["little_endian"][step][:2],
-                "big_endian": self.steps_of_block[curr_block]["buffers_state"]["big_endian"][step][:2]
-            }
-
-            self.set_state_buffer_of_step(curr_block, newRound, newStepRound, buffer_AC_SC, buffer_ABCDF, None)
+        self.btnNextStep.setEnabled(True)
 
     def next_round(self):
         curr_block = self.currentBlock.value()
         current_round = self.round.value()
         if current_round == 4:
-            self.next_block()
+            if curr_block >= len(self.md5Control.blocks) - 1:
+                self.set_enable_btns(list_btns=[self.btnNextRound, self.btnNextBlock],
+                                     active=False)
+                return
+            else:
+                self.next_block()
         elif current_round < 4:
             newRound = current_round + 1
             newStepRound = 1
@@ -184,10 +205,62 @@ class mainHandle(Ui_Form, QTabWidget):
             }
 
             self.set_state_buffer_of_step(curr_block, newRound, newStepRound, buffer_AC_SC, buffer_ABCDF, None)
+            self.set_enable_btns(list_btns=[self.btnPreviousStep, self.btnPreviousRound],
+                                 active=True)
+            if (self.currentBlock.value() == len(self.md5Control.blocks) - 1 and newRound == 4):
+                self.btnNextRound.setEnabled(False)
+
+    def pre_round(self):
+        self.btnNextRound.setEnabled(True)
+        curr_block = self.currentBlock.value()
+        current_round = self.round.value()
+        if current_round == 1:
+            if curr_block == 0:
+                return
+            else:
+                curr_block -= 1
+                self.currentBlock.setValue(curr_block)
+                self.set_words_of_block(curr_block)
+                if curr_block == 0:
+                    buffer_H = self.md5Control.cache["initialize_MD_buffer"]
+                    self.set_MD_buffer_H1234(buffer_H["little_endian"], buffer_H["big_endian"])
+                else:
+                    buffer_H = {
+                        "little_endian": self.steps_of_block[curr_block - 1]["end_of_block"]["little_endian"],
+                        "big_endian": self.steps_of_block[curr_block - 1]["end_of_block"]["big_endian"]
+                    }
+                    self.set_MD_buffer_H1234(buffer_H["little_endian"], buffer_H["big_endian"])
+                self.round.setValue(3)
+                self.next_round()
+        elif current_round == 2:
+            if curr_block == 0:
+                self.start_round()
+            else:
+                self.currentBlock.setValue(curr_block + 1)
+                self.pre_block()
+        else:
+            newRound = current_round - 1
+            newStepRound = 1
+            step = (newRound - 1) * 16
+            buffer_ABCDF = {
+                "little_endian": self.steps_of_block[curr_block]["buffers_state"]["little_endian"][step - 1][2:6]
+                                 + self.steps_of_block[curr_block]["buffers_state"]["little_endian"][step][2:],
+                "big_endian": self.steps_of_block[curr_block]["buffers_state"]["big_endian"][step - 1][2:6]
+                              + self.steps_of_block[curr_block]["buffers_state"]["big_endian"][step][2:]
+            }
+            buffer_AC_SC = {
+                "little_endian": self.steps_of_block[curr_block]["buffers_state"]["little_endian"][step][:2],
+                "big_endian": self.steps_of_block[curr_block]["buffers_state"]["big_endian"][step][:2]
+            }
+
+            self.set_state_buffer_of_step(curr_block, newRound, newStepRound, buffer_AC_SC, buffer_ABCDF, None)
 
     def next_block(self):
+        self.visual_state_change_block(notStart=True)
+
         curr_block = self.currentBlock.value() + 1
         if curr_block > len(self.md5Control.blocks) - 1:
+            self.btnNextBlock.setEnabled(False)
             return
         current_round = 1
         current_step_of_round = 1
@@ -208,7 +281,11 @@ class mainHandle(Ui_Form, QTabWidget):
             "big_endian": self.steps_of_block[curr_block - 1]["end_of_block"]["big_endian"]
         }
 
+        self.set_enable_btns(list_btns=[self.btnPreviousStep, self.btnPreviousRound, self.btnPreviousBlock],
+                             active=True)
         self.set_state_buffer_of_step(curr_block, current_round, current_step_of_round, buffer_AC_SC, buffer_ABCDF, buffer_H)
+        if self.currentBlock.value() == len(self.md5Control.blocks) - 1:
+            self.btnNextBlock.setEnabled(False)
 
     def pre_block(self):
         curr_block = self.currentBlock.value() - 1
@@ -218,23 +295,32 @@ class mainHandle(Ui_Form, QTabWidget):
         current_step_of_round = 1
         step = 0
 
-        buffer_ABCDF = {
-            "little_endian": self.steps_of_block[curr_block - 1]["end_of_block"]["little_endian"]
-                             + self.steps_of_block[curr_block]["buffers_state"]["little_endian"][step][2:],
-            "big_endian": self.steps_of_block[curr_block - 1]["end_of_block"]["big_endian"]
-                          + self.steps_of_block[curr_block]["buffers_state"]["big_endian"][step][2:]
-        }
-        buffer_AC_SC = {
-            "little_endian": self.steps_of_block[curr_block]["buffers_state"]["little_endian"][step][:2],
-            "big_endian": self.steps_of_block[curr_block]["buffers_state"]["big_endian"][step][:2]
-        }
-        buffer_H = {
-            "little_endian": self.steps_of_block[curr_block - 1]["end_of_block"]["little_endian"],
-            "big_endian": self.steps_of_block[curr_block - 1]["end_of_block"]["big_endian"]
-        }
+        if curr_block == 0:
+            self.visual_state_change_block(notStart=False)
+            self.start_round()
+            self.set_enable_btns(list_btns=[self.btnPreviousStep, self.btnPreviousRound, self.btnPreviousBlock],
+                                 active=False)
+        else:
+            self.visual_state_change_block(notStart=True)
+            buffer_ABCDF = {
+                "little_endian": self.steps_of_block[curr_block - 1]["end_of_block"]["little_endian"]
+                                 + self.steps_of_block[curr_block]["buffers_state"]["little_endian"][step][2:],
+                "big_endian": self.steps_of_block[curr_block - 1]["end_of_block"]["big_endian"]
+                              + self.steps_of_block[curr_block]["buffers_state"]["big_endian"][step][2:]
+            }
+            buffer_AC_SC = {
+                "little_endian": self.steps_of_block[curr_block]["buffers_state"]["little_endian"][step][:2],
+                "big_endian": self.steps_of_block[curr_block]["buffers_state"]["big_endian"][step][:2]
+            }
+            buffer_H = {
+                "little_endian": self.steps_of_block[curr_block - 1]["end_of_block"]["little_endian"],
+                "big_endian": self.steps_of_block[curr_block - 1]["end_of_block"]["big_endian"]
+            }
 
-        self.set_state_buffer_of_step(curr_block, current_round, current_step_of_round,
-                                      buffer_AC_SC, buffer_ABCDF, buffer_H)
+            self.set_state_buffer_of_step(curr_block, current_round, current_step_of_round,
+                                          buffer_AC_SC, buffer_ABCDF, buffer_H)
+            self.set_enable_btns(list_btns=[self.btnNextStep, self.btnNextRound, self.btnNextBlock],
+                                 active=True)
 
     def set_state_buffer_of_step(self, curr_block, round, stepRound, buffer_AC_SC, buffers_ABCDF, buffer_Hi):
         self.round.setValue(round)
@@ -268,9 +354,9 @@ class mainHandle(Ui_Form, QTabWidget):
         self.labelValueD_new.setText(str(integers_little_endian[7]) + '\n' + hexs_big_endian[7])
         self.labelValueF.setText(str(integers_little_endian[8]) + '\n' + hexs_big_endian[8])
 
-    def set_enable_btn(self, list_btn: list[QPushButton]):
-        for btn in list_btn:
-            btn.setEnabled(True)
+    def set_enable_btns(self, list_btns: list[QPushButton], active=True):
+        for btn in list_btns:
+            btn.setEnabled(active)
 
     def set_words_of_block(self, block):
         # set words of block
@@ -294,7 +380,33 @@ class mainHandle(Ui_Form, QTabWidget):
         self.labelWord15.setText(str(integers_little_endian[14]) + '\n' + hexs_big_endian[14])
         self.labelWord16.setText(str(integers_little_endian[15]) + '\n' + hexs_big_endian[15])
 
-    def step_round(self):
+    def visual_state_change_block(self, notStart=True):
+        states = SateWidget()
+        if notStart:
+            self.btnState.setStyleSheet(states.ButtonNextBlockActive)
+        self.groupH1.setStyleSheet(states.GroupRes)
+        self.groupH2.setStyleSheet(states.GroupRes)
+        self.groupH3.setStyleSheet(states.GroupRes)
+        self.groupH4.setStyleSheet(states.GroupRes)
+        self.groupA.setStyleSheet(states.GroupRes)
+        self.groupB.setStyleSheet(states.GroupRes)
+        self.groupC.setStyleSheet(states.GroupRes)
+        self.groupD.setStyleSheet(states.GroupRes)
+
+        timeSkip = states.timeSkip // 2
+        if notStart:
+            QTimer.singleShot(timeSkip, lambda: self.btnState.setStyleSheet(states.ButtonNextBlockDefault))
+        QTimer.singleShot(timeSkip, lambda: self.groupH1.setStyleSheet(states.GroupDeFault))
+        QTimer.singleShot(timeSkip, lambda: self.groupH2.setStyleSheet(states.GroupDeFault))
+        QTimer.singleShot(timeSkip, lambda: self.groupH3.setStyleSheet(states.GroupDeFault))
+        QTimer.singleShot(timeSkip, lambda: self.groupH4.setStyleSheet(states.GroupDeFault))
+        QTimer.singleShot(timeSkip, lambda: self.groupA.setStyleSheet(states.GroupDeFault))
+        QTimer.singleShot(timeSkip, lambda: self.groupB.setStyleSheet(states.GroupDeFault))
+        QTimer.singleShot(timeSkip, lambda: self.groupC.setStyleSheet(states.GroupDeFault))
+        QTimer.singleShot(timeSkip, lambda: self.groupD.setStyleSheet(states.GroupDeFault))
+
+
+    def visual_step_round(self):
         states = SateWidget()
         self.groupB.setStyleSheet(states.GroupActive)
         QTimer.singleShot(states.timeSkip, lambda: self.next_object(self.groupB, states.GroupDeFault))
