@@ -11,6 +11,7 @@ class mainHandle(Ui_Form, QTabWidget):
         self.setWindowTitle("Main Window")
         self.md5Control = None
         self.btnChooseFile.setEnabled(self.File.isChecked())
+
         self.File.toggled.connect(self.change_radio_btn_file)
         self.plaintext.textChanged.connect(self.change_plain_text)
         self.btnDetailStep.clicked.connect(self.visual_step_round)
@@ -24,14 +25,18 @@ class mainHandle(Ui_Form, QTabWidget):
         self.btnNextBlock.clicked.connect(self.next_block)
         self.btnPreviousBlock.clicked.connect(self.pre_block)
         self.finish.clicked.connect(self.finish_process)
+        self.Clear.clicked.connect(self.clear_inputs)
 
     def change_radio_btn_file(self):
         self.btnChooseFile.setEnabled(self.File.isChecked())
-        self.writeInput.setEnabled(not self.File.isChecked())
+        #self.writeInput.setEnabled(not self.File.isChecked())
 
     def change_plain_text(self):
-        if self.plaintext.text():
+        self.Ok.setEnabled(bool(self.plaintext.toPlainText()))
+        if self.plaintext.toPlainText():
             self.Ok.setEnabled(True)
+            data = self.plaintext.toPlainText().encode('utf-8')
+            self.md5Control = MD5(data)
         else:
             self.Ok.setEnabled(False)
 
@@ -40,7 +45,7 @@ class mainHandle(Ui_Form, QTabWidget):
         # read file
         if not path:
             return
-        with open(path, "r") as f:
+        with open(path, "r", encoding="utf-8") as f:
             data = f.read()
         self.plaintext.setText(data)
         self.md5Control = MD5(data)
@@ -54,11 +59,60 @@ class mainHandle(Ui_Form, QTabWidget):
             step_of_block = self.md5Control.cache[f"block_{i}"]
             self.steps_of_block.append(step_of_block)
 
-        plaintext_hex = self.md5Control.cache["message"]["hex"]
-        self.plaintext.setText(plaintext_hex)
+        #plaintext_hex = self.md5Control.cache["message"]["hex"]
+        #self.plaintext.setText(plaintext_hex)
         plaintext_with_padding = self.md5Control.cache["message_after_padding"]["hex"]
         self.plaintext_with_padding.setText(plaintext_with_padding)
         self.start.setEnabled(True)
+
+    def clear_inputs(self):
+        self.plaintext.clear()
+        self.plaintext_with_padding.clear()
+        self.hash_hex.clear()
+        self.start.setEnabled(False)
+        self.Ok.setEnabled(False)
+        self.currentBlock.setValue(0)
+        self.round.setValue(1)
+        self.stepRound.setValue(1)
+        self.labelValueH1.setText("")
+        self.labelValueH2.setText("")
+        self.labelValueH3.setText("")
+        self.labelValueH4.setText("")
+        self.labelValueA.setText("")
+        self.labelValueB.setText("")
+        self.labelValueC.setText("")
+        self.labelValueD.setText("")
+        self.labelValueA_new.setText("")
+        self.labelValueB_new.setText("")
+        self.labelValueC_new.setText("")
+        self.labelValueD_new.setText("")
+        self.labelValueF.setText("")
+        self.labelWord1.setText("")
+        self.labelWord2.setText("")
+        self.labelWord3.setText("")
+        self.labelWord4.setText("")
+        self.labelWord5.setText("")
+        self.labelWord6.setText("")
+        self.labelWord7.setText("")
+        self.labelWord8.setText("")
+        self.labelWord9.setText("")
+        self.labelWord10.setText("")
+        self.labelWord11.setText("")
+        self.labelWord12.setText("")
+        self.labelWord13.setText("")
+        self.labelWord14.setText("")
+        self.labelWord15.setText("")
+        self.labelWord16.setText("")
+        self.labelAC.setText("")
+        self.labelSC.setText("")
+        self.set_enable_btns(
+            list_btns=[self.btnDetailStep,
+                       self.btnNextStep,
+                       self.btnNextRound,
+                       self.btnNextBlock,
+                       self.btnPreviousStep,
+                       self.btnPreviousRound,
+                       self.btnPreviousBlock], active=False)
 
     def start_round(self):
         initialize_MD_buffer = self.md5Control.cache["initialize_MD_buffer"]
