@@ -98,7 +98,7 @@ class Ui_Form(object):
         self.Clear = QPushButton(self.tab_md5)
         self.Clear.setObjectName(u"Clear")
         icon4 = QIcon()
-        #icon4.addFile(u":/icons/iconsDark/mouse-pointer.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        icon4.addFile(u":/icons/iconsDark/delete.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
         self.Clear.setIcon(icon4)
 
         self.horizontalLayout_4.addWidget(self.Clear)

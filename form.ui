@@ -113,13 +113,13 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="writeInput">
+       <widget class="QPushButton" name="Clear">
         <property name="text">
-         <string>write input</string>
+         <string>Clear</string>
         </property>
         <property name="icon">
          <iconset resource="resources.qrc">
-          <normaloff>:/icons/iconsDark/clipboard.png</normaloff>:/icons/iconsDark/clipboard.png</iconset>
+          <normaloff>:/icons/iconsDark/delete.png</normaloff>:/icons/iconsDark/delete.png</iconset>
         </property>
        </widget>
       </item>
