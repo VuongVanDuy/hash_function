@@ -81,28 +81,27 @@ class Ui_Form(object):
 
         self.horizontalLayout_4.addWidget(self.btnChooseFile)
 
-        self.plaintext = QLineEdit(self.tab_md5)
+        self.plaintext = QTextEdit(self.tab_md5)
         self.plaintext.setObjectName(u"plaintext")
-        self.plaintext.setReadOnly(True)
 
         self.horizontalLayout_4.addWidget(self.plaintext)
-
-        self.writeInput = QPushButton(self.tab_md5)
-        self.writeInput.setObjectName(u"writeInput")
-        icon3 = QIcon()
-        icon3.addFile(u":/icons/iconsDark/clipboard.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
-        self.writeInput.setIcon(icon3)
-
-        self.horizontalLayout_4.addWidget(self.writeInput)
 
         self.Ok = QPushButton(self.tab_md5)
         self.Ok.setObjectName(u"Ok")
         self.Ok.setEnabled(False)
-        icon4 = QIcon()
-        icon4.addFile(u":/icons/iconsDark/mouse-pointer.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
-        self.Ok.setIcon(icon4)
+        icon3 = QIcon()
+        icon3.addFile(u":/icons/iconsDark/mouse-pointer.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        self.Ok.setIcon(icon3)
 
         self.horizontalLayout_4.addWidget(self.Ok)
+
+        self.Clear = QPushButton(self.tab_md5)
+        self.Clear.setObjectName(u"Clear")
+        icon4 = QIcon()
+        #icon4.addFile(u":/icons/iconsDark/mouse-pointer.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        self.Clear.setIcon(icon4)
+
+        self.horizontalLayout_4.addWidget(self.Clear)
 
 
         self.verticalLayout_md5.addLayout(self.horizontalLayout_4)
@@ -1040,8 +1039,8 @@ class Ui_Form(object):
         self.Text.setText(QCoreApplication.translate("Form", u"Text", None))
         self.File.setText(QCoreApplication.translate("Form", u"File", None))
         self.btnChooseFile.setText(QCoreApplication.translate("Form", u"Choose file", None))
-        self.writeInput.setText(QCoreApplication.translate("Form", u"write input", None))
         self.Ok.setText(QCoreApplication.translate("Form", u"Ok", None))
+        self.Clear.setText(QCoreApplication.translate("Form", u"Clear", None))
         self.label.setText(QCoreApplication.translate("Form", u"PlainText after\n"
 " add padding:", None))
         self.start.setText(QCoreApplication.translate("Form", u"Start round", None))

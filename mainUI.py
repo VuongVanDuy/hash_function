@@ -11,6 +11,7 @@ class mainHandle(Ui_Form, QTabWidget):
         self.setWindowTitle("Main Window")
         self.md5Control = None
         self.btnChooseFile.setEnabled(self.File.isChecked())
+
         self.File.toggled.connect(self.change_radio_btn_file)
         self.plaintext.textChanged.connect(self.change_plain_text)
         self.btnDetailStep.clicked.connect(self.visual_step_round)
@@ -24,13 +25,19 @@ class mainHandle(Ui_Form, QTabWidget):
         self.btnNextBlock.clicked.connect(self.next_block)
         self.btnPreviousBlock.clicked.connect(self.pre_block)
         self.finish.clicked.connect(self.finish_process)
+        self.Clear.clicked.connect(self.clear_inputs)
 
     def change_radio_btn_file(self):
         self.btnChooseFile.setEnabled(self.File.isChecked())
-        self.writeInput.setEnabled(not self.File.isChecked())
+        if self.File.isChecked():
+            self.plaintext.setReadOnly(True)
+        else:
+            self.plaintext.setReadOnly(False)
+        #self.writeInput.setEnabled(not self.File.isChecked())
 
     def change_plain_text(self):
-        if self.plaintext.text():
+        #self.Ok.setEnabled(bool(self.plaintext.toPlainText()))
+        if self.plaintext.toPlainText():
             self.Ok.setEnabled(True)
         else:
             self.Ok.setEnabled(False)
@@ -40,14 +47,16 @@ class mainHandle(Ui_Form, QTabWidget):
         # read file
         if not path:
             return
-        with open(path, "r") as f:
+        with open(path, "r", encoding="utf-8") as f:
             data = f.read()
         self.plaintext.setText(data)
-        self.md5Control = MD5(data)
+
 
     def AcceptPlainText(self):
-        if not self.md5Control:
+        data = self.plaintext.toPlainText()
+        if not data:
             return
+        self.md5Control = MD5(data)
         self.md5Control.generate_hash()
         self.steps_of_block = []
         for i in range(len(self.md5Control.blocks)):
@@ -59,6 +68,55 @@ class mainHandle(Ui_Form, QTabWidget):
         plaintext_with_padding = self.md5Control.cache["message_after_padding"]["hex"]
         self.plaintext_with_padding.setText(plaintext_with_padding)
         self.start.setEnabled(True)
+
+    def clear_inputs(self):
+        self.plaintext.clear()
+        self.plaintext_with_padding.clear()
+        self.hash_hex.clear()
+        self.start.setEnabled(False)
+        self.Ok.setEnabled(False)
+        self.currentBlock.setValue(0)
+        self.round.setValue(1)
+        self.stepRound.setValue(1)
+        self.labelValueH1.setText("")
+        self.labelValueH2.setText("")
+        self.labelValueH3.setText("")
+        self.labelValueH4.setText("")
+        self.labelValueA.setText("")
+        self.labelValueB.setText("")
+        self.labelValueC.setText("")
+        self.labelValueD.setText("")
+        self.labelValueA_new.setText("")
+        self.labelValueB_new.setText("")
+        self.labelValueC_new.setText("")
+        self.labelValueD_new.setText("")
+        self.labelValueF.setText("")
+        self.labelWord1.setText("")
+        self.labelWord2.setText("")
+        self.labelWord3.setText("")
+        self.labelWord4.setText("")
+        self.labelWord5.setText("")
+        self.labelWord6.setText("")
+        self.labelWord7.setText("")
+        self.labelWord8.setText("")
+        self.labelWord9.setText("")
+        self.labelWord10.setText("")
+        self.labelWord11.setText("")
+        self.labelWord12.setText("")
+        self.labelWord13.setText("")
+        self.labelWord14.setText("")
+        self.labelWord15.setText("")
+        self.labelWord16.setText("")
+        self.labelAC.setText("")
+        self.labelSC.setText("")
+        self.set_enable_btns(
+            list_btns=[self.btnDetailStep,
+                       self.btnNextStep,
+                       self.btnNextRound,
+                       self.btnNextBlock,
+                       self.btnPreviousStep,
+                       self.btnPreviousRound,
+                       self.btnPreviousBlock], active=False)
 
     def start_round(self):
         initialize_MD_buffer = self.md5Control.cache["initialize_MD_buffer"]
@@ -81,7 +139,10 @@ class mainHandle(Ui_Form, QTabWidget):
         self.currentBlock.setValue(len(self.md5Control.blocks) - 1)
         self.round.setValue(4)
         self.set_words_of_block(len(self.md5Control.blocks) - 1)
-        buffer_H = self.steps_of_block[-2]["end_of_block"]
+        if len(self.steps_of_block) >= 2:
+            buffer_H = self.steps_of_block[-2]["end_of_block"]
+        else:
+            buffer_H = self.md5Control.cache["initialize_MD_buffer"]
         self.set_MD_buffer_H1234(buffer_H["little_endian"], buffer_H["big_endian"])
         self.stepRound.setValue(15)
         self.next_step()

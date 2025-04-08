@@ -96,22 +96,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QLineEdit" name="plaintext">
-        <property name="readOnly">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="writeInput">
-        <property name="text">
-         <string>write input</string>
-        </property>
-        <property name="icon">
-         <iconset resource="resources.qrc">
-          <normaloff>:/icons/iconsDark/clipboard.png</normaloff>:/icons/iconsDark/clipboard.png</iconset>
-        </property>
-       </widget>
+       <widget class="QTextEdit" name="plaintext"/>
       </item>
       <item>
        <widget class="QPushButton" name="Ok">
@@ -124,6 +109,17 @@
         <property name="icon">
          <iconset resource="resources.qrc">
           <normaloff>:/icons/iconsDark/mouse-pointer.png</normaloff>:/icons/iconsDark/mouse-pointer.png</iconset>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="writeInput">
+        <property name="text">
+         <string>write input</string>
+        </property>
+        <property name="icon">
+         <iconset resource="resources.qrc">
+          <normaloff>:/icons/iconsDark/clipboard.png</normaloff>:/icons/iconsDark/clipboard.png</iconset>
         </property>
        </widget>
       </item>
