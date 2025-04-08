@@ -11,7 +11,7 @@ def bin_to_hex(bin_array, version=32) -> str:
 
 def str_to_bin(message: str) -> bitarray:
     binary_message = bitarray()
-    binary_message.frombytes(message.encode("ISO-8859-1"))
+    binary_message.frombytes(message.encode("utf-8")) #"ISO-8859-1"
 
     return binary_message
 
@@ -32,7 +32,7 @@ def block_512_bit_to_str(blocks: bitarray) -> str:
     binary_string = bitarray()
     for block in blocks:
         binary_string += block
-    return binary_string.tobytes().decode("ISO-8859-1")
+    return binary_string.tobytes().decode("utf-8")
 
 def block_to_little_endian(block: bitarray) -> bitarray:
     result = bitarray()

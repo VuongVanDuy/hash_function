@@ -29,14 +29,16 @@ class mainHandle(Ui_Form, QTabWidget):
 
     def change_radio_btn_file(self):
         self.btnChooseFile.setEnabled(self.File.isChecked())
+        if self.File.isChecked():
+            self.plaintext.setReadOnly(True)
+        else:
+            self.plaintext.setReadOnly(False)
         #self.writeInput.setEnabled(not self.File.isChecked())
 
     def change_plain_text(self):
-        self.Ok.setEnabled(bool(self.plaintext.toPlainText()))
+        #self.Ok.setEnabled(bool(self.plaintext.toPlainText()))
         if self.plaintext.toPlainText():
             self.Ok.setEnabled(True)
-            data = self.plaintext.toPlainText().encode('utf-8')
-            self.md5Control = MD5(data)
         else:
             self.Ok.setEnabled(False)
 
@@ -48,19 +50,21 @@ class mainHandle(Ui_Form, QTabWidget):
         with open(path, "r", encoding="utf-8") as f:
             data = f.read()
         self.plaintext.setText(data)
-        self.md5Control = MD5(data)
+
 
     def AcceptPlainText(self):
-        if not self.md5Control:
+        data = self.plaintext.toPlainText()
+        if not data:
             return
+        self.md5Control = MD5(data)
         self.md5Control.generate_hash()
         self.steps_of_block = []
         for i in range(len(self.md5Control.blocks)):
             step_of_block = self.md5Control.cache[f"block_{i}"]
             self.steps_of_block.append(step_of_block)
 
-        #plaintext_hex = self.md5Control.cache["message"]["hex"]
-        #self.plaintext.setText(plaintext_hex)
+        plaintext_hex = self.md5Control.cache["message"]["hex"]
+        self.plaintext.setText(plaintext_hex)
         plaintext_with_padding = self.md5Control.cache["message_after_padding"]["hex"]
         self.plaintext_with_padding.setText(plaintext_with_padding)
         self.start.setEnabled(True)
@@ -135,7 +139,10 @@ class mainHandle(Ui_Form, QTabWidget):
         self.currentBlock.setValue(len(self.md5Control.blocks) - 1)
         self.round.setValue(4)
         self.set_words_of_block(len(self.md5Control.blocks) - 1)
-        buffer_H = self.steps_of_block[-2]["end_of_block"]
+        if len(self.steps_of_block) >= 2:
+            buffer_H = self.steps_of_block[-2]["end_of_block"]
+        else:
+            buffer_H = self.md5Control.cache["initialize_MD_buffer"]
         self.set_MD_buffer_H1234(buffer_H["little_endian"], buffer_H["big_endian"])
         self.stepRound.setValue(15)
         self.next_step()
