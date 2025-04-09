@@ -1,10 +1,10 @@
-from PySide6.QtWidgets import QApplication, QTabWidget, QFileDialog, QPushButton
+from PySide6.QtWidgets import QApplication, QFileDialog, QPushButton, QWidget
 from PySide6.QtCore import QTimer
-from form import Ui_Form
-from config import StateWidget
+from .view import Ui_Form
+from tabsWidget.config import StateWidget
 from hash.md5 import MD5
 
-class mainHandle(Ui_Form, QTabWidget):
+class QTabWidgetMD5(Ui_Form, QWidget):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
@@ -594,6 +594,6 @@ if __name__ == "__main__":
     import sys
 
     app = QApplication(sys.argv)
-    main = mainHandle()
+    main = QTabWidgetMD5()
     main.show()
     sys.exit(app.exec())
