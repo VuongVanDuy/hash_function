@@ -1,5 +1,8 @@
-from PySide6.QtWidgets import QApplication, QFileDialog, QPushButton, QWidget
-from PySide6.QtCore import QTimer
+from PySide6.QtWidgets import QApplication, QFileDialog, QPushButton, QWidget, QGroupBox
+from PySide6.QtCore import QTimer, QSize, QEventLoop
+from PySide6.QtGui import QIcon
+from shiboken6.Shiboken import delete
+
 from .view import Ui_Form
 from tabsWidget.config import StateWidget
 from hash.md5 import MD5
@@ -11,6 +14,7 @@ class QTabWidgetMD5(Ui_Form, QWidget):
         self.setWindowTitle("Main Window")
         self.md5Control = None
         self.btnChooseFile.setEnabled(self.File.isChecked())
+        self.timer = None
 
         self.File.toggled.connect(self.change_radio_btn_file)
         self.plaintext.textChanged.connect(self.change_plain_text)
@@ -33,10 +37,8 @@ class QTabWidgetMD5(Ui_Form, QWidget):
             self.plaintext.setReadOnly(True)
         else:
             self.plaintext.setReadOnly(False)
-        #self.writeInput.setEnabled(not self.File.isChecked())
 
     def change_plain_text(self):
-        #self.Ok.setEnabled(bool(self.plaintext.toPlainText()))
         if self.plaintext.toPlainText():
             self.Ok.setEnabled(True)
         else:
@@ -68,13 +70,12 @@ class QTabWidgetMD5(Ui_Form, QWidget):
         plaintext_with_padding = self.md5Control.cache["message_after_padding"]["hex"]
         self.plaintext_with_padding.setText(plaintext_with_padding)
         self.start.setEnabled(True)
+        self.finish.setEnabled(True)
 
     def clear_inputs(self):
         self.plaintext.clear()
         self.plaintext_with_padding.clear()
         self.hash_hex.clear()
-        self.start.setEnabled(False)
-        self.Ok.setEnabled(False)
         self.currentBlock.setValue(0)
         self.round.setValue(1)
         self.stepRound.setValue(1)
@@ -110,7 +111,10 @@ class QTabWidgetMD5(Ui_Form, QWidget):
         self.labelAC.setText("")
         self.labelSC.setText("")
         self.set_enable_btns(
-            list_btns=[self.btnDetailStep,
+            list_btns=[self.Ok,
+                       self.start,
+                       self.finish,
+                       self.btnDetailStep,
                        self.btnNextStep,
                        self.btnNextRound,
                        self.btnNextBlock,
@@ -146,6 +150,16 @@ class QTabWidgetMD5(Ui_Form, QWidget):
         self.set_MD_buffer_H1234(buffer_H["little_endian"], buffer_H["big_endian"])
         self.stepRound.setValue(15)
         self.next_step()
+
+    def set_name_group_f(self, round):
+        if round == 1:
+            self.groupF.setTitle("F")
+        elif round == 2:
+            self.groupF.setTitle("G")
+        elif round == 3:
+            self.groupF.setTitle("H")
+        elif round == 4:
+            self.groupF.setTitle("I")
 
     def next_step(self):
         curr_block = self.currentBlock.value()
@@ -270,6 +284,7 @@ class QTabWidgetMD5(Ui_Form, QWidget):
             self.set_state_buffer_of_step(curr_block, newRound, newStepRound, buffer_AC_SC, buffer_ABCDF, None)
             self.set_enable_btns(list_btns=[self.btnPreviousStep, self.btnPreviousRound],
                                  active=True)
+
             if (self.currentBlock.value() == len(self.md5Control.blocks) - 1 and newRound == 4):
                 self.btnNextRound.setEnabled(False)
 
@@ -388,6 +403,7 @@ class QTabWidgetMD5(Ui_Form, QWidget):
     def set_state_buffer_of_step(self, curr_block, round, stepRound, buffer_AC_SC, buffers_ABCDF, buffer_Hi):
         self.round.setValue(round)
         self.stepRound.setValue(stepRound)
+        self.set_name_group_f(round)
         if curr_block != self.currentBlock.value():
             self.currentBlock.setValue(curr_block)
             self.set_words_of_block(curr_block)
@@ -456,7 +472,7 @@ class QTabWidgetMD5(Ui_Form, QWidget):
     def visual_state_change_block(self, notStart=True):
         states = StateWidget()
         if notStart:
-            self.btnState.setStyleSheet(states.ButtonNextBlockActive)
+            self.operator6.setStyleSheet(states.OperatorActive)
         self.groupH1.setStyleSheet(states.GroupRes)
         self.groupH2.setStyleSheet(states.GroupRes)
         self.groupH3.setStyleSheet(states.GroupRes)
@@ -468,7 +484,7 @@ class QTabWidgetMD5(Ui_Form, QWidget):
 
         timeSkip = states.timeSkip // 2
         if notStart:
-            QTimer.singleShot(timeSkip, lambda: self.btnState.setStyleSheet(states.ButtonNextBlockDefault))
+            QTimer.singleShot(timeSkip, lambda: self.operator6.setStyleSheet(states.OperatorDefault))
         QTimer.singleShot(timeSkip, lambda: self.groupH1.setStyleSheet(states.GroupDeFault))
         QTimer.singleShot(timeSkip, lambda: self.groupH2.setStyleSheet(states.GroupDeFault))
         QTimer.singleShot(timeSkip, lambda: self.groupH3.setStyleSheet(states.GroupDeFault))
@@ -478,8 +494,53 @@ class QTabWidgetMD5(Ui_Form, QWidget):
         QTimer.singleShot(timeSkip, lambda: self.groupC.setStyleSheet(states.GroupDeFault))
         QTimer.singleShot(timeSkip, lambda: self.groupD.setStyleSheet(states.GroupDeFault))
 
+    def cancel_detail_step(self):
+        self.stop_flag = True
+        self.change_to_btnDetailStep()
+
+    def change_to_btnDetailStep(self):
+        self.btnDetailStep.setText("Detail Step")
+        icon = QIcon()
+        icon.addFile(u":/icons/iconsDark/activity.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        self.btnDetailStep.setIcon(icon)
+        self.btnDetailStep.clicked.disconnect()
+        self.btnDetailStep.clicked.connect(self.visual_step_round)
+
+    def change_to_btnCancel(self):
+        self.btnDetailStep.setText("Cancel")
+        icon = QIcon()
+        icon.addFile(u":/icons/iconsDark/x.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        self.btnDetailStep.setIcon(icon)
+        self.btnDetailStep.clicked.disconnect()
+        self.btnDetailStep.clicked.connect(self.cancel_detail_step)
+
+    def single_shot_sync(self, delay, callback):
+        """
+        Chờ đợi delay (ms) rồi gọi callback.
+        Hàm này sẽ block luồng hiện tại cho đến khi callback được thực thi.
+        """
+        loop = QEventLoop()
+        QTimer.singleShot(delay, lambda: (callback(), loop.quit()))
+        loop.exec()
+
+    def next_object_with_delay(self, timeSkip, target, style):
+        if self.timer is None:
+            self.set_default_style_object(target)
+            return
+        self.single_shot_sync(timeSkip, lambda: self._check_and_execute(target, style))
+
+    def _check_and_execute(self, target, style):
+        if self.stop_flag:
+            self.set_default_style_object(target)
+            del self.timer
+            self.timer = None
+        else:
+            target.setStyleSheet(style)
 
     def visual_step_round(self):
+        self.change_to_btnCancel()
+        self.stop_flag = False  # Reset stop flag
+        self.timer = QTimer()
         current_step_of_round = self.stepRound.value()
         current_round = self.round.value()
         step = (current_round - 1) * 16 + (current_step_of_round - 1)
@@ -487,60 +548,64 @@ class QTabWidgetMD5(Ui_Form, QWidget):
 
         states = StateWidget()
         self.groupB.setStyleSheet(states.GroupActive)
-        QTimer.singleShot(states.timeSkip, lambda: self.next_object(self.groupB, states.GroupDeFault))
-        QTimer.singleShot(states.timeSkip, lambda: self.next_object(self.groupC, states.GroupActive))
+        self.groupC.setStyleSheet(states.GroupActive)
+        self.groupD.setStyleSheet(states.GroupActive)
 
-        QTimer.singleShot(2 * states.timeSkip, lambda: self.next_object(self.groupC, states.GroupDeFault))
-        QTimer.singleShot(2 * states.timeSkip, lambda: self.next_object(self.groupD, states.GroupActive))
+        self.next_object_with_delay(states.timeSkip, self.groupD, states.GroupDeFault)
+        self.groupB.setStyleSheet(states.GroupDeFault)
+        self.groupC.setStyleSheet(states.GroupDeFault)
+        self.groupF.setStyleSheet(states.GroupRes)
 
-        QTimer.singleShot(3 * states.timeSkip, lambda: self.next_object(self.groupD, states.GroupDeFault))
-        QTimer.singleShot(3 * states.timeSkip, lambda: self.next_object(self.groupF, states.GroupRes))
+        self.next_object_with_delay(states.timeSkip, self.groupA, states.GroupActive)
+        self.groupF.setStyleSheet(states.GroupActive)
+        self.operator1.setStyleSheet(states.OperatorActive)
 
-        QTimer.singleShot(4 * states.timeSkip, lambda: self.next_object(self.groupA, states.GroupActive))
-        QTimer.singleShot(4 * states.timeSkip, lambda: self.next_object(self.groupF, states.GroupActive))
-        QTimer.singleShot(4 * states.timeSkip, lambda: self.next_object(self.labelPlus1, states.OperatorActive))
+        self.next_object_with_delay(states.timeSkip, self.operator1, states.OperatorDefault)
+        self.groupA.setStyleSheet(states.GroupDeFault)
+        self.groupF.setStyleSheet(states.GroupDeFault)
+        word_object.setStyleSheet(states.GroupActive)
+        self.operator2.setStyleSheet(states.OperatorActive)
 
-        QTimer.singleShot(5 * states.timeSkip, lambda: self.next_object(self.labelPlus1, states.OperatorDefault))
-        QTimer.singleShot(5 * states.timeSkip, lambda: self.next_object(self.groupA, states.GroupDeFault))
-        QTimer.singleShot(5 * states.timeSkip, lambda: self.next_object(self.groupF, states.GroupDeFault))
-        QTimer.singleShot(5 * states.timeSkip, lambda: self.next_object(word_object, states.GroupActive))
-        QTimer.singleShot(5 * states.timeSkip, lambda: self.next_object(self.labelPlus2, states.OperatorActive))
+        self.next_object_with_delay(states.timeSkip, self.operator2, states.OperatorDefault)
+        word_object.setStyleSheet(states.GroupDeFault)
+        self.groupAC.setStyleSheet(states.GroupActive)
+        self.operator3.setStyleSheet(states.OperatorActive)
 
-        QTimer.singleShot(6 * states.timeSkip, lambda: self.next_object(self.labelPlus2, states.OperatorDefault))
-        QTimer.singleShot(6 * states.timeSkip, lambda: self.next_object(word_object, states.GroupDeFault))
-        QTimer.singleShot(6 * states.timeSkip, lambda: self.next_object(self.groupAC, states.GroupActive))
-        QTimer.singleShot(6 * states.timeSkip, lambda: self.next_object(self.labelPlus3, states.OperatorActive))
+        self.next_object_with_delay(states.timeSkip, self.operator3, states.OperatorDefault)
+        self.groupAC.setStyleSheet(states.GroupDeFault)
+        self.groupSC.setStyleSheet(states.GroupActive)
+        self.operator4.setStyleSheet(states.OperatorActive)
 
-        QTimer.singleShot(7 * states.timeSkip, lambda: self.next_object(self.labelPlus3, states.OperatorDefault))
-        QTimer.singleShot(7 * states.timeSkip, lambda: self.next_object(self.groupAC, states.GroupDeFault))
-        QTimer.singleShot(7 * states.timeSkip, lambda: self.next_object(self.groupSC, states.GroupActive))
-        QTimer.singleShot(7 * states.timeSkip, lambda: self.next_object(self.labelShift, states.OperatorActive))
+        self.next_object_with_delay(states.timeSkip, self.operator4, states.OperatorDefault)
+        self.groupSC.setStyleSheet(states.GroupDeFault)
+        self.groupB.setStyleSheet(states.GroupActive)
+        self.operator5.setStyleSheet(states.OperatorActive)
+        self.groupB_new.setStyleSheet(states.GroupRes)
 
-        QTimer.singleShot(8 * states.timeSkip, lambda: self.next_object(self.labelShift, states.OperatorDefault))
-        QTimer.singleShot(8 * states.timeSkip, lambda: self.next_object(self.groupSC, states.GroupDeFault))
-        QTimer.singleShot(8 * states.timeSkip, lambda: self.next_object(self.groupB, states.GroupActive))
-        QTimer.singleShot(8 * states.timeSkip, lambda: self.next_object(self.labelPlus4, states.OperatorActive))
-        QTimer.singleShot(8 * states.timeSkip, lambda: self.next_object(self.groupB_new, states.GroupRes))
+        self.next_object_with_delay(states.timeSkip, self.operator5, states.OperatorDefault)
+        self.groupB_new.setStyleSheet(states.GroupDeFault)
+        self.groupC_new.setStyleSheet(states.GroupRes)
 
-        QTimer.singleShot(9 * states.timeSkip, lambda: self.next_object(self.labelPlus4, states.OperatorDefault))
-        QTimer.singleShot(9 * states.timeSkip, lambda: self.next_object(self.groupC_new, states.GroupRes))
+        self.next_object_with_delay(states.timeSkip, self.groupB, states.GroupDeFault)
+        self.groupC.setStyleSheet(states.GroupActive)
+        self.groupC_new.setStyleSheet(states.GroupDeFault)
+        self.groupD_new.setStyleSheet(states.GroupRes)
 
-        QTimer.singleShot(10 * states.timeSkip, lambda: self.next_object(self.groupB, states.GroupDeFault))
-        QTimer.singleShot(10 * states.timeSkip, lambda: self.next_object(self.groupC, states.GroupActive))
-        QTimer.singleShot(10 * states.timeSkip, lambda: self.next_object(self.groupD_new, states.GroupRes))
+        self.next_object_with_delay(states.timeSkip, self.groupC, states.GroupDeFault)
+        self.groupD.setStyleSheet(states.GroupActive)
+        self.groupD_new.setStyleSheet(states.GroupDeFault)
+        self.groupA_new.setStyleSheet(states.GroupRes)
 
-        QTimer.singleShot(11 * states.timeSkip, lambda: self.next_object(self.groupC, states.GroupDeFault))
-        QTimer.singleShot(11 * states.timeSkip, lambda: self.next_object(self.groupD, states.GroupActive))
-        QTimer.singleShot(11 * states.timeSkip, lambda: self.next_object(self.groupA_new, states.GroupRes))
+        self.next_object_with_delay(states.timeSkip, self.groupD, states.GroupDeFault)
+        self.groupA_new.setStyleSheet(states.GroupDeFault)
 
-        QTimer.singleShot(12 * states.timeSkip, lambda: self.next_object(self.groupD, states.GroupDeFault))
-        QTimer.singleShot(12 * states.timeSkip, lambda: self.next_object(self.groupA_new, states.GroupDeFault))
-        QTimer.singleShot(12 * states.timeSkip, lambda: self.next_object(self.groupB_new, states.GroupDeFault))
-        QTimer.singleShot(12 * states.timeSkip, lambda: self.next_object(self.groupC_new, states.GroupDeFault))
-        QTimer.singleShot(12 * states.timeSkip, lambda: self.next_object(self.groupD_new, states.GroupDeFault))
+        self.change_to_btnDetailStep()
 
-    def next_object(self, object, styleSheet):
-        object.setStyleSheet(styleSheet)
+    def set_default_style_object(self, object):
+        if isinstance(object, QGroupBox):
+            object.setStyleSheet(StateWidget().GroupDeFault)
+        elif isinstance(object, QPushButton):
+            object.setStyleSheet(StateWidget().OperatorDefault)
 
     def get_word_of_step(self, step):
         if step < 16:

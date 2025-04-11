@@ -121,106 +121,115 @@
    <item>
     <layout class="QHBoxLayout" name="registerLayoutTop">
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_12">
-       <item>
-        <widget class="QPushButton" name="start">
-         <property name="enabled">
-          <bool>false</bool>
-         </property>
-         <property name="text">
-          <string>Start round</string>
-         </property>
-         <property name="icon">
-          <iconset resource="../../resources.qrc">
-           <normaloff>:/icons/iconsDark/play.png</normaloff>:/icons/iconsDark/play.png</iconset>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <spacer name="horizontalSpacer_19">
-         <property name="orientation">
-          <enum>Qt::Orientation::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item>
-        <widget class="QLabel" name="label_9">
-         <property name="text">
-          <string>Current block</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QSpinBox" name="currentBlock">
-         <property name="readOnly">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="labelRound">
-         <property name="text">
-          <string>Round:</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QSpinBox" name="round"/>
-       </item>
-       <item>
-        <widget class="QLabel" name="labelStep">
-         <property name="text">
-          <string>Step:</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QSpinBox" name="stepRound">
-         <property name="readOnly">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <spacer name="horizontalSpacer_20">
-         <property name="orientation">
-          <enum>Qt::Orientation::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-      </layout>
+      <widget class="QPushButton" name="start">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="text">
+        <string>Start round</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../../resources.qrc">
+         <normaloff>:/icons/iconsDark/play.png</normaloff>:/icons/iconsDark/play.png</iconset>
+       </property>
+      </widget>
      </item>
      <item>
-      <widget class="QGroupBox" name="groupA">
+      <spacer name="horizontalSpacer_19">
+       <property name="orientation">
+        <enum>Qt::Orientation::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_9">
+       <property name="text">
+        <string>Current block</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QSpinBox" name="currentBlock">
        <property name="sizePolicy">
-        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+        <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
-       <property name="minimumSize">
+       <property name="readOnly">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="labelRound">
+       <property name="text">
+        <string>Round:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QSpinBox" name="round"/>
+     </item>
+     <item>
+      <widget class="QLabel" name="labelStep">
+       <property name="text">
+        <string>Step:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QSpinBox" name="stepRound">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="readOnly">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer_7">
+       <property name="orientation">
+        <enum>Qt::Orientation::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
         <size>
-         <width>90</width>
-         <height>68</height>
+         <width>40</width>
+         <height>20</height>
         </size>
        </property>
-       <property name="maximumSize">
+      </spacer>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer_6">
+       <property name="orientation">
+        <enum>Qt::Orientation::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
         <size>
-         <width>90</width>
-         <height>68</height>
+         <width>40</width>
+         <height>20</height>
         </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QGroupBox" name="groupA">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
        </property>
        <property name="title">
         <string>A</string>
@@ -239,18 +248,12 @@
      <item>
       <widget class="QGroupBox" name="groupB">
        <property name="sizePolicy">
-        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
        <property name="minimumSize">
-        <size>
-         <width>90</width>
-         <height>68</height>
-        </size>
-       </property>
-       <property name="maximumSize">
         <size>
          <width>90</width>
          <height>68</height>
@@ -273,7 +276,7 @@
      <item>
       <widget class="QGroupBox" name="groupC">
        <property name="sizePolicy">
-        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+        <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
@@ -282,12 +285,6 @@
         <size>
          <width>90</width>
          <height>68</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>90</width>
-         <height>16777215</height>
         </size>
        </property>
        <property name="title">
@@ -307,18 +304,12 @@
      <item>
       <widget class="QGroupBox" name="groupD">
        <property name="sizePolicy">
-        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
        <property name="minimumSize">
-        <size>
-         <width>90</width>
-         <height>68</height>
-        </size>
-       </property>
-       <property name="maximumSize">
         <size>
          <width>90</width>
          <height>68</height>
@@ -344,24 +335,252 @@
     <layout class="QHBoxLayout" name="mainMidLayout">
      <item>
       <layout class="QGridLayout" name="gridLayout_5">
-       <item row="0" column="6" alignment="Qt::AlignmentFlag::AlignHCenter">
-        <widget class="QGroupBox" name="groupF">
+       <item row="3" column="1">
+        <spacer name="horizontalSpacer_4">
+         <property name="orientation">
+          <enum>Qt::Orientation::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="2" column="3">
+        <widget class="QPushButton" name="operator3">
+         <property name="minimumSize">
+          <size>
+           <width>62</width>
+           <height>62</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton {
+    background-color: qlineargradient(
+        x1: 0, y1: 0, x2: 0, y2: 1,
+        stop: 0 #73C2FB, stop: 1 #2E86C1);
+    border: 1px solid #2E86C1;
+   border-radius: 30px;
+    min-width: 60px;
+    min-height: 60px;
+    max-width: 60px;
+    max-height: 60px;
+}</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset resource="../../resources.qrc">
+           <normaloff>:/icons/iconsDark/plus-circle.png</normaloff>:/icons/iconsDark/plus-circle.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>35</width>
+           <height>35</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="4">
+        <spacer name="horizontalSpacer_24">
+         <property name="orientation">
+          <enum>Qt::Orientation::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="2" column="1">
+        <spacer name="horizontalSpacer_3">
+         <property name="orientation">
+          <enum>Qt::Orientation::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="4" column="1">
+        <spacer name="horizontalSpacer_5">
+         <property name="orientation">
+          <enum>Qt::Orientation::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="0" column="1">
+        <spacer name="horizontalSpacer">
+         <property name="orientation">
+          <enum>Qt::Orientation::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="1" column="1">
+        <spacer name="horizontalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Orientation::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="1" column="5" rowspan="4">
+        <widget class="QTextEdit" name="textEdit">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+         <property name="html">
+          <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+hr { height: 1px; border-width: 0; }
+li.unchecked::marker { content: &quot;\2610&quot;; }
+li.checked::marker { content: &quot;\2612&quot;; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Segoe UI'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:14pt; font-weight:700;&quot;&gt;STEP&lt;/span&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;: &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:14pt; font-weight:700; text-decoration: underline;&quot;&gt;input&lt;/span&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;:  (A B C D)&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;(B C D) --(&lt;/span&gt;&lt;span style=&quot; font-size:14pt; font-style:italic;&quot;&gt;f_function)&lt;/span&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;--&amp;gt; F ⊕ A  --&amp;gt; ⊕ BLOCK[k], (k=0...15) --&amp;gt; ⊕ C[i] --&amp;gt; shift left --&amp;gt; ⊕ B -&amp;gt; B1&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;C1 := B; D1 := C; A1 := D&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;(⊕: add with module 2&lt;/span&gt;&lt;span style=&quot; font-size:14pt; vertical-align:super;&quot;&gt;32&lt;/span&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;)&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:14pt; font-weight:700; text-decoration: underline;&quot;&gt;output&lt;/span&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;: (A1 B1 C1 D1)&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:14pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="3" alignment="Qt::AlignmentFlag::AlignHCenter">
+        <widget class="QPushButton" name="operator1">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
          <property name="sizePolicy">
-          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
          </property>
          <property name="minimumSize">
           <size>
-           <width>110</width>
-           <height>80</height>
+           <width>62</width>
+           <height>62</height>
           </size>
          </property>
-         <property name="maximumSize">
+         <property name="styleSheet">
+          <string notr="true">QPushButton {
+    background-color: qlineargradient(
+        x1: 0, y1: 0, x2: 0, y2: 1,
+        stop: 0 #73C2FB, stop: 1 #2E86C1);
+    border: 1px solid #2E86C1;
+    border-radius: 30px;
+    min-width: 60px;
+    min-height: 60px;
+    max-width: 60px;
+    max-height: 60px;
+}</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset resource="../../resources.qrc">
+           <normaloff>:/icons/iconsDark/plus-circle.png</normaloff>:/icons/iconsDark/plus-circle.png</iconset>
+         </property>
+         <property name="iconSize">
           <size>
-           <width>110</width>
-           <height>80</height>
+           <width>35</width>
+           <height>35</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="3">
+        <widget class="QPushButton" name="operator4">
+         <property name="minimumSize">
+          <size>
+           <width>62</width>
+           <height>62</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton {
+    background-color: qlineargradient(
+        x1: 0, y1: 0, x2: 0, y2: 1,
+        stop: 0 #73C2FB, stop: 1 #2E86C1);
+    border: 1px solid #2E86C1;
+    border-radius: 30px;
+    min-width: 60px;
+    min-height: 60px;
+    max-width: 60px;
+    max-height: 60px;
+}</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset resource="../../resources.qrc">
+           <normaloff>:/icons/iconsDark/shift_circle.png</normaloff>:/icons/iconsDark/shift_circle.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>35</width>
+           <height>35</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="4">
+        <spacer name="horizontalSpacer_22">
+         <property name="orientation">
+          <enum>Qt::Orientation::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="0" column="5" alignment="Qt::AlignmentFlag::AlignHCenter">
+        <widget class="QGroupBox" name="groupF">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>120</width>
+           <height>68</height>
           </size>
          </property>
          <property name="title">
@@ -378,43 +597,67 @@
          </layout>
         </widget>
        </item>
-       <item row="1" column="1" colspan="4">
-        <widget class="QLabel" name="labelPlus2">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
+       <item row="2" column="4">
+        <spacer name="horizontalSpacer_23">
+         <property name="orientation">
+          <enum>Qt::Orientation::Horizontal</enum>
          </property>
-         <property name="minimumSize">
+         <property name="sizeHint" stdset="0">
           <size>
-           <width>60</width>
-           <height>60</height>
+           <width>40</width>
+           <height>20</height>
           </size>
          </property>
-         <property name="maximumSize">
+        </spacer>
+       </item>
+       <item row="1" column="3">
+        <widget class="QPushButton" name="operator2">
+         <property name="minimumSize">
           <size>
-           <width>60</width>
-           <height>60</height>
+           <width>62</width>
+           <height>62</height>
           </size>
          </property>
          <property name="styleSheet">
-          <string notr="true">QLabel {
-    border: 2px solid green;
-    border-radius: 5px;
-}
-QLabel:hover {
-    border: 2px solid #1E90FF; 
-}
-</string>
+          <string notr="true">QPushButton {
+    background-color: qlineargradient(
+        x1: 0, y1: 0, x2: 0, y2: 1,
+        stop: 0 #73C2FB, stop: 1 #2E86C1);
+    border: 1px solid #2E86C1;
+    border-radius: 30px;
+    min-width: 60px;
+    min-height: 60px;
+    max-width: 60px;
+    max-height: 60px;
+}</string>
          </property>
          <property name="text">
-          <string>[ + ]</string>
+          <string/>
          </property>
-         <property name="alignment">
-          <set>Qt::AlignmentFlag::AlignCenter</set>
+         <property name="icon">
+          <iconset resource="../../resources.qrc">
+           <normaloff>:/icons/iconsDark/plus-circle.png</normaloff>:/icons/iconsDark/plus-circle.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>35</width>
+           <height>35</height>
+          </size>
          </property>
         </widget>
+       </item>
+       <item row="3" column="4">
+        <spacer name="horizontalSpacer_21">
+         <property name="orientation">
+          <enum>Qt::Orientation::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
        </item>
        <item row="0" column="0" rowspan="5">
         <widget class="QFrame" name="frame_7">
@@ -430,18 +673,12 @@ QLabel:hover {
             <item alignment="Qt::AlignmentFlag::AlignRight">
              <widget class="QGroupBox" name="groupAC">
               <property name="sizePolicy">
-               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
               </property>
               <property name="minimumSize">
-               <size>
-                <width>200</width>
-                <height>70</height>
-               </size>
-              </property>
-              <property name="maximumSize">
                <size>
                 <width>200</width>
                 <height>70</height>
@@ -464,18 +701,12 @@ QLabel:hover {
             <item alignment="Qt::AlignmentFlag::AlignRight">
              <widget class="QGroupBox" name="groupSC">
               <property name="sizePolicy">
-               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
               </property>
               <property name="minimumSize">
-               <size>
-                <width>200</width>
-                <height>70</height>
-               </size>
-              </property>
-              <property name="maximumSize">
                <size>
                 <width>200</width>
                 <height>70</height>
@@ -517,18 +748,12 @@ QLabel:hover {
                   <item>
                    <widget class="QGroupBox" name="group_1">
                     <property name="sizePolicy">
-                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                     <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                       <horstretch>0</horstretch>
                       <verstretch>0</verstretch>
                      </sizepolicy>
                     </property>
                     <property name="minimumSize">
-                     <size>
-                      <width>90</width>
-                      <height>68</height>
-                     </size>
-                    </property>
-                    <property name="maximumSize">
                      <size>
                       <width>90</width>
                       <height>68</height>
@@ -551,18 +776,12 @@ QLabel:hover {
                   <item>
                    <widget class="QGroupBox" name="group_2">
                     <property name="sizePolicy">
-                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                     <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                       <horstretch>0</horstretch>
                       <verstretch>0</verstretch>
                      </sizepolicy>
                     </property>
                     <property name="minimumSize">
-                     <size>
-                      <width>90</width>
-                      <height>68</height>
-                     </size>
-                    </property>
-                    <property name="maximumSize">
                      <size>
                       <width>90</width>
                       <height>68</height>
@@ -585,18 +804,12 @@ QLabel:hover {
                   <item>
                    <widget class="QGroupBox" name="group_3">
                     <property name="sizePolicy">
-                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                     <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                       <horstretch>0</horstretch>
                       <verstretch>0</verstretch>
                      </sizepolicy>
                     </property>
                     <property name="minimumSize">
-                     <size>
-                      <width>90</width>
-                      <height>68</height>
-                     </size>
-                    </property>
-                    <property name="maximumSize">
                      <size>
                       <width>90</width>
                       <height>68</height>
@@ -619,18 +832,12 @@ QLabel:hover {
                   <item>
                    <widget class="QGroupBox" name="group_4">
                     <property name="sizePolicy">
-                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                     <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                       <horstretch>0</horstretch>
                       <verstretch>0</verstretch>
                      </sizepolicy>
                     </property>
                     <property name="minimumSize">
-                     <size>
-                      <width>90</width>
-                      <height>68</height>
-                     </size>
-                    </property>
-                    <property name="maximumSize">
                      <size>
                       <width>90</width>
                       <height>68</height>
@@ -653,18 +860,12 @@ QLabel:hover {
                   <item>
                    <widget class="QGroupBox" name="group_5">
                     <property name="sizePolicy">
-                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                     <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                       <horstretch>0</horstretch>
                       <verstretch>0</verstretch>
                      </sizepolicy>
                     </property>
                     <property name="minimumSize">
-                     <size>
-                      <width>90</width>
-                      <height>68</height>
-                     </size>
-                    </property>
-                    <property name="maximumSize">
                      <size>
                       <width>90</width>
                       <height>68</height>
@@ -687,18 +888,12 @@ QLabel:hover {
                   <item>
                    <widget class="QGroupBox" name="group_6">
                     <property name="sizePolicy">
-                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                     <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                       <horstretch>0</horstretch>
                       <verstretch>0</verstretch>
                      </sizepolicy>
                     </property>
                     <property name="minimumSize">
-                     <size>
-                      <width>90</width>
-                      <height>68</height>
-                     </size>
-                    </property>
-                    <property name="maximumSize">
                      <size>
                       <width>90</width>
                       <height>68</height>
@@ -721,18 +916,12 @@ QLabel:hover {
                   <item>
                    <widget class="QGroupBox" name="group_7">
                     <property name="sizePolicy">
-                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                     <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                       <horstretch>0</horstretch>
                       <verstretch>0</verstretch>
                      </sizepolicy>
                     </property>
                     <property name="minimumSize">
-                     <size>
-                      <width>90</width>
-                      <height>68</height>
-                     </size>
-                    </property>
-                    <property name="maximumSize">
                      <size>
                       <width>90</width>
                       <height>68</height>
@@ -755,22 +944,10 @@ QLabel:hover {
                   <item>
                    <widget class="QGroupBox" name="group_8">
                     <property name="sizePolicy">
-                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                     <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                       <horstretch>0</horstretch>
                       <verstretch>0</verstretch>
                      </sizepolicy>
-                    </property>
-                    <property name="minimumSize">
-                     <size>
-                      <width>90</width>
-                      <height>68</height>
-                     </size>
-                    </property>
-                    <property name="maximumSize">
-                     <size>
-                      <width>90</width>
-                      <height>68</height>
-                     </size>
                     </property>
                     <property name="title">
                      <string>8</string>
@@ -801,18 +978,12 @@ QLabel:hover {
                   <item>
                    <widget class="QGroupBox" name="group_9">
                     <property name="sizePolicy">
-                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                     <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                       <horstretch>0</horstretch>
                       <verstretch>0</verstretch>
                      </sizepolicy>
                     </property>
                     <property name="minimumSize">
-                     <size>
-                      <width>90</width>
-                      <height>68</height>
-                     </size>
-                    </property>
-                    <property name="maximumSize">
                      <size>
                       <width>90</width>
                       <height>68</height>
@@ -835,18 +1006,12 @@ QLabel:hover {
                   <item>
                    <widget class="QGroupBox" name="group_10">
                     <property name="sizePolicy">
-                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                     <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                       <horstretch>0</horstretch>
                       <verstretch>0</verstretch>
                      </sizepolicy>
                     </property>
                     <property name="minimumSize">
-                     <size>
-                      <width>90</width>
-                      <height>68</height>
-                     </size>
-                    </property>
-                    <property name="maximumSize">
                      <size>
                       <width>90</width>
                       <height>68</height>
@@ -869,18 +1034,12 @@ QLabel:hover {
                   <item>
                    <widget class="QGroupBox" name="group_11">
                     <property name="sizePolicy">
-                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                     <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                       <horstretch>0</horstretch>
                       <verstretch>0</verstretch>
                      </sizepolicy>
                     </property>
                     <property name="minimumSize">
-                     <size>
-                      <width>90</width>
-                      <height>68</height>
-                     </size>
-                    </property>
-                    <property name="maximumSize">
                      <size>
                       <width>90</width>
                       <height>68</height>
@@ -903,18 +1062,12 @@ QLabel:hover {
                   <item>
                    <widget class="QGroupBox" name="group_12">
                     <property name="sizePolicy">
-                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                     <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                       <horstretch>0</horstretch>
                       <verstretch>0</verstretch>
                      </sizepolicy>
                     </property>
                     <property name="minimumSize">
-                     <size>
-                      <width>90</width>
-                      <height>68</height>
-                     </size>
-                    </property>
-                    <property name="maximumSize">
                      <size>
                       <width>90</width>
                       <height>68</height>
@@ -937,18 +1090,12 @@ QLabel:hover {
                   <item>
                    <widget class="QGroupBox" name="group_13">
                     <property name="sizePolicy">
-                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                     <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                       <horstretch>0</horstretch>
                       <verstretch>0</verstretch>
                      </sizepolicy>
                     </property>
                     <property name="minimumSize">
-                     <size>
-                      <width>90</width>
-                      <height>68</height>
-                     </size>
-                    </property>
-                    <property name="maximumSize">
                      <size>
                       <width>90</width>
                       <height>68</height>
@@ -971,18 +1118,12 @@ QLabel:hover {
                   <item>
                    <widget class="QGroupBox" name="group_14">
                     <property name="sizePolicy">
-                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                     <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                       <horstretch>0</horstretch>
                       <verstretch>0</verstretch>
                      </sizepolicy>
                     </property>
                     <property name="minimumSize">
-                     <size>
-                      <width>90</width>
-                      <height>68</height>
-                     </size>
-                    </property>
-                    <property name="maximumSize">
                      <size>
                       <width>90</width>
                       <height>68</height>
@@ -1005,18 +1146,12 @@ QLabel:hover {
                   <item>
                    <widget class="QGroupBox" name="group_15">
                     <property name="sizePolicy">
-                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                     <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                       <horstretch>0</horstretch>
                       <verstretch>0</verstretch>
                      </sizepolicy>
                     </property>
                     <property name="minimumSize">
-                     <size>
-                      <width>90</width>
-                      <height>68</height>
-                     </size>
-                    </property>
-                    <property name="maximumSize">
                      <size>
                       <width>90</width>
                       <height>68</height>
@@ -1039,18 +1174,12 @@ QLabel:hover {
                   <item>
                    <widget class="QGroupBox" name="group_16">
                     <property name="sizePolicy">
-                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                     <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                       <horstretch>0</horstretch>
                       <verstretch>0</verstretch>
                      </sizepolicy>
                     </property>
                     <property name="minimumSize">
-                     <size>
-                      <width>90</width>
-                      <height>68</height>
-                     </size>
-                    </property>
-                    <property name="maximumSize">
                      <size>
                       <width>90</width>
                       <height>68</height>
@@ -1081,211 +1210,7 @@ QLabel:hover {
          </layout>
         </widget>
        </item>
-       <item row="3" column="5">
-        <spacer name="horizontalSpacer_21">
-         <property name="orientation">
-          <enum>Qt::Orientation::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item row="3" column="1" colspan="4">
-        <widget class="QLabel" name="labelShift">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="minimumSize">
-          <size>
-           <width>60</width>
-           <height>60</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>60</width>
-           <height>60</height>
-          </size>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">QLabel {
-    border: 2px solid green;
-    border-radius: 5px;
-}
-QLabel:hover {
-    border: 2px solid #1E90FF; 
-}
-</string>
-         </property>
-         <property name="text">
-          <string>[ &lt;&lt;&lt; ]</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignmentFlag::AlignCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="5">
-        <spacer name="horizontalSpacer_22">
-         <property name="orientation">
-          <enum>Qt::Orientation::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item row="2" column="5">
-        <spacer name="horizontalSpacer_23">
-         <property name="orientation">
-          <enum>Qt::Orientation::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item row="0" column="1" colspan="4">
-        <widget class="QLabel" name="labelPlus1">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="minimumSize">
-          <size>
-           <width>60</width>
-           <height>60</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>60</width>
-           <height>60</height>
-          </size>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">QLabel {
-    border: 2px solid green;
-    border-radius: 5px;
-}
-QLabel:hover {
-    border: 2px solid #1E90FF; 
-}
-</string>
-         </property>
-         <property name="text">
-          <string>[ + ]</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignmentFlag::AlignCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="1" colspan="4">
-        <widget class="QLabel" name="labelPlus3">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="minimumSize">
-          <size>
-           <width>60</width>
-           <height>60</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>60</width>
-           <height>60</height>
-          </size>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">QLabel {
-    border: 2px solid green;
-    border-radius: 5px;
-}
-QLabel:hover {
-    border: 2px solid #1E90FF; 
-}
-</string>
-         </property>
-         <property name="text">
-          <string>[ + ]</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignmentFlag::AlignCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="1" colspan="4">
-        <widget class="QLabel" name="labelPlus4">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="minimumSize">
-          <size>
-           <width>60</width>
-           <height>60</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>60</width>
-           <height>60</height>
-          </size>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">QLabel {
-    border: 2px solid green;
-    border-radius: 5px;
-}
-QLabel:hover {
-    border: 2px solid #1E90FF; 
-}
-</string>
-         </property>
-         <property name="text">
-          <string>[ + ]</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignmentFlag::AlignCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="5">
-        <spacer name="horizontalSpacer_24">
-         <property name="orientation">
-          <enum>Qt::Orientation::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item row="1" column="5">
+       <item row="1" column="4">
         <spacer name="horizontalSpacer_25">
          <property name="orientation">
           <enum>Qt::Orientation::Horizontal</enum>
@@ -1298,29 +1223,39 @@ QLabel:hover {
          </property>
         </spacer>
        </item>
-       <item row="1" column="6" rowspan="4">
-        <widget class="QTextEdit" name="textEdit">
-         <property name="enabled">
-          <bool>true</bool>
+       <item row="4" column="3">
+        <widget class="QPushButton" name="operator5">
+         <property name="minimumSize">
+          <size>
+           <width>62</width>
+           <height>62</height>
+          </size>
          </property>
-         <property name="readOnly">
-          <bool>true</bool>
+         <property name="styleSheet">
+          <string notr="true">QPushButton {
+    background-color: qlineargradient(
+        x1: 0, y1: 0, x2: 0, y2: 1,
+        stop: 0 #73C2FB, stop: 1 #2E86C1);
+    border: 1px solid #2E86C1;
+   border-radius: 30px;
+    min-width: 60px;
+    min-height: 60px;
+    max-width: 60px;
+    max-height: 60px;
+}</string>
          </property>
-         <property name="html">
-          <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-hr { height: 1px; border-width: 0; }
-li.unchecked::marker { content: &quot;\2610&quot;; }
-li.checked::marker { content: &quot;\2612&quot;; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Segoe UI'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:14pt; font-weight:700;&quot;&gt;STEP&lt;/span&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;: &lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:14pt; font-weight:700; text-decoration: underline;&quot;&gt;input&lt;/span&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;:  (A B C D)&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;(B C D) --(&lt;/span&gt;&lt;span style=&quot; font-size:14pt; font-style:italic;&quot;&gt;f_function)&lt;/span&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;--&amp;gt; F ⊕ A  --&amp;gt; ⊕ BLOCK[k], (k=0...15) --&amp;gt; ⊕ C[i] --&amp;gt; shift left --&amp;gt; ⊕ B -&amp;gt; B1&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;C1 := B; D1 := C; A1 := D&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;(⊕: add with module 2&lt;/span&gt;&lt;span style=&quot; font-size:14pt; vertical-align:super;&quot;&gt;32&lt;/span&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;)&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:14pt; font-weight:700; text-decoration: underline;&quot;&gt;output&lt;/span&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;: (A1 B1 C1 D1)&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:14pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset resource="../../resources.qrc">
+           <normaloff>:/icons/iconsDark/plus-circle.png</normaloff>:/icons/iconsDark/plus-circle.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>35</width>
+           <height>35</height>
+          </size>
          </property>
         </widget>
        </item>
@@ -1333,18 +1268,12 @@ li.checked::marker { content: &quot;\2612&quot;; }
      <item>
       <widget class="QGroupBox" name="groupH1">
        <property name="sizePolicy">
-        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
        <property name="minimumSize">
-        <size>
-         <width>90</width>
-         <height>68</height>
-        </size>
-       </property>
-       <property name="maximumSize">
         <size>
          <width>90</width>
          <height>68</height>
@@ -1367,18 +1296,12 @@ li.checked::marker { content: &quot;\2612&quot;; }
      <item>
       <widget class="QGroupBox" name="groupH2">
        <property name="sizePolicy">
-        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
        <property name="minimumSize">
-        <size>
-         <width>90</width>
-         <height>68</height>
-        </size>
-       </property>
-       <property name="maximumSize">
         <size>
          <width>90</width>
          <height>68</height>
@@ -1401,18 +1324,12 @@ li.checked::marker { content: &quot;\2612&quot;; }
      <item>
       <widget class="QGroupBox" name="groupH3">
        <property name="sizePolicy">
-        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
        <property name="minimumSize">
-        <size>
-         <width>90</width>
-         <height>68</height>
-        </size>
-       </property>
-       <property name="maximumSize">
         <size>
          <width>90</width>
          <height>68</height>
@@ -1435,18 +1352,12 @@ li.checked::marker { content: &quot;\2612&quot;; }
      <item>
       <widget class="QGroupBox" name="groupH4">
        <property name="sizePolicy">
-        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
        <property name="minimumSize">
-        <size>
-         <width>90</width>
-         <height>68</height>
-        </size>
-       </property>
-       <property name="maximumSize">
         <size>
          <width>90</width>
          <height>68</height>
@@ -1480,31 +1391,34 @@ li.checked::marker { content: &quot;\2612&quot;; }
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="btnState">
+      <widget class="QPushButton" name="operator6">
        <property name="enabled">
         <bool>true</bool>
        </property>
        <property name="sizePolicy">
-        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+        <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
        <property name="minimumSize">
         <size>
-         <width>60</width>
-         <height>40</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>60</width>
-         <height>40</height>
+         <width>62</width>
+         <height>62</height>
         </size>
        </property>
        <property name="styleSheet">
-        <string notr="true">border: 3px solid green;
-border-radius: 5px;</string>
+        <string notr="true">QPushButton {
+    background-color: qlineargradient(
+        x1: 0, y1: 0, x2: 0, y2: 1,
+        stop: 0 #73C2FB, stop: 1 #2E86C1);
+    border: 1px solid #2E86C1;
+    border-radius: 30px;
+    min-width: 60px;
+    min-height: 60px;
+    max-width: 60px;
+    max-height: 60px;
+}</string>
        </property>
        <property name="text">
         <string/>
@@ -1537,18 +1451,12 @@ border-radius: 5px;</string>
      <item>
       <widget class="QGroupBox" name="groupB_new">
        <property name="sizePolicy">
-        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
        <property name="minimumSize">
-        <size>
-         <width>90</width>
-         <height>68</height>
-        </size>
-       </property>
-       <property name="maximumSize">
         <size>
          <width>90</width>
          <height>68</height>
@@ -1571,18 +1479,12 @@ border-radius: 5px;</string>
      <item>
       <widget class="QGroupBox" name="groupC_new">
        <property name="sizePolicy">
-        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
        <property name="minimumSize">
-        <size>
-         <width>90</width>
-         <height>68</height>
-        </size>
-       </property>
-       <property name="maximumSize">
         <size>
          <width>90</width>
          <height>68</height>
@@ -1605,18 +1507,12 @@ border-radius: 5px;</string>
      <item>
       <widget class="QGroupBox" name="groupD_new">
        <property name="sizePolicy">
-        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
        <property name="minimumSize">
-        <size>
-         <width>90</width>
-         <height>68</height>
-        </size>
-       </property>
-       <property name="maximumSize">
         <size>
          <width>90</width>
          <height>68</height>
@@ -1639,18 +1535,12 @@ border-radius: 5px;</string>
      <item>
       <widget class="QGroupBox" name="groupA_new">
        <property name="sizePolicy">
-        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
        <property name="minimumSize">
-        <size>
-         <width>90</width>
-         <height>68</height>
-        </size>
-       </property>
-       <property name="maximumSize">
         <size>
          <width>90</width>
          <height>68</height>
@@ -1690,6 +1580,9 @@ border-radius: 5px;</string>
      </item>
      <item>
       <widget class="QPushButton" name="finish">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="text">
         <string>finish process</string>
        </property>

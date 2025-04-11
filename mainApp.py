@@ -1,28 +1,37 @@
-from PySide6.QtWidgets import QApplication, QTabWidget
+from PySide6.QtWidgets import QApplication, QTabWidget, QMainWindow
 from PySide6.QtCore import Qt
+from PySide6.QtGui import QAction
 from tabsWidget.tabWidgetMD5 import QTabWidgetMD5
+from mainUI import Ui_MainWindow
 
-class MainApp(QTabWidget):
+class MainApp(Ui_MainWindow, QMainWindow):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("MD5 Hash Generator")
-        # set size 1227 * 780
+        self.setupUi(self)
+        self.setWindowTitle("Cryptography Algorithms")
         self.resize(1227, 780)
-        self.setTabsClosable(True)
-        self.setMovable(True)
-        # set tab nằm ngnag bên cạnh trái
-        # self.setTabBarAutoHide(True)
-        # self.setDocumentMode(True)
-        # set tab position
-        self.setTabPosition(QTabWidget.North)
-        # set tab shape
-        self.setTabShape(QTabWidget.Rounded)
-        # self.setTabPosition(QTabWidget.West)
-        # self.setTabShape(QTabWidget.Triangular)
+        self.actionMD5.triggered.connect(lambda: self.add_tabs_algorithms("MD5"))
 
-        # Add the QTabWidgetMD5 instance
-        self.tab_md5 = QTabWidgetMD5()
-        self.addTab(self.tab_md5, "MD5 Hash")
+    def add_tabs_algorithms(self, name_tab):
+        self.tabWidget.setTabPosition(QTabWidget.TabPosition.North)
+        self.tabWidget.setTabsClosable(True)
+        self.tabWidget.setMovable(True)
+        self.tabWidget.setTabShape(QTabWidget.TabShape.Triangular)
+
+        # Create a new tab for MD5
+        if name_tab == "MD5":
+            self.tabWidget.addTab(QTabWidgetMD5(), name_tab)
+            self.tabWidget.setTabText(self.tabWidget.indexOf(QTabWidgetMD5()), name_tab)
+
+        # Connect the tab close event to a method
+        self.tabWidget.tabCloseRequested.connect(self.close_tab)
+
+    def close_tab(self, index):
+        if index >= 0:
+            self.tabWidget.removeTab(index)
+            self.tabWidget.setCurrentIndex(index - 1 if index > 0 else 0)
+
+
 
 if __name__ == "__main__":
     import sys
