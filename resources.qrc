@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="icons">
+    <file>iconsDark/iconApp.png</file>
     <file>iconsDark/shift_circle.png</file>
     <file>iconsDark/shift_circle.png</file>
     <file>iconsDark/activity.png</file>

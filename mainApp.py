@@ -1,6 +1,6 @@
 from PySide6.QtWidgets import QApplication, QTabWidget, QMainWindow
-from PySide6.QtCore import Qt
-from PySide6.QtGui import QAction
+from PySide6.QtCore import QSize
+from PySide6.QtGui import QIcon
 from tabsWidget.tabWidgetMD5 import QTabWidgetMD5
 from mainUI import Ui_MainWindow
 
@@ -8,7 +8,10 @@ class MainApp(Ui_MainWindow, QMainWindow):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
-        self.setWindowTitle("Cryptography Algorithms")
+        self.setWindowTitle("App cryptool")
+        icon = QIcon()
+        icon.addFile(u":/icons/iconsDark/iconApp.png", QSize(100, 100), QIcon.Mode.Normal, QIcon.State.Off)
+        self.setWindowIcon(icon)
         self.resize(1227, 780)
         self.actionMD5.triggered.connect(lambda: self.add_tabs_algorithms("MD5"))
 
