@@ -13,7 +13,7 @@ class MainApp(Ui_MainWindow, QMainWindow):
         icon = QIcon()
         icon.addFile(u":/icons/iconsDark/iconApp.png", QSize(100, 100), QIcon.Mode.Normal, QIcon.State.Off)
         self.setWindowIcon(icon)
-        self.resize(1182, 780)
+        self.resize(1290, 780)
         self.actionMD5.triggered.connect(lambda: self.add_tabs_algorithms("MD5"))
         self.actionSHA_1.triggered.connect(lambda: self.add_tabs_algorithms("SHA1"))
 
