@@ -1,0 +1,57 @@
+Here is a detailed step-by-step explanation of how to implement the SHA-1 algorithm:
+
+1. Preprocessing
+1.1 Convert Input to Binary
+Convert the input string into its binary representation using its ASCII values.
+
+1.2 Padding
+Append a 1 bit to the binary message.
+Append 0 bits until the length of the message (in bits) is congruent to 448 mod 512.
+Append the original message length (in bits) as a 64-bit big-endian integer.
+
+2. Initialize SHA-1 Constants
+Initialize five 32-bit words (H0, H1, H2, H3, H4) with the following constants:
+H0 = 0x67452301
+H1 = 0xEFCDAB89
+H2 = 0x98BADCFE
+H3 = 0x10325476
+H4 = 0xC3D2E1F0
+
+3. Define Auxiliary Functions
+Define the following bitwise functions:
+F(t, B, C, D):
+If 0 ≤ t ≤ 19: (B & C) | (~B & D)
+If 20 ≤ t ≤ 39: B ^ C ^ D
+If 40 ≤ t ≤ 59: (B & C) | (B & D) | (C & D)
+If 60 ≤ t ≤ 79: B ^ C ^ D
+Define a left rotation function:
+rotate_left(x, n) = (x << n) | (x >> (32 - n))
+
+4. Process the Message in 512-bit Blocks
+Divide the padded message into 512-bit blocks.
+For each block:
+Break it into 16 words of 32 bits each.
+Extend the 16 words into 80 words using the formula:
+W[t] = rotate_left(W[t-3] ^ W[t-8] ^ W[t-14] ^ W[t-16], 1)
+Initialize variables A, B, C, D, E with H0, H1, H2, H3, H4.
+Perform 80 rounds of operations using the auxiliary functions, constants, and the message schedule:
+For t in 0 to 79:
+Compute:
+T = rotate_left(A, 5) + F(t, B, C, D) + E + W[t] + K[t]
+Update:
+E = D
+D = C
+C = rotate_left(B, 30)
+B = A
+A = T
+
+5. Update Hash Values
+After processing each block, update the values of H0, H1, H2, H3, and H4:
+H0 = H0 + A
+H1 = H1 + B
+H2 = H2 + C
+H3 = H3 + D
+H4 = H4 + E
+
+6. Produce the Final Hash
+Concatenate the final values of H0, H1, H2, H3, and H4 (in big-endian format) to produce the 160-bit hash.

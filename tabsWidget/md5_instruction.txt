@@ -1,0 +1,37 @@
+Here is a step-by-step explanation of how to implement the MD5 algorithm:
+
+1. Preprocessing
+1.1 Convert Input to Binary
+Convert the input string into its binary representation.
+1.2 Padding
+Append a 1 bit to the binary message.
+Append 0 bits until the length of the message is congruent to 448 mod 512.
+Append the original message length (in bits) as a 64-bit little-endian integer.
+
+2. Initialize MD5 Constants
+Initialize four 32-bit words (A, B, C, D) with the following constants:
+A = 0x67452301
+B = 0xefcdab89
+C = 0x98badcfe
+D = 0x10325476
+
+3. Define Auxiliary Functions
+Define the following bitwise functions:
+F(X, Y, Z) = (X & Y) | (~X & Z)
+G(X, Y, Z) = (X & Z) | (Y & ~Z)
+H(X, Y, Z) = X ^ Y ^ Z
+I(X, Y, Z) = Y ^ (X | ~Z)
+Also, define a left rotation function:
+rotate_left(x, n) = (x << n) | (x >> (32 - n))
+
+4. Process the Message in 512-bit Blocks
+Divide the padded message into 512-bit blocks.
+For each block:
+Break it into 16 words of 32 bits each.
+Perform 64 rounds of operations using the auxiliary functions, predefined constants, and the message words.
+
+5. Update Hash Values
+After processing each block, update the values of A, B, C, and D.
+
+6. Produce the Final Hash
+Concatenate the final values of A, B, C, and D (in little-endian format) to produce the 128-bit hash.

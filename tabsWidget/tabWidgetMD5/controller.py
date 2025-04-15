@@ -1,10 +1,9 @@
 from PySide6.QtWidgets import QApplication, QFileDialog, QPushButton, QWidget, QGroupBox
 from PySide6.QtCore import QTimer, QSize, QEventLoop
 from PySide6.QtGui import QIcon
-from shiboken6.Shiboken import delete
-
 from .view import Ui_Form
-from tabsWidget.config import StateWidget
+from tabsWidget.config import StateWidget, get_instruction_algorithm, MD5_INSTRUCTION
+from tabsWidget.customWidget.customDialog import QCustomDialog
 from hash.md5 import MD5
 
 class QTabWidgetMD5(Ui_Form, QWidget):
@@ -15,6 +14,7 @@ class QTabWidgetMD5(Ui_Form, QWidget):
         self.md5Control = None
         self.btnChooseFile.setEnabled(self.File.isChecked())
         self.timer = None
+        self.instruction.setText(get_instruction_algorithm(file_name=MD5_INSTRUCTION))
 
         self.File.toggled.connect(self.change_radio_btn_file)
         self.plaintext.textChanged.connect(self.change_plain_text)
@@ -30,6 +30,24 @@ class QTabWidgetMD5(Ui_Form, QWidget):
         self.btnPreviousBlock.clicked.connect(self.pre_block)
         self.finish.clicked.connect(self.finish_process)
         self.Clear.clicked.connect(self.clear_inputs)
+        self.zoom_1.clicked.connect(self.show_zoom_plaintext)
+        self.zoom_2.clicked.connect(self.show_zoom_plaintext_with_padding)
+        self.zoom_3.clicked.connect(self.show_zoom_instruction)
+
+    def show_zoom_plaintext(self):
+        content = self.plaintext.text()
+        customDialog = QCustomDialog(content=content, title="Plaintext")
+        customDialog.exec_()
+
+    def show_zoom_plaintext_with_padding(self):
+        content = self.plaintext_with_padding.text()
+        customDialog = QCustomDialog(content=content, title="Plaintext with padding")
+        customDialog.exec_()
+
+    def show_zoom_instruction(self):
+        content = self.instruction.toPlainText()
+        customDialog = QCustomDialog(content=content, title="Instruction algorithm md5")
+        customDialog.exec_()
 
     def change_radio_btn_file(self):
         self.btnChooseFile.setEnabled(self.File.isChecked())
@@ -39,7 +57,7 @@ class QTabWidgetMD5(Ui_Form, QWidget):
             self.plaintext.setReadOnly(False)
 
     def change_plain_text(self):
-        if self.plaintext.toPlainText():
+        if self.plaintext.text():
             self.Ok.setEnabled(True)
         else:
             self.Ok.setEnabled(False)
@@ -55,7 +73,7 @@ class QTabWidgetMD5(Ui_Form, QWidget):
 
 
     def AcceptPlainText(self):
-        data = self.plaintext.toPlainText()
+        data = self.plaintext.text()
         if not data:
             return
         self.md5Control = MD5(data)

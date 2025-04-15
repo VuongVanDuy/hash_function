@@ -1,4 +1,22 @@
-from dataclasses import dataclass, field
+from dataclasses import dataclass
+import os
+
+def get_instruction_algorithm(file_name: str) -> str:
+    """
+    Get the introduction of the algorithm from the file.
+    :param path_file: path to the file
+    :return: introduction of the algorithm
+    """
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    path_file = os.path.join(base_dir, file_name)
+    with open(path_file, "r", encoding="utf-8") as f:
+        lines = f.readlines()
+        intro = "".join(lines)
+        return intro
+
+MD5_INSTRUCTION = "md5_instruction.txt"
+SHA1_INSTRUCTION = "sha1_instruction.txt"
+SHA256_INSTRUCTION = "sha256_instruction.txt"
 
 @dataclass
 class StateWidget():
@@ -25,11 +43,11 @@ class StateWidget():
             x1: 0, y1: 0, x2: 0, y2: 1,
             stop: 0 #66ff66, stop: 1 #00ff00);
         border: 1px solid #388E3C;
-        border-radius: 30px;
-        min-width: 60px;
-        min-height: 60px;
-        max-width: 60px;
-        max-height: 60px;
+        border-radius: 25px;
+        min-width: 50px;
+        min-height: 50px;
+        max-width: 50px;
+        max-height: 50px;
     }
     '''
 
@@ -38,10 +56,10 @@ class StateWidget():
             x1: 0, y1: 0, x2: 0, y2: 1,
             stop: 0 #73C2FB, stop: 1 #2E86C1);
         border: 1px solid #2E86C1;
-        border-radius: 30px;
-        min-width: 60px;
-        min-height: 60px;
-        max-width: 60px;
-        max-height: 60px;
+        border-radius: 25px;
+        min-width: 50px;
+        min-height: 50px;
+        max-width: 50px;
+        max-height: 50px;
     }
     '''

@@ -1,7 +1,6 @@
 import math
 from bitarray import bitarray
 from bitarray.util import ba2int, int2ba
-
 from common.common import (bin_to_hex, hex_to_bin, str_to_bin,
                         add_padding_bytes, block_to_little_endian)
 
@@ -59,10 +58,10 @@ class MD5:
         # convert blocks to blocks little endian
         self.blocks = [block_to_little_endian(block) for block in self.blocks]
         # Step 3: Initialize the MD5 state variables
-        A = bitarray(hex_to_bin("67452301", 32))
-        B = bitarray(hex_to_bin("EFCDAB89", 32))
-        C = bitarray(hex_to_bin("98badcfe", 32))
-        D =bitarray(hex_to_bin("10325476", 32))
+        A = hex_to_bin("67452301", 32)
+        B = hex_to_bin("EFCDAB89", 32)
+        C = hex_to_bin("98badcfe", 32)
+        D = hex_to_bin("10325476", 32)
         self.cache["initialize_MD_buffer"] = {
             "little_endian": [
                 ba2int(A),
@@ -184,9 +183,8 @@ if __name__ == "__main__":
     '''
     md5 = MD5(text)
     md5.generate_hash()
-    print(md5.hash_hex)
-    import  hashlib
-    print(hashlib.md5(text.encode('utf-8')).hexdigest())
+    print(md5.cache["block_0"]["end_of_block"]["big_endian"])
+    print(md5.cache["block_0"]["buffers_state"]["big_endian"])
     # state = md5.cache["block_0"]["big_endian"]
     # for i in state:
     #     print(i)

@@ -1,5 +1,6 @@
 from bitarray import bitarray
-from bitarray.util import ba2int
+from typing import Literal
+from bitarray.util import ba2int, int2ba
 
 def hex_to_bin(hex_string, version=32) -> bitarray:
     hex_string = hex_string.replace(" ", "")
@@ -11,11 +12,11 @@ def bin_to_hex(bin_array, version=32) -> str:
 
 def str_to_bin(message: str) -> bitarray:
     binary_message = bitarray()
-    binary_message.frombytes(message.encode("utf-8")) #"ISO-8859-1"
+    binary_message.frombytes(message.encode("utf-8")) #"ISO-8859-1" #"utf-8"
 
     return binary_message
 
-def add_padding_bytes(binary_message: bitarray) -> list[bitarray]:
+def add_padding_bytes(binary_message: bitarray, byteorder: Literal["little", "big"] = "little") -> list[bitarray]:
     n = len(binary_message)
     # add padding
     binary_message += bitarray("1")
@@ -24,7 +25,7 @@ def add_padding_bytes(binary_message: bitarray) -> list[bitarray]:
         binary_message += bitarray("0" * (448 - k))
     elif k > 448:
         binary_message += bitarray("0" * (512 - k + 448))
-    binary_message += hex_to_bin(n.to_bytes(8, byteorder='little').hex(), 64)
+    binary_message += int2ba(n, length=64, endian=byteorder)
 
     return [binary_message[i:i+512] for i in range(0, len(binary_message), 512)]
 
@@ -50,7 +51,6 @@ if __name__ == '__main__':
     # message 215 bits
     messages = "Hello world! This is a test message."
     binary_message = str_to_bin(messages)
-    res = str_to_blocks_512_bit(binary_message)
     #print(bin_to_hex(res[0]))
 
     print(bin_to_hex(block_to_little_endian(hex_to_bin("67 45 23 01"))))

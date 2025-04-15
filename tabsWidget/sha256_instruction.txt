@@ -1,0 +1,58 @@
+Here is a step-by-step explanation of how to implement the SHA-256 algorithm:
+
+1. Preprocessing
+1.1 Convert Input to Binary
+Convert the input string into its binary representation.
+
+1.2 Padding
+Append a 1 bit to the binary message.
+Append 0 bits until the length of the message is congruent to 448 mod 512.
+Append the original message length (in bits) as a 64-bit big-endian integer.
+
+2. Initialize Hash Values
+Initialize eight 32-bit words (H0 to H7) with the following constants (in hexadecimal):
+H0 = 0x6a09e667
+H1 = 0xbb67ae85
+H2 = 0x3c6ef372
+H3 = 0xa54ff53a
+H4 = 0x510e527f
+H5 = 0x9b05688c
+H6 = 0x1f83d9ab
+H7 = 0x5be0cd19
+
+3. Process the Message in 512-bit Blocks
+Divide the padded message into 512-bit blocks. For each block:
+Break the block into 16 words of 32 bits each.
+Extend the 16 words into 64 words:
+For i from 16 to 63:
+W[i] = σ₁(W[i-2]) + W[i-7] + σ₀(W[i-15]) + W[i-16]
+Where:
+σ₀(x) = (x >>> 7) ⊕ (x >>> 18) ⊕ (x >> 3)
+σ₁(x) = (x >>> 17) ⊕ (x >>> 19) ⊕ (x >> 10)
+
+4. Compression Function
+For each of the 64 rounds:
+Select a constant K[i] (predefined for SHA-256).
+Compute the temporary values:
+T1 = H + Σ₁(E) + Ch(E, F, G) + K[i] + W[i]
+T2 = Σ₀(A) + Maj(A, B, C)
+Where:
+Σ₀(x) = (x >>> 2) ⊕ (x >>> 13) ⊕ (x >>> 22)
+Σ₁(x) = (x >>> 6) ⊕ (x >>> 11) ⊕ (x >>> 25)
+Ch(x, y, z) = (x & y) ⊕ (~x & z)
+Maj(x, y, z) = (x & y) ⊕ (x & z) ⊕ (y & z)
+Update the working variables:
+H = G
+G = F
+F = E
+E = D + T1
+D = C
+C = B
+B = A
+A = T1 + T2
+
+5. Update Hash Values
+After processing each block, add the resulting values of A, B, C, D, E, F, G, and H to the current hash values.
+
+6. Produce the Final Hash
+Concatenate the final values of H0 to H7 to produce the 256-bit hash. Convert it to hexadecimal format.
