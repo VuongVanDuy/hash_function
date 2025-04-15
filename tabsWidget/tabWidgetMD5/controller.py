@@ -36,13 +36,13 @@ class QTabWidgetMD5(Ui_Form, QWidget):
 
     def show_zoom_plaintext(self):
         content = self.plaintext.text()
-        customDialog = QCustomDialog(content=content, title="Plaintext")
-        customDialog.exec_()
+        self.customDialog_1 = QCustomDialog(content=content, title="Plaintext")
+        self.customDialog_1.show()
 
     def show_zoom_plaintext_with_padding(self):
         content = self.plaintext_with_padding.text()
-        customDialog = QCustomDialog(content=content, title="Plaintext with padding")
-        customDialog.exec_()
+        self.customDialog_2 = QCustomDialog(content=content, title="Plaintext with padding")
+        self.customDialog_2.show()
 
     def show_zoom_instruction(self):
         content = self.instruction.toPlainText()
