@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/diplom_project.iml" filepath="$PROJECT_DIR$/.idea/diplom_project.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/hash_function.iml" filepath="$PROJECT_DIR$/.idea/hash_function.iml" />
     </modules>
   </component>
 </project>

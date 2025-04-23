@@ -3,6 +3,7 @@ from PySide6.QtCore import QSize
 from PySide6.QtGui import QIcon
 from tabsWidget.tabWidgetMD5 import QTabWidgetMD5
 from tabsWidget.tabWidgetSHA1 import QTabWidgetSHA1
+from tabsWidget.tabWidgetSHA256 import QTabWidgetSHA256
 from mainUI import Ui_MainWindow
 
 class MainApp(Ui_MainWindow, QMainWindow):
@@ -13,9 +14,10 @@ class MainApp(Ui_MainWindow, QMainWindow):
         icon = QIcon()
         icon.addFile(u":/icons/iconsDark/iconApp.png", QSize(100, 100), QIcon.Mode.Normal, QIcon.State.Off)
         self.setWindowIcon(icon)
-        self.resize(1290, 780)
+        self.resize(1300, 760)
         self.actionMD5.triggered.connect(lambda: self.add_tabs_algorithms("MD5"))
         self.actionSHA_1.triggered.connect(lambda: self.add_tabs_algorithms("SHA1"))
+        self.actionSHA_256.triggered.connect(lambda: self.add_tabs_algorithms("SHA256"))
 
     def add_tabs_algorithms(self, name_tab):
         self.tabWidget.setTabPosition(QTabWidget.TabPosition.North)
@@ -30,6 +32,9 @@ class MainApp(Ui_MainWindow, QMainWindow):
         elif name_tab == "SHA1":
             self.tabWidget.addTab(QTabWidgetSHA1(), name_tab)
             self.tabWidget.setTabText(self.tabWidget.indexOf(QTabWidgetSHA1()), name_tab)
+        elif name_tab == "SHA256":
+            self.tabWidget.addTab(QTabWidgetSHA256(), name_tab)
+            self.tabWidget.setTabText(self.tabWidget.indexOf(QTabWidgetSHA256()), name_tab)
 
         # Connect the tab close event to a method
         self.tabWidget.tabCloseRequested.connect(self.close_tab)

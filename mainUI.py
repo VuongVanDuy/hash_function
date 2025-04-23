@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'mainUI.ui'
+## Form generated from reading UI file 'mainUIZQmdKL.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.9.0
 ##
@@ -24,7 +24,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(954, 728)
+        MainWindow.resize(1490, 780)
         self.actionMD5 = QAction(MainWindow)
         self.actionMD5.setObjectName(u"actionMD5")
         self.actionMD5.setMenuRole(QAction.MenuRole.NoRole)
@@ -53,10 +53,17 @@ class Ui_MainWindow(object):
         self.centralwidget.setObjectName(u"centralwidget")
         self.horizontalLayout = QHBoxLayout(self.centralwidget)
         self.horizontalLayout.setObjectName(u"horizontalLayout")
+        self.horizontalLayout.setContentsMargins(-1, 9, -1, 0)
         self.verticalLayout = QVBoxLayout()
+        self.verticalLayout.setSpacing(0)
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.tabWidget = QTabWidget(self.centralwidget)
         self.tabWidget.setObjectName(u"tabWidget")
+        sizePolicy = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.tabWidget.sizePolicy().hasHeightForWidth())
+        self.tabWidget.setSizePolicy(sizePolicy)
         self.tabWidget.setTabShape(QTabWidget.TabShape.Rounded)
 
         self.verticalLayout.addWidget(self.tabWidget)
@@ -67,7 +74,7 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 954, 33))
+        self.menubar.setGeometry(QRect(0, 0, 1490, 33))
         self.menuAlgorithms = QMenu(self.menubar)
         self.menuAlgorithms.setObjectName(u"menuAlgorithms")
         self.menuSettings = QMenu(self.menubar)

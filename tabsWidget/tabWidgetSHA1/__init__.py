@@ -1,1 +1,1 @@
-from .controller import QTabWidgetSHA1
+from .view import QTabWidgetSHA1

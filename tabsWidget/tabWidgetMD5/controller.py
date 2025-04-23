@@ -1,12 +1,12 @@
 from PySide6.QtWidgets import QApplication, QFileDialog, QPushButton, QWidget, QGroupBox
 from PySide6.QtCore import QTimer, QSize, QEventLoop
 from PySide6.QtGui import QIcon
-from .view import Ui_Form
+from .form import Ui_Form
 from tabsWidget.config import StateWidget, get_instruction_algorithm, MD5_INSTRUCTION
 from tabsWidget.customWidget.customDialog import QCustomDialog
 from hash.md5 import MD5
 
-class QTabWidgetMD5(Ui_Form, QWidget):
+class FormContainer(Ui_Form, QWidget):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
@@ -63,7 +63,7 @@ class QTabWidgetMD5(Ui_Form, QWidget):
             self.Ok.setEnabled(False)
 
     def choose_file(self):
-        path, _ = QFileDialog.getOpenFileName(self, "Choose File", "", "All Files (*)")
+        path, _ = QFileDialog.getOpenFileName(None, "Choose File", "", "All Files (*)")
         # read file
         if not path:
             return
@@ -672,11 +672,3 @@ class QTabWidgetMD5(Ui_Form, QWidget):
             return self.group_15
         elif word == 16:
             return self.group_16
-
-if __name__ == "__main__":
-    import sys
-
-    app = QApplication(sys.argv)
-    main = QTabWidgetMD5()
-    main.show()
-    sys.exit(app.exec())

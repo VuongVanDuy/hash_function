@@ -2,7 +2,7 @@ from PySide6.QtWidgets import QApplication, QWidget, QGraphicsView, QGraphicsSce
 from PySide6.QtCore import Qt
 from .controller import FormContainer
 
-class QTabWidgetMD5(QWidget):
+class QTabWidgetSHA256(QWidget):
     def __init__(self):
         super().__init__()
 
@@ -29,8 +29,7 @@ class QTabWidgetMD5(QWidget):
 
     def resizeEvent(self, event):
         super().resizeEvent(event)
-        # Chỉ thực sự scale khi cửa sổ chính còn active,
-        # bỏ qua resizeEvent phát sinh do dialog/modal bật lên
+        # Cứ resize lại là scale tiếp
         if not self.isActiveWindow():
             return
 
@@ -41,7 +40,7 @@ class QTabWidgetMD5(QWidget):
 if __name__ == "__main__":
     import sys
     app = QApplication(sys.argv)
-    w = QTabWidgetMD5()
+    w = QTabWidgetSHA256()
     # Đặt kích thước khởi tạo (theo đúng bản design)
     w.resize(1488, 748)
     w.show()

@@ -1,1 +1,1 @@
-from .controller import QTabWidgetMD5
+from .view import QTabWidgetMD5
