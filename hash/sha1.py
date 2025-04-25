@@ -81,7 +81,8 @@ class SHA1:
                 "end_of_block": {
                     "int_big_endian": [],
                     "hex_big_endian": []
-                }
+                },
+                "intermediate_results": {}
             }
 
             # Step 4.1: Generate the 80 words
@@ -94,6 +95,7 @@ class SHA1:
 
             # Step 4.3: Process each word
             for i in range(80):
+                interm_res = []
                 if i < 20:
                     f = self.__f_functions[0](B1, C1, D1)
                     constant = 0x5A827999
@@ -107,10 +109,20 @@ class SHA1:
                     f = self.__f_functions[3](B1, C1, D1)
                     constant = 0xCA62C1D6
 
+                interm_res.append(self.rotate_left(A1, self.__ROL5))
+
                 temp = self.add_operator(self.rotate_left(A1, self.__ROL5), f)
+                interm_res.append(temp)
                 temp = self.add_operator(temp, E1)
-                temp = self.add_operator(temp, int2ba(constant, length=32))
+                interm_res.append(temp)
                 temp = self.add_operator(temp, words[i])
+                interm_res.append(temp)
+                temp = self.add_operator(temp, int2ba(constant, length=32))
+                interm_res.append(temp)
+
+                self.addIntermediateResultsToCache(cache=self.cache[f"block_{k}"][f"intermediate_results"],
+                                                   step=i,
+                                                   results=interm_res)
 
                 E1 = D1
                 D1 = C1
@@ -118,8 +130,9 @@ class SHA1:
                 B1 = A1
                 A1 = temp
 
+                constant_bin = int2ba(constant, length=32)
                 self.addNewStateToCache(self.cache[f"block_{k}"]["buffers_state"],
-                                        [temp, E1, D1, C1, B1, A1])
+                                        [constant_bin, A1, B1, C1, D1, E1, f])
 
             # Step 4.4: Update the SHA1 state variables
             A = self.add_operator(A, A1)
@@ -132,6 +145,15 @@ class SHA1:
         # Step 5: Produce the final hash value
         self.hash_bin = A + B + C + D + E
         self.hash_hex = bin_to_hex(self.hash_bin, version=160)
+
+    def addIntermediateResultsToCache(self, cache: dict, step: int, results: list[bitarray]) -> None:
+        cache[f"step_{step}"] = {
+            "int_big_endian": [],
+            "hex_big_endian": []
+        }
+        for result in results:
+            cache[f"step_{step}"]["int_big_endian"].append(ba2int(result))
+            cache[f"step_{step}"]["hex_big_endian"].append(bin_to_hex(result))
 
     def addEndOfBlockToCache(self, cache: dict, states: list[bitarray]) -> None:
         for state in states:

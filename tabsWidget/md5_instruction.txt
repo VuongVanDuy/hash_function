@@ -1,37 +1,43 @@
 Here is a step-by-step explanation of how to implement the MD5 algorithm:
 
-1. Preprocessing
-1.1 Convert Input to Binary
-Convert the input string into its binary representation.
-1.2 Padding
-Append a 1 bit to the binary message.
-Append 0 bits until the length of the message is congruent to 448 mod 512.
-Append the original message length (in bits) as a 64-bit little-endian integer.
+1. Preprocessing  
+  1. Convert the input string to a byte array using UTF‑8.  
+  2. Record the original bit length (L).  
+  3. Append a single byte `0x80` (that is, a “1” bit followed by seven “0” bits).  
+  4. Append zero bytes until the total length in bytes ≡ 56 mod 64 (so the bit‑length ≡ 448 mod 512).
+  5. Append the 64‑bit little‑endian representation of (L).
 
-2. Initialize MD5 Constants
-Initialize four 32-bit words (A, B, C, D) with the following constants:
-A = 0x67452301
-B = 0xefcdab89
-C = 0x98badcfe
-D = 0x10325476
+2. Initialize Buffers  
+  • A = 0x67452301
+  • B = 0xefcdab89
+  • C = 0x98badcfe
+  • D = 0x10325476
 
-3. Define Auxiliary Functions
-Define the following bitwise functions:
-F(X, Y, Z) = (X & Y) | (~X & Z)
-G(X, Y, Z) = (X & Z) | (Y & ~Z)
-H(X, Y, Z) = X ^ Y ^ Z
-I(X, Y, Z) = Y ^ (X | ~Z)
-Also, define a left rotation function:
-rotate_left(x, n) = (x << n) | (x >> (32 - n))
+3. Define Auxiliary Functions  
+  • F(X,Y,Z) = (X & Y) | ((~X) & Z)  
+  • G(X,Y,Z) = (X & Z) | (Y & (~Z))  
+  • H(X,Y,Z) = X ^ Y ^ Z  
+  • I(X,Y,Z) = Y ^ (X | (~Z))  
+  • leftrotate(x,n) = ((x ≪ n) | (x ≫ (32–n))) & 0xFFFFFFFF  
 
-4. Process the Message in 512-bit Blocks
-Divide the padded message into 512-bit blocks.
-For each block:
-Break it into 16 words of 32 bits each.
-Perform 64 rounds of operations using the auxiliary functions, predefined constants, and the message words.
+4. Precompute Constants  
+  1. r = [7,12,17,22]×4 + [5,9,14,20]×4 + [4,11,16,23]×4 + [6,10,15,21]×4  
+  2. K[i] = floor(abs(sin(i+1)) × 2³²) mod 2³² for i in 0…63  
 
-5. Update Hash Values
-After processing each block, update the values of A, B, C, and D.
+5. Process Each 512‑bit Chunk  
+  For each 64‑byte block:  
+  1. Break into 16 words M[0…15] of 32 bits each (little‑endian).  
+  2. Set a=A, b=B, c=C, d=D.  
+  3. For i from 0 to 63:  
+     • If 0≤i<16: F=F(b,c,d), g=i
+     • If 16≤i<32: F=G(b,c,d), g=(5i+1) mod 16
+     • If 32≤i<48: F=H(b,c,d), g=(3i+5) mod 16
+     • If 48≤i<64: F=I(b,c,d), g=(7i) mod 16
+     • temp = a + F + K[i] + M[g] (all mod 2³²)
+     • a = d; d = c; c = b;  
+     • b = (b + leftrotate(temp, r[i])) mod 2³²
+  4. A=(A+a) mod 2³², B=(B+b) mod 2³², C=(C+c) mod 2³², D=(D+d) mod 2³²
 
-6. Produce the Final Hash
-Concatenate the final values of A, B, C, and D (in little-endian format) to produce the 128-bit hash.
+6. Produce Final Digest  
+  • Concatenate A, B, C, D in little‑endian order to yield a 16‑byte array.  
+  • Render each byte as two lowercase hexadecimal digits for the 128‑bit MD5 hash.

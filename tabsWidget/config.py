@@ -20,7 +20,7 @@ SHA256_INSTRUCTION = "sha256_instruction.txt"
 
 @dataclass
 class StateWidget():
-    timeSkip: int = 600
+    timeSkip: int = 800
     # set color green for QGroupBox
     GroupActive: str = '''QGroupBox {
         background-color: #00ff00; 
@@ -41,7 +41,7 @@ class StateWidget():
     OperatorActive: str = '''QPushButton {
         background-color: qlineargradient(
             x1: 0, y1: 0, x2: 0, y2: 1,
-            stop: 0 #66ff66, stop: 1 #00ff00);
+            stop: 0 #ff66ff, stop: 1 #800080);
         border: 1px solid #388E3C;
         border-radius: 25px;
         min-width: 50px;

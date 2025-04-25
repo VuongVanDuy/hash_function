@@ -14,7 +14,7 @@ class MainApp(Ui_MainWindow, QMainWindow):
         icon = QIcon()
         icon.addFile(u":/icons/iconsDark/iconApp.png", QSize(100, 100), QIcon.Mode.Normal, QIcon.State.Off)
         self.setWindowIcon(icon)
-        self.resize(1000, 600)
+        self.resize(1300, 700)
         self.actionMD5.triggered.connect(lambda: self.add_tabs_algorithms("MD5"))
         self.actionSHA_1.triggered.connect(lambda: self.add_tabs_algorithms("SHA1"))
         self.actionSHA_256.triggered.connect(lambda: self.add_tabs_algorithms("SHA256"))
@@ -27,14 +27,21 @@ class MainApp(Ui_MainWindow, QMainWindow):
 
         # Create a new tab for MD5
         if name_tab == "MD5":
-            self.tabWidget.addTab(QTabWidgetMD5(), name_tab)
-            self.tabWidget.setTabText(self.tabWidget.indexOf(QTabWidgetMD5()), name_tab)
+            self.tabMD5 = QTabWidgetMD5()
+            self.tabWidget.addTab(self.tabMD5, name_tab)
+            self.tabWidget.setTabText(self.tabWidget.indexOf(self.tabMD5), name_tab)
+            # set index tại tab vừa thêm
+            self.tabWidget.setCurrentIndex(self.tabWidget.indexOf(self.tabMD5))
         elif name_tab == "SHA1":
-            self.tabWidget.addTab(QTabWidgetSHA1(), name_tab)
-            self.tabWidget.setTabText(self.tabWidget.indexOf(QTabWidgetSHA1()), name_tab)
+            self.SHA1 = QTabWidgetSHA1()
+            self.tabWidget.addTab(self.SHA1, name_tab)
+            self.tabWidget.setTabText(self.tabWidget.indexOf(self.SHA1), name_tab)
+            self.tabWidget.setCurrentIndex(self.tabWidget.indexOf(self.SHA1))
         elif name_tab == "SHA256":
-            self.tabWidget.addTab(QTabWidgetSHA256(), name_tab)
-            self.tabWidget.setTabText(self.tabWidget.indexOf(QTabWidgetSHA256()), name_tab)
+            self.SHA256 = QTabWidgetSHA256()
+            self.tabWidget.addTab(self.SHA256, name_tab)
+            self.tabWidget.setTabText(self.tabWidget.indexOf(self.SHA256), name_tab)
+            self.tabWidget.setCurrentIndex(self.tabWidget.indexOf(self.SHA256))
 
         # Connect the tab close event to a method
         self.tabWidget.tabCloseRequested.connect(self.close_tab)

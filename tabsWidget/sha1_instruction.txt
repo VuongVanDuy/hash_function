@@ -38,6 +38,12 @@ Perform 80 rounds of operations using the auxiliary functions, constants, and th
 For t in 0 to 79:
 Compute:
 T = rotate_left(A, 5) + F(t, B, C, D) + E + W[t] + K[t]
+Where:
+If 0 ≤ t ≤ 19: K[t] = 0x5A827999
+If 20 ≤ t ≤ 39: K[t] = 0x6ED9EBA1
+If 40 ≤ t ≤ 59: K[t] = 0x8F1BBCDC
+If 60 ≤ t ≤ 79: K[t] = 0xCA62C1D6
+
 Update:
 E = D
 D = C

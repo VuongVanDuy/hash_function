@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'formpfnmUS.ui'
+## Form generated from reading UI file 'formrQguZt.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.9.0
 ##
@@ -25,7 +25,7 @@ class Ui_Form(object):
     def setupUi(self, Form):
         if not Form.objectName():
             Form.setObjectName(u"Form")
-        Form.resize(1293, 747)
+        Form.resize(1309, 747)
         sizePolicy = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -567,12 +567,12 @@ class Ui_Form(object):
 
         self.gridLayout.addWidget(self.groupSC, 2, 0, 1, 1)
 
-        self.operator2 = QPushButton(self.frame_21)
-        self.operator2.setObjectName(u"operator2")
-        sizePolicy.setHeightForWidth(self.operator2.sizePolicy().hasHeightForWidth())
-        self.operator2.setSizePolicy(sizePolicy)
-        self.operator2.setMinimumSize(QSize(52, 52))
-        self.operator2.setStyleSheet(u"QPushButton {\n"
+        self.operator3 = QPushButton(self.frame_21)
+        self.operator3.setObjectName(u"operator3")
+        sizePolicy.setHeightForWidth(self.operator3.sizePolicy().hasHeightForWidth())
+        self.operator3.setSizePolicy(sizePolicy)
+        self.operator3.setMinimumSize(QSize(52, 52))
+        self.operator3.setStyleSheet(u"QPushButton {\n"
 "    background-color: qlineargradient(\n"
 "        x1: 0, y1: 0, x2: 0, y2: 1,\n"
 "        stop: 0 #73C2FB, stop: 1 #2E86C1);\n"
@@ -585,10 +585,10 @@ class Ui_Form(object):
 "}")
         icon8 = QIcon()
         icon8.addFile(u":/icons/iconsDark/plus-circle.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
-        self.operator2.setIcon(icon8)
-        self.operator2.setIconSize(QSize(35, 35))
+        self.operator3.setIcon(icon8)
+        self.operator3.setIconSize(QSize(35, 35))
 
-        self.gridLayout.addWidget(self.operator2, 1, 1, 1, 1)
+        self.gridLayout.addWidget(self.operator3, 1, 1, 1, 1)
 
         self.operator1 = QPushButton(self.frame_21)
         self.operator1.setObjectName(u"operator1")
@@ -746,12 +746,12 @@ class Ui_Form(object):
 
         self.verticalLayout_2 = QVBoxLayout()
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
-        self.operator3 = QPushButton(self.frameLay)
-        self.operator3.setObjectName(u"operator3")
-        sizePolicy.setHeightForWidth(self.operator3.sizePolicy().hasHeightForWidth())
-        self.operator3.setSizePolicy(sizePolicy)
-        self.operator3.setMinimumSize(QSize(52, 52))
-        self.operator3.setStyleSheet(u"QPushButton {\n"
+        self.operator2 = QPushButton(self.frameLay)
+        self.operator2.setObjectName(u"operator2")
+        sizePolicy.setHeightForWidth(self.operator2.sizePolicy().hasHeightForWidth())
+        self.operator2.setSizePolicy(sizePolicy)
+        self.operator2.setMinimumSize(QSize(52, 52))
+        self.operator2.setStyleSheet(u"QPushButton {\n"
 "    background-color: qlineargradient(\n"
 "        x1: 0, y1: 0, x2: 0, y2: 1,\n"
 "        stop: 0 #73C2FB, stop: 1 #2E86C1);\n"
@@ -762,10 +762,10 @@ class Ui_Form(object):
 "    max-width: 50px;\n"
 "    max-height: 50px;\n"
 "}")
-        self.operator3.setIcon(icon8)
-        self.operator3.setIconSize(QSize(35, 35))
+        self.operator2.setIcon(icon8)
+        self.operator2.setIconSize(QSize(35, 35))
 
-        self.verticalLayout_2.addWidget(self.operator3, 0, Qt.AlignmentFlag.AlignHCenter)
+        self.verticalLayout_2.addWidget(self.operator2, 0, Qt.AlignmentFlag.AlignHCenter)
 
         self.operator5 = QPushButton(self.frameLay)
         self.operator5.setObjectName(u"operator5")
@@ -1140,7 +1140,7 @@ class Ui_Form(object):
         self.operator4.setText("")
         self.groupSC.setTitle(QCoreApplication.translate("Form", u"Shift constant (SC)", None))
         self.labelSC.setText("")
-        self.operator2.setText("")
+        self.operator3.setText("")
         self.operator1.setText("")
         self.groupF.setTitle(QCoreApplication.translate("Form", u"F", None))
         self.labelValueF.setText("")
@@ -1156,7 +1156,7 @@ class Ui_Form(object):
         self.labelValueC.setText("")
         self.groupD.setTitle(QCoreApplication.translate("Form", u"D", None))
         self.labelValueD.setText("")
-        self.operator3.setText("")
+        self.operator2.setText("")
         self.operator5.setText("")
         self.operator6.setText("")
         self.instruction.setHtml(QCoreApplication.translate("Form", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"

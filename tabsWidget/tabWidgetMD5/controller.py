@@ -6,7 +6,7 @@ from tabsWidget.config import StateWidget, get_instruction_algorithm, MD5_INSTRU
 from tabsWidget.customWidget.customDialog import QCustomDialog
 from hash.md5 import MD5
 
-class FormContainer(Ui_Form, QWidget):
+class ContainerControl(Ui_Form, QWidget):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
@@ -26,8 +26,8 @@ class FormContainer(Ui_Form, QWidget):
         self.btnPreviousStep.clicked.connect(self.pre_step)
         self.btnNextRound.clicked.connect(self.next_round)
         self.btnPreviousRound.clicked.connect(self.pre_round)
-        self.btnNextBlock.clicked.connect(self.next_block)
-        self.btnPreviousBlock.clicked.connect(self.pre_block)
+        self.btnNextBlock.clicked.connect(lambda: self.next_block(effect_on=True))
+        self.btnPreviousBlock.clicked.connect(lambda: self.pre_block(effect_on=True))
         self.finish.clicked.connect(self.finish_process)
         self.Clear.clicked.connect(self.clear_inputs)
         self.zoom_1.clicked.connect(self.show_zoom_plaintext)
@@ -36,7 +36,7 @@ class FormContainer(Ui_Form, QWidget):
 
     def show_zoom_plaintext(self):
         content = self.plaintext.text()
-        self.customDialog_1 = QCustomDialog(content=content, title="Plaintext")
+        self.customDialog_1 = QCustomDialog(content=content, title="Plaintext", type="Plaintext")
         self.customDialog_1.show()
 
     def show_zoom_plaintext_with_padding(self):
@@ -283,7 +283,7 @@ class FormContainer(Ui_Form, QWidget):
                                      active=False)
                 return
             else:
-                self.next_block()
+                self.next_block(effect_on=False)
         elif current_round < 4:
             newRound = current_round + 1
             newStepRound = 1
@@ -305,6 +305,7 @@ class FormContainer(Ui_Form, QWidget):
 
             if (self.currentBlock.value() == len(self.md5Control.blocks) - 1 and newRound == 4):
                 self.btnNextRound.setEnabled(False)
+        self.visual_state_change_step()
 
     def pre_round(self):
         self.btnNextRound.setEnabled(True)
@@ -333,7 +334,7 @@ class FormContainer(Ui_Form, QWidget):
                 self.start_round()
             else:
                 self.currentBlock.setValue(curr_block + 1)
-                self.pre_block()
+                self.pre_block(effect_on=False)
         else:
             newRound = current_round - 1
             newStepRound = 1
@@ -350,9 +351,10 @@ class FormContainer(Ui_Form, QWidget):
             }
 
             self.set_state_buffer_of_step(curr_block, newRound, newStepRound, buffer_AC_SC, buffer_ABCDF, None)
+        self.visual_state_change_step()
 
-    def next_block(self):
-        self.visual_state_change_block(notStart=True)
+    def next_block(self, effect_on=True):
+        self.visual_state_change_block(notStart=True, effect_on=effect_on)
 
         curr_block = self.currentBlock.value() + 1
         if curr_block > len(self.md5Control.blocks) - 1:
@@ -383,7 +385,7 @@ class FormContainer(Ui_Form, QWidget):
         if self.currentBlock.value() == len(self.md5Control.blocks) - 1:
             self.btnNextBlock.setEnabled(False)
 
-    def pre_block(self):
+    def pre_block(self, effect_on=True):
         curr_block = self.currentBlock.value() - 1
         if curr_block < 0:
             return
@@ -392,12 +394,12 @@ class FormContainer(Ui_Form, QWidget):
         step = 0
 
         if curr_block == 0:
-            self.visual_state_change_block(notStart=False)
+            self.visual_state_change_block(notStart=False, effect_on=effect_on)
             self.start_round()
             self.set_enable_btns(list_btns=[self.btnPreviousStep, self.btnPreviousRound, self.btnPreviousBlock],
                                  active=False)
         else:
-            self.visual_state_change_block(notStart=True)
+            self.visual_state_change_block(notStart=True, effect_on=effect_on)
             buffer_ABCDF = {
                 "little_endian": self.steps_of_block[curr_block - 1]["end_of_block"]["little_endian"]
                                  + self.steps_of_block[curr_block]["buffers_state"]["little_endian"][step][2:],
@@ -487,7 +489,9 @@ class FormContainer(Ui_Form, QWidget):
         groupBoxWord.setStyleSheet(states.GroupActive)
         QTimer.singleShot(timeSkip, lambda: groupBoxWord.setStyleSheet(states.GroupDeFault))
 
-    def visual_state_change_block(self, notStart=True):
+    def visual_state_change_block(self, notStart=True, effect_on=True):
+        if not effect_on:
+            return
         states = StateWidget()
         if notStart:
             self.operator6.setStyleSheet(states.OperatorActive)
