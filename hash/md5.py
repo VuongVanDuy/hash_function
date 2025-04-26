@@ -92,7 +92,8 @@ class MD5:
                 "end_of_block": {
                     "little_endian": [],
                     "big_endian": []
-                }
+                },
+                "intermediate_results": {}
             }
             # Split the block into 16 words of 32 bits each
             words = [block[i:i + 32] for i in range(0, 512, 32)]
@@ -102,6 +103,7 @@ class MD5:
 
             # Perform the main MD5 algorithm
             for i in range(64):
+                interm_res = []
                 if i < 16:
                     F = self.__f_functions[0](B1, C1, D1)
                     g = i
@@ -115,13 +117,22 @@ class MD5:
                     F = self.__f_functions[3](B1, C1, D1)
                     g = (7 * i) % 16
 
-                f = self.add_operator(F, A1)
-                f = self.add_operator(f, words[g])
+                temp = self.add_operator(F, A1)
+                interm_res.append(temp)
+                temp = self.add_operator(temp, words[g])
+                interm_res.append(temp)
                 T, shift = self.__T[i], self.__shift_constants[i // 16][i % 4]
-                f = self.add_operator(f, int2ba(T, length=32))
-                f = self.rotate_left(f, shift)
-                f = self.add_operator(f, B1)
-                A1, B1, C1, D1 = D1, f, B1, C1
+                temp = self.add_operator(temp, int2ba(T, length=32))
+                interm_res.append(temp)
+                temp = self.rotate_left(temp, shift)
+                interm_res.append(temp)
+                temp = self.add_operator(temp, B1)
+                interm_res.append(temp)
+
+                self.addIntermediateResultsToCache(cache=self.cache[f"block_{k}"][f"intermediate_results"],
+                                                   step=i,
+                                                   results=interm_res)
+                A1, B1, C1, D1 = D1, temp, B1, C1
 
                 self.addNewStateToCache(self.cache[f"block_{k}"]["buffers_state"],
                                         [T, shift, F, A1, B1, C1, D1])
@@ -139,6 +150,15 @@ class MD5:
         self.hash_bin = A + B + C + D
         self.hash_hex = bin_to_hex(block_to_little_endian(self.hash_bin), version=128)
         return self.hash_hex
+
+    def addIntermediateResultsToCache(self, cache: dict, step: int, results: list[bitarray]) -> None:
+        cache[f"step_{step}"] = {
+            "little_endian": [],
+            "big_endian": []
+        }
+        for result in results:
+            cache[f"step_{step}"]["little_endian"].append(ba2int(result))
+            cache[f"step_{step}"]["big_endian"].append(bin_to_hex(block_to_little_endian(result)))
 
     def addEndOfBlockToCache(self, cache: dict, states: list[bitarray]) -> None:
         for state in states:

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'formFVrbhC.ui'
+## Form generated from reading UI file 'formgxDcdT.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.9.0
 ##
@@ -25,7 +25,7 @@ class Ui_Form(object):
     def setupUi(self, Form):
         if not Form.objectName():
             Form.setObjectName(u"Form")
-        Form.resize(1466, 787)
+        Form.resize(1466, 810)
         sizePolicy = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -37,6 +37,15 @@ class Ui_Form(object):
         self.titleLayout.setObjectName(u"titleLayout")
         self.labelTitle = QLabel(Form)
         self.labelTitle.setObjectName(u"labelTitle")
+        self.labelTitle.setStyleSheet(u"QLabel {\n"
+"        font-family: 'Arial', sans-serif;\n"
+"        font-size: 24px;\n"
+"        font-weight: bold;\n"
+"        color: #4CAF50;  /* M\u00e0u xanh l\u00e1 */\n"
+"        background-color: #f4f4f4; /* M\u00e0u n\u1ec1n s\u00e1ng */\n"
+"        padding: 5px;\n"
+"        border-radius: 5px;\n"
+"    }")
         self.labelTitle.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
         self.titleLayout.addWidget(self.labelTitle)
@@ -778,6 +787,7 @@ class Ui_Form(object):
         self.gridLayout_2.setObjectName(u"gridLayout_2")
         self.verticalLayout_2 = QVBoxLayout()
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
+        self.verticalLayout_2.setContentsMargins(4, -1, 4, -1)
         self.operator6 = QPushButton(self.frameLay)
         self.operator6.setObjectName(u"operator6")
         self.operator6.setEnabled(True)
@@ -809,13 +819,13 @@ class Ui_Form(object):
         self.frame_11.setFrameShadow(QFrame.Shadow.Raised)
         self.horizontalLayout_9 = QHBoxLayout(self.frame_11)
         self.horizontalLayout_9.setObjectName(u"horizontalLayout_9")
-        self.horizontalLayout_9.setContentsMargins(9, 9, 9, 9)
+        self.horizontalLayout_9.setContentsMargins(9, 0, 9, 0)
         self.instruction = QTextEdit(self.frame_11)
         self.instruction.setObjectName(u"instruction")
         self.instruction.setEnabled(True)
         sizePolicy.setHeightForWidth(self.instruction.sizePolicy().hasHeightForWidth())
         self.instruction.setSizePolicy(sizePolicy)
-        self.instruction.setMinimumSize(QSize(0, 180))
+        self.instruction.setMinimumSize(QSize(0, 200))
         self.instruction.setReadOnly(True)
 
         self.horizontalLayout_9.addWidget(self.instruction)

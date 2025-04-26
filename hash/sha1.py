@@ -123,7 +123,6 @@ class SHA1:
                 self.addIntermediateResultsToCache(cache=self.cache[f"block_{k}"][f"intermediate_results"],
                                                    step=i,
                                                    results=interm_res)
-
                 E1 = D1
                 D1 = C1
                 C1 = self.rotate_left(B1, self.__ROL30)

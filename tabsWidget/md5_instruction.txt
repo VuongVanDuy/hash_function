@@ -33,7 +33,7 @@ Here is a step-by-step explanation of how to implement the MD5 algorithm:
      • If 16≤i<32: F=G(b,c,d), g=(5i+1) mod 16
      • If 32≤i<48: F=H(b,c,d), g=(3i+5) mod 16
      • If 48≤i<64: F=I(b,c,d), g=(7i) mod 16
-     • temp = a + F + K[i] + M[g] (all mod 2³²)
+     • temp = a + F + M[g] + K[i] (all mod 2³²)
      • a = d; d = c; c = b;  
      • b = (b + leftrotate(temp, r[i])) mod 2³²
   4. A=(A+a) mod 2³², B=(B+b) mod 2³², C=(C+c) mod 2³², D=(D+d) mod 2³²

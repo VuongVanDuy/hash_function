@@ -494,7 +494,7 @@ class ContainerControl(Ui_Form, QWidget):
             return
         states = StateWidget()
         if notStart:
-            self.operator6.setStyleSheet(states.OperatorActive)
+            self.operator5.setStyleSheet(states.OperatorActive)
         self.groupH1.setStyleSheet(states.GroupRes)
         self.groupH2.setStyleSheet(states.GroupRes)
         self.groupH3.setStyleSheet(states.GroupRes)
@@ -506,7 +506,7 @@ class ContainerControl(Ui_Form, QWidget):
 
         timeSkip = states.timeSkip // 2
         if notStart:
-            QTimer.singleShot(timeSkip, lambda: self.operator6.setStyleSheet(states.OperatorDefault))
+            QTimer.singleShot(timeSkip, lambda: self.operator5.setStyleSheet(states.OperatorDefault))
         QTimer.singleShot(timeSkip, lambda: self.groupH1.setStyleSheet(states.GroupDeFault))
         QTimer.singleShot(timeSkip, lambda: self.groupH2.setStyleSheet(states.GroupDeFault))
         QTimer.singleShot(timeSkip, lambda: self.groupH3.setStyleSheet(states.GroupDeFault))
@@ -565,7 +565,11 @@ class ContainerControl(Ui_Form, QWidget):
         self.timer = QTimer()
         current_step_of_round = self.stepRound.value()
         current_round = self.round.value()
+        current_block = self.currentBlock.value()
         step = (current_round - 1) * 16 + (current_step_of_round - 1)
+        integers_little_endian = self.steps_of_block[current_block]["intermediate_results"][f"step_{step}"]["little_endian"]
+        hexs_big_endian = self.steps_of_block[current_block]["intermediate_results"][f"step_{step}"]["big_endian"]
+
         word_object = self.get_groupBox_of_word(step)
 
         states = StateWidget()
@@ -585,27 +589,51 @@ class ContainerControl(Ui_Form, QWidget):
         self.next_object_with_delay(states.timeSkip, self.operator1, states.OperatorDefault)
         self.groupA.setStyleSheet(states.GroupDeFault)
         self.groupF.setStyleSheet(states.GroupDeFault)
-        word_object.setStyleSheet(states.GroupActive)
+        self.groupIntermRes.setStyleSheet(states.GroupRes)
+        self.labelValueInterm.setText(str(integers_little_endian[0]) + '\n' + hexs_big_endian[0])
+
+        self.next_object_with_delay(states.timeSkip, word_object, states.GroupActive)
+        self.groupIntermRes.setStyleSheet(states.GroupActive)
         self.operator2.setStyleSheet(states.OperatorActive)
 
         self.next_object_with_delay(states.timeSkip, self.operator2, states.OperatorDefault)
         word_object.setStyleSheet(states.GroupDeFault)
-        self.groupAC.setStyleSheet(states.GroupActive)
+        self.groupIntermRes.setStyleSheet(states.GroupRes)
+        self.labelValueInterm.setText(str(integers_little_endian[1]) + '\n' + hexs_big_endian[1])
+
+        self.next_object_with_delay(states.timeSkip, self.groupAC, states.GroupActive)
+        self.groupIntermRes.setStyleSheet(states.GroupActive)
         self.operator3.setStyleSheet(states.OperatorActive)
 
         self.next_object_with_delay(states.timeSkip, self.operator3, states.OperatorDefault)
         self.groupAC.setStyleSheet(states.GroupDeFault)
-        self.groupSC.setStyleSheet(states.GroupActive)
+        self.groupIntermRes.setStyleSheet(states.GroupRes)
+        self.labelValueInterm.setText(str(integers_little_endian[2]) + '\n' + hexs_big_endian[2])
+
+        self.next_object_with_delay(states.timeSkip, self.groupSC, states.GroupActive)
+        self.groupIntermRes.setStyleSheet(states.GroupActive)
         self.operator4.setStyleSheet(states.OperatorActive)
 
         self.next_object_with_delay(states.timeSkip, self.operator4, states.OperatorDefault)
         self.groupSC.setStyleSheet(states.GroupDeFault)
-        self.groupB.setStyleSheet(states.GroupActive)
-        self.operator5.setStyleSheet(states.OperatorActive)
+        self.groupIntermRes.setStyleSheet(states.GroupRes)
+        self.labelValueInterm.setText(str(integers_little_endian[3]) + '\n' + hexs_big_endian[3])
+
+        self.next_object_with_delay(states.timeSkip, self.groupB, states.GroupActive)
+        self.groupIntermRes.setStyleSheet(states.GroupActive)
+        self.operator2.setStyleSheet(states.OperatorActive)
+
+        self.next_object_with_delay(states.timeSkip, self.operator2, states.OperatorDefault)
+        self.groupB.setStyleSheet(states.GroupDeFault)
+        self.groupIntermRes.setStyleSheet(states.GroupRes)
+        self.labelValueInterm.setText(str(integers_little_endian[4]) + '\n' + hexs_big_endian[4])
+
+        self.next_object_with_delay(states.timeSkip, self.groupIntermRes, states.GroupActive)
         self.groupB_new.setStyleSheet(states.GroupRes)
 
-        self.next_object_with_delay(states.timeSkip, self.operator5, states.OperatorDefault)
+        self.next_object_with_delay(states.timeSkip, self.groupIntermRes, states.GroupDeFault)
         self.groupB_new.setStyleSheet(states.GroupDeFault)
+        self.groupB.setStyleSheet(states.GroupActive)
         self.groupC_new.setStyleSheet(states.GroupRes)
 
         self.next_object_with_delay(states.timeSkip, self.groupB, states.GroupDeFault)
@@ -620,6 +648,7 @@ class ContainerControl(Ui_Form, QWidget):
 
         self.next_object_with_delay(states.timeSkip, self.groupD, states.GroupDeFault)
         self.groupA_new.setStyleSheet(states.GroupDeFault)
+        self.labelValueInterm.setText('')
 
         self.change_to_btnDetailStep()
 

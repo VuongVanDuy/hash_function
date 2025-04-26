@@ -605,7 +605,6 @@ class ContainerControl(Ui_Form, QWidget):
         self.groupF.setStyleSheet(states.GroupRes)
 
         self.next_object_with_delay(states.timeSkip, self.groupA, states.GroupActive)
-        # self.groupF.setStyleSheet(states.GroupDeFault)
         self.groupSC_A.setStyleSheet(states.GroupActive)
         self.operator5.setStyleSheet(states.OperatorActive)
 
@@ -643,10 +642,10 @@ class ContainerControl(Ui_Form, QWidget):
         self.labelValueInterm.setText(str(integers_big_endian[3]) + '\n' + hexs_big_endian[3])
 
         self.next_object_with_delay(states.timeSkip, self.groupAC, states.GroupActive)
-        self.operator2.setStyleSheet(states.OperatorActive)
+        self.operator3.setStyleSheet(states.OperatorActive)
         self.groupIntermRes.setStyleSheet(states.GroupActive)
 
-        self.next_object_with_delay(states.timeSkip, self.operator2, states.OperatorDefault)
+        self.next_object_with_delay(states.timeSkip, self.operator3, states.OperatorDefault)
         self.groupAC.setStyleSheet(states.GroupDeFault)
         self.groupIntermRes.setStyleSheet(states.GroupRes)
         self.labelValueInterm.setText(str(integers_big_endian[4]) + '\n' + hexs_big_endian[4])

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'formrQguZt.ui'
+## Form generated from reading UI file 'formjnZyXh.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.9.0
 ##
@@ -25,7 +25,7 @@ class Ui_Form(object):
     def setupUi(self, Form):
         if not Form.objectName():
             Form.setObjectName(u"Form")
-        Form.resize(1309, 747)
+        Form.resize(1309, 755)
         sizePolicy = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -37,6 +37,15 @@ class Ui_Form(object):
         self.titleLayout.setObjectName(u"titleLayout")
         self.labelTitle = QLabel(Form)
         self.labelTitle.setObjectName(u"labelTitle")
+        self.labelTitle.setStyleSheet(u"QLabel {\n"
+"        font-family: 'Arial', sans-serif;\n"
+"        font-size: 24px;\n"
+"        font-weight: bold;\n"
+"        color: #4CAF50;  /* M\u00e0u xanh l\u00e1 */\n"
+"        background-color: #f4f4f4; /* M\u00e0u n\u1ec1n s\u00e1ng */\n"
+"        padding: 5px;\n"
+"        border-radius: 5px;\n"
+"    }")
         self.labelTitle.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
         self.titleLayout.addWidget(self.labelTitle)
@@ -616,7 +625,6 @@ class Ui_Form(object):
         self.groupF.setObjectName(u"groupF")
         sizePolicy.setHeightForWidth(self.groupF.sizePolicy().hasHeightForWidth())
         self.groupF.setSizePolicy(sizePolicy)
-        self.groupF.setMinimumSize(QSize(90, 68))
         self.verticalLayout_8 = QVBoxLayout(self.groupF)
         self.verticalLayout_8.setObjectName(u"verticalLayout_8")
         self.labelValueF = QLabel(self.groupF)
@@ -641,24 +649,45 @@ class Ui_Form(object):
 
         self.gridLayout.addWidget(self.groupAC, 1, 0, 1, 1)
 
-        self.groupBox = QGroupBox(self.frame_21)
-        self.groupBox.setObjectName(u"groupBox")
-        sizePolicy.setHeightForWidth(self.groupBox.sizePolicy().hasHeightForWidth())
-        self.groupBox.setSizePolicy(sizePolicy)
-        self.groupBox.setMinimumSize(QSize(90, 68))
-        self.verticalLayout_12 = QVBoxLayout(self.groupBox)
+        self.groupIntermRes = QGroupBox(self.frame_21)
+        self.groupIntermRes.setObjectName(u"groupIntermRes")
+        sizePolicy.setHeightForWidth(self.groupIntermRes.sizePolicy().hasHeightForWidth())
+        self.groupIntermRes.setSizePolicy(sizePolicy)
+        self.groupIntermRes.setMinimumSize(QSize(90, 68))
+        self.verticalLayout_12 = QVBoxLayout(self.groupIntermRes)
         self.verticalLayout_12.setObjectName(u"verticalLayout_12")
-        self.label_2 = QLabel(self.groupBox)
-        self.label_2.setObjectName(u"label_2")
+        self.labelValueInterm = QLabel(self.groupIntermRes)
+        self.labelValueInterm.setObjectName(u"labelValueInterm")
 
-        self.verticalLayout_12.addWidget(self.label_2)
+        self.verticalLayout_12.addWidget(self.labelValueInterm)
 
 
-        self.gridLayout.addWidget(self.groupBox, 4, 0, 1, 1)
+        self.gridLayout.addWidget(self.groupIntermRes, 4, 0, 1, 1)
 
         self.verticalSpacer_2 = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
 
         self.gridLayout.addItem(self.verticalSpacer_2, 3, 0, 1, 1)
+
+        self.operator2 = QPushButton(self.frame_21)
+        self.operator2.setObjectName(u"operator2")
+        sizePolicy.setHeightForWidth(self.operator2.sizePolicy().hasHeightForWidth())
+        self.operator2.setSizePolicy(sizePolicy)
+        self.operator2.setMinimumSize(QSize(52, 52))
+        self.operator2.setStyleSheet(u"QPushButton {\n"
+"    background-color: qlineargradient(\n"
+"        x1: 0, y1: 0, x2: 0, y2: 1,\n"
+"        stop: 0 #73C2FB, stop: 1 #2E86C1);\n"
+"    border: 1px solid #2E86C1;\n"
+"    border-radius: 25px;\n"
+"    min-width: 50px;\n"
+"    min-height: 50px;\n"
+"    max-width: 50px;\n"
+"    max-height: 50px;\n"
+"}")
+        self.operator2.setIcon(icon8)
+        self.operator2.setIconSize(QSize(35, 35))
+
+        self.gridLayout.addWidget(self.operator2, 4, 1, 1, 1)
 
 
         self.gridLayout_4.addWidget(self.frame_21, 0, 1, 1, 1)
@@ -746,29 +775,10 @@ class Ui_Form(object):
 
         self.verticalLayout_2 = QVBoxLayout()
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
-        self.operator2 = QPushButton(self.frameLay)
-        self.operator2.setObjectName(u"operator2")
-        sizePolicy.setHeightForWidth(self.operator2.sizePolicy().hasHeightForWidth())
-        self.operator2.setSizePolicy(sizePolicy)
-        self.operator2.setMinimumSize(QSize(52, 52))
-        self.operator2.setStyleSheet(u"QPushButton {\n"
-"    background-color: qlineargradient(\n"
-"        x1: 0, y1: 0, x2: 0, y2: 1,\n"
-"        stop: 0 #73C2FB, stop: 1 #2E86C1);\n"
-"    border: 1px solid #2E86C1;\n"
-"    border-radius: 25px;\n"
-"    min-width: 50px;\n"
-"    min-height: 50px;\n"
-"    max-width: 50px;\n"
-"    max-height: 50px;\n"
-"}")
-        self.operator2.setIcon(icon8)
-        self.operator2.setIconSize(QSize(35, 35))
-
-        self.verticalLayout_2.addWidget(self.operator2, 0, Qt.AlignmentFlag.AlignHCenter)
-
+        self.verticalLayout_2.setContentsMargins(6, -1, 6, -1)
         self.operator5 = QPushButton(self.frameLay)
         self.operator5.setObjectName(u"operator5")
+        self.operator5.setEnabled(True)
         sizePolicy.setHeightForWidth(self.operator5.sizePolicy().hasHeightForWidth())
         self.operator5.setSizePolicy(sizePolicy)
         self.operator5.setMinimumSize(QSize(52, 52))
@@ -786,29 +796,7 @@ class Ui_Form(object):
         self.operator5.setIcon(icon8)
         self.operator5.setIconSize(QSize(35, 35))
 
-        self.verticalLayout_2.addWidget(self.operator5, 0, Qt.AlignmentFlag.AlignHCenter)
-
-        self.operator6 = QPushButton(self.frameLay)
-        self.operator6.setObjectName(u"operator6")
-        self.operator6.setEnabled(True)
-        sizePolicy.setHeightForWidth(self.operator6.sizePolicy().hasHeightForWidth())
-        self.operator6.setSizePolicy(sizePolicy)
-        self.operator6.setMinimumSize(QSize(52, 52))
-        self.operator6.setStyleSheet(u"QPushButton {\n"
-"    background-color: qlineargradient(\n"
-"        x1: 0, y1: 0, x2: 0, y2: 1,\n"
-"        stop: 0 #73C2FB, stop: 1 #2E86C1);\n"
-"    border: 1px solid #2E86C1;\n"
-"    border-radius: 25px;\n"
-"    min-width: 50px;\n"
-"    min-height: 50px;\n"
-"    max-width: 50px;\n"
-"    max-height: 50px;\n"
-"}")
-        self.operator6.setIcon(icon8)
-        self.operator6.setIconSize(QSize(35, 35))
-
-        self.verticalLayout_2.addWidget(self.operator6)
+        self.verticalLayout_2.addWidget(self.operator5)
 
 
         self.gridLayout_2.addLayout(self.verticalLayout_2, 0, 0, 2, 1)
@@ -819,7 +807,7 @@ class Ui_Form(object):
         self.frame_11.setFrameShadow(QFrame.Shadow.Raised)
         self.horizontalLayout_9 = QHBoxLayout(self.frame_11)
         self.horizontalLayout_9.setObjectName(u"horizontalLayout_9")
-        self.horizontalLayout_9.setContentsMargins(0, -1, 0, -1)
+        self.horizontalLayout_9.setContentsMargins(0, 0, 0, 0)
         self.instruction = QTextEdit(self.frame_11)
         self.instruction.setObjectName(u"instruction")
         self.instruction.setEnabled(True)
@@ -1146,8 +1134,9 @@ class Ui_Form(object):
         self.labelValueF.setText("")
         self.groupAC.setTitle(QCoreApplication.translate("Form", u"Addition constant (AC)", None))
         self.labelAC.setText("")
-        self.groupBox.setTitle(QCoreApplication.translate("Form", u"Intermediate results", None))
-        self.label_2.setText("")
+        self.groupIntermRes.setTitle(QCoreApplication.translate("Form", u"Intermediate results", None))
+        self.labelValueInterm.setText("")
+        self.operator2.setText("")
         self.groupA.setTitle(QCoreApplication.translate("Form", u"A", None))
         self.labelValueA.setText("")
         self.groupB.setTitle(QCoreApplication.translate("Form", u"B", None))
@@ -1156,9 +1145,7 @@ class Ui_Form(object):
         self.labelValueC.setText("")
         self.groupD.setTitle(QCoreApplication.translate("Form", u"D", None))
         self.labelValueD.setText("")
-        self.operator2.setText("")
         self.operator5.setText("")
-        self.operator6.setText("")
         self.instruction.setHtml(QCoreApplication.translate("Form", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"

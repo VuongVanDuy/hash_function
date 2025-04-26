@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1309</width>
-    <height>747</height>
+    <height>755</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -24,6 +24,17 @@
     <layout class="QHBoxLayout" name="titleLayout">
      <item>
       <widget class="QLabel" name="labelTitle">
+       <property name="styleSheet">
+        <string notr="true">QLabel {
+        font-family: 'Arial', sans-serif;
+        font-size: 24px;
+        font-weight: bold;
+        color: #4CAF50;  /* Màu xanh lá */
+        background-color: #f4f4f4; /* Màu nền sáng */
+        padding: 5px;
+        border-radius: 5px;
+    }</string>
+       </property>
        <property name="text">
         <string>Performing compression step</string>
        </property>
@@ -1034,7 +1045,7 @@
          </widget>
         </item>
         <item row="4" column="0">
-         <widget class="QGroupBox" name="groupBox">
+         <widget class="QGroupBox" name="groupIntermRes">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
             <horstretch>0</horstretch>
@@ -1052,7 +1063,7 @@
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_12">
            <item>
-            <widget class="QLabel" name="label_2">
+            <widget class="QLabel" name="labelValueInterm">
              <property name="text">
               <string/>
              </property>
@@ -1073,6 +1084,48 @@
            </size>
           </property>
          </spacer>
+        </item>
+        <item row="4" column="1">
+         <widget class="QPushButton" name="operator2">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>52</width>
+            <height>52</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QPushButton {
+    background-color: qlineargradient(
+        x1: 0, y1: 0, x2: 0, y2: 1,
+        stop: 0 #73C2FB, stop: 1 #2E86C1);
+    border: 1px solid #2E86C1;
+    border-radius: 25px;
+    min-width: 50px;
+    min-height: 50px;
+    max-width: 50px;
+    max-height: 50px;
+}</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="icon">
+           <iconset resource="../../resources.qrc">
+            <normaloff>:/icons/iconsDark/plus-circle.png</normaloff>:/icons/iconsDark/plus-circle.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>35</width>
+            <height>35</height>
+           </size>
+          </property>
+         </widget>
         </item>
        </layout>
       </widget>
@@ -1227,92 +1280,14 @@
           </item>
           <item row="0" column="0" rowspan="2">
            <layout class="QVBoxLayout" name="verticalLayout_2">
-            <item alignment="Qt::AlignmentFlag::AlignHCenter">
-             <widget class="QPushButton" name="operator2">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="minimumSize">
-               <size>
-                <width>52</width>
-                <height>52</height>
-               </size>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">QPushButton {
-    background-color: qlineargradient(
-        x1: 0, y1: 0, x2: 0, y2: 1,
-        stop: 0 #73C2FB, stop: 1 #2E86C1);
-    border: 1px solid #2E86C1;
-    border-radius: 25px;
-    min-width: 50px;
-    min-height: 50px;
-    max-width: 50px;
-    max-height: 50px;
-}</string>
-              </property>
-              <property name="text">
-               <string/>
-              </property>
-              <property name="icon">
-               <iconset resource="../../resources.qrc">
-                <normaloff>:/icons/iconsDark/plus-circle.png</normaloff>:/icons/iconsDark/plus-circle.png</iconset>
-              </property>
-              <property name="iconSize">
-               <size>
-                <width>35</width>
-                <height>35</height>
-               </size>
-              </property>
-             </widget>
-            </item>
-            <item alignment="Qt::AlignmentFlag::AlignHCenter">
-             <widget class="QPushButton" name="operator5">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="minimumSize">
-               <size>
-                <width>52</width>
-                <height>52</height>
-               </size>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">QPushButton {
-    background-color: qlineargradient(
-        x1: 0, y1: 0, x2: 0, y2: 1,
-        stop: 0 #73C2FB, stop: 1 #2E86C1);
-    border: 1px solid #2E86C1;
-    border-radius: 25px;
-    min-width: 50px;
-    min-height: 50px;
-    max-width: 50px;
-    max-height: 50px;
-}</string>
-              </property>
-              <property name="text">
-               <string/>
-              </property>
-              <property name="icon">
-               <iconset resource="../../resources.qrc">
-                <normaloff>:/icons/iconsDark/plus-circle.png</normaloff>:/icons/iconsDark/plus-circle.png</iconset>
-              </property>
-              <property name="iconSize">
-               <size>
-                <width>35</width>
-                <height>35</height>
-               </size>
-              </property>
-             </widget>
-            </item>
+            <property name="leftMargin">
+             <number>6</number>
+            </property>
+            <property name="rightMargin">
+             <number>6</number>
+            </property>
             <item>
-             <widget class="QPushButton" name="operator6">
+             <widget class="QPushButton" name="operator5">
               <property name="enabled">
                <bool>true</bool>
               </property>
@@ -1370,7 +1345,13 @@
              <property name="leftMargin">
               <number>0</number>
              </property>
+             <property name="topMargin">
+              <number>0</number>
+             </property>
              <property name="rightMargin">
+              <number>0</number>
+             </property>
+             <property name="bottomMargin">
               <number>0</number>
              </property>
              <item>
