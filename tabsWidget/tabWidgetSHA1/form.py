@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'formgxDcdT.ui'
+## Form generated from reading UI file 'formgBTsvR.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.9.0
 ##
@@ -25,14 +25,14 @@ class Ui_Form(object):
     def setupUi(self, Form):
         if not Form.objectName():
             Form.setObjectName(u"Form")
-        Form.resize(1466, 810)
+        Form.resize(1472, 808)
         sizePolicy = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(Form.sizePolicy().hasHeightForWidth())
         Form.setSizePolicy(sizePolicy)
-        self.verticalLayout_3 = QVBoxLayout(Form)
-        self.verticalLayout_3.setObjectName(u"verticalLayout_3")
+        self.verticalLayout_2 = QVBoxLayout(Form)
+        self.verticalLayout_2.setObjectName(u"verticalLayout_2")
         self.titleLayout = QHBoxLayout()
         self.titleLayout.setObjectName(u"titleLayout")
         self.labelTitle = QLabel(Form)
@@ -51,7 +51,7 @@ class Ui_Form(object):
         self.titleLayout.addWidget(self.labelTitle)
 
 
-        self.verticalLayout_3.addLayout(self.titleLayout)
+        self.verticalLayout_2.addLayout(self.titleLayout)
 
         self.horizontalLayout_13 = QHBoxLayout()
         self.horizontalLayout_13.setObjectName(u"horizontalLayout_13")
@@ -117,7 +117,7 @@ class Ui_Form(object):
         self.horizontalLayout_13.addWidget(self.Clear)
 
 
-        self.verticalLayout_3.addLayout(self.horizontalLayout_13)
+        self.verticalLayout_2.addLayout(self.horizontalLayout_13)
 
         self.horizontalLayout_11 = QHBoxLayout()
         self.horizontalLayout_11.setObjectName(u"horizontalLayout_11")
@@ -138,10 +138,10 @@ class Ui_Form(object):
         self.horizontalLayout_11.addWidget(self.zoom_2)
 
 
-        self.verticalLayout_3.addLayout(self.horizontalLayout_11)
+        self.verticalLayout_2.addLayout(self.horizontalLayout_11)
 
-        self.gridLayout_4 = QGridLayout()
-        self.gridLayout_4.setObjectName(u"gridLayout_4")
+        self.gridLayout_2 = QGridLayout()
+        self.gridLayout_2.setObjectName(u"gridLayout_2")
         self.frame_7 = QFrame(Form)
         self.frame_7.setObjectName(u"frame_7")
         sizePolicy.setHeightForWidth(self.frame_7.sizePolicy().hasHeightForWidth())
@@ -567,15 +567,36 @@ class Ui_Form(object):
 
         self.verticalLayout_4.addLayout(self.horizontalLayout_12)
 
-        self.verticalSpacer_3 = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
+        self.verticalSpacer_3 = QSpacerItem(20, 60, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
 
         self.verticalLayout_4.addItem(self.verticalSpacer_3)
+
+        self.label_5 = QLabel(self.frame_12)
+        self.label_5.setObjectName(u"label_5")
+
+        self.verticalLayout_4.addWidget(self.label_5)
+
+        self.instruction = QTextEdit(self.frame_12)
+        self.instruction.setObjectName(u"instruction")
+        self.instruction.setEnabled(True)
+        sizePolicy.setHeightForWidth(self.instruction.sizePolicy().hasHeightForWidth())
+        self.instruction.setSizePolicy(sizePolicy)
+        self.instruction.setMinimumSize(QSize(0, 190))
+        self.instruction.setReadOnly(True)
+
+        self.verticalLayout_4.addWidget(self.instruction)
+
+        self.zoom_3 = QPushButton(self.frame_12)
+        self.zoom_3.setObjectName(u"zoom_3")
+        self.zoom_3.setIcon(icon4)
+
+        self.verticalLayout_4.addWidget(self.zoom_3)
 
 
         self.gridLayout_6.addWidget(self.frame_12, 0, 0, 1, 1)
 
 
-        self.gridLayout_4.addWidget(self.frame_7, 0, 0, 1, 1)
+        self.gridLayout_2.addWidget(self.frame_7, 0, 0, 1, 1)
 
         self.frame_21 = QFrame(Form)
         self.frame_21.setObjectName(u"frame_21")
@@ -588,7 +609,7 @@ class Ui_Form(object):
         self.groupIntermRes.setObjectName(u"groupIntermRes")
         sizePolicy.setHeightForWidth(self.groupIntermRes.sizePolicy().hasHeightForWidth())
         self.groupIntermRes.setSizePolicy(sizePolicy)
-        self.groupIntermRes.setMinimumSize(QSize(90, 68))
+        self.groupIntermRes.setMinimumSize(QSize(150, 72))
         self.verticalLayout_12 = QVBoxLayout(self.groupIntermRes)
         self.verticalLayout_12.setObjectName(u"verticalLayout_12")
         self.labelValueInterm = QLabel(self.groupIntermRes)
@@ -603,7 +624,7 @@ class Ui_Form(object):
         self.groupF.setObjectName(u"groupF")
         sizePolicy.setHeightForWidth(self.groupF.sizePolicy().hasHeightForWidth())
         self.groupF.setSizePolicy(sizePolicy)
-        self.groupF.setMinimumSize(QSize(90, 68))
+        self.groupF.setMinimumSize(QSize(150, 72))
         self.verticalLayout_8 = QVBoxLayout(self.groupF)
         self.verticalLayout_8.setObjectName(u"verticalLayout_8")
         self.labelValueF = QLabel(self.groupF)
@@ -618,7 +639,7 @@ class Ui_Form(object):
         self.groupSC_B.setObjectName(u"groupSC_B")
         sizePolicy.setHeightForWidth(self.groupSC_B.sizePolicy().hasHeightForWidth())
         self.groupSC_B.setSizePolicy(sizePolicy)
-        self.groupSC_B.setMinimumSize(QSize(200, 70))
+        self.groupSC_B.setMinimumSize(QSize(150, 72))
         self.verticalLayout_13 = QVBoxLayout(self.groupSC_B)
         self.verticalLayout_13.setObjectName(u"verticalLayout_13")
         self.labelSC_B = QLabel(self.groupSC_B)
@@ -633,7 +654,7 @@ class Ui_Form(object):
 
         self.gridLayout_3.addItem(self.horizontalSpacer_4, 0, 0, 1, 1)
 
-        self.verticalSpacer = QSpacerItem(17, 27, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
+        self.verticalSpacer = QSpacerItem(17, 27, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
 
         self.gridLayout_3.addItem(self.verticalSpacer, 6, 0, 1, 1)
 
@@ -641,7 +662,7 @@ class Ui_Form(object):
         self.groupAC.setObjectName(u"groupAC")
         sizePolicy.setHeightForWidth(self.groupAC.sizePolicy().hasHeightForWidth())
         self.groupAC.setSizePolicy(sizePolicy)
-        self.groupAC.setMinimumSize(QSize(200, 68))
+        self.groupAC.setMinimumSize(QSize(150, 72))
         self.verticalLayoutAC = QVBoxLayout(self.groupAC)
         self.verticalLayoutAC.setObjectName(u"verticalLayoutAC")
         self.labelAC = QLabel(self.groupAC)
@@ -721,7 +742,7 @@ class Ui_Form(object):
         self.groupSC_A.setObjectName(u"groupSC_A")
         sizePolicy.setHeightForWidth(self.groupSC_A.sizePolicy().hasHeightForWidth())
         self.groupSC_A.setSizePolicy(sizePolicy)
-        self.groupSC_A.setMinimumSize(QSize(200, 68))
+        self.groupSC_A.setMinimumSize(QSize(150, 72))
         self.verticalLayoutSC = QVBoxLayout(self.groupSC_A)
         self.verticalLayoutSC.setObjectName(u"verticalLayoutSC")
         self.labelSC_A = QLabel(self.groupSC_A)
@@ -772,87 +793,59 @@ class Ui_Form(object):
         self.gridLayout_3.addWidget(self.operator2, 7, 1, 1, 1)
 
 
-        self.gridLayout_4.addWidget(self.frame_21, 0, 1, 1, 1)
+        self.gridLayout_2.addWidget(self.frame_21, 0, 1, 1, 1)
 
         self.frameLay = QFrame(Form)
         self.frameLay.setObjectName(u"frameLay")
         self.frameLay.setFrameShape(QFrame.Shape.Box)
         self.gridLayout = QGridLayout(self.frameLay)
         self.gridLayout.setObjectName(u"gridLayout")
-        self.horizontalSpacer = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
+        self.label_3 = QLabel(self.frameLay)
+        self.label_3.setObjectName(u"label_3")
+        self.label_3.setStyleSheet(u"color: rgb(85, 170, 0);\n"
+"font: 700 11pt \"Segoe UI\";")
 
-        self.gridLayout.addItem(self.horizontalSpacer, 4, 0, 1, 1)
+        self.gridLayout.addWidget(self.label_3, 4, 1, 1, 1, Qt.AlignmentFlag.AlignHCenter)
 
-        self.gridLayout_2 = QGridLayout()
-        self.gridLayout_2.setObjectName(u"gridLayout_2")
-        self.verticalLayout_2 = QVBoxLayout()
-        self.verticalLayout_2.setObjectName(u"verticalLayout_2")
-        self.verticalLayout_2.setContentsMargins(4, -1, 4, -1)
-        self.operator6 = QPushButton(self.frameLay)
-        self.operator6.setObjectName(u"operator6")
-        self.operator6.setEnabled(True)
-        sizePolicy.setHeightForWidth(self.operator6.sizePolicy().hasHeightForWidth())
-        self.operator6.setSizePolicy(sizePolicy)
-        self.operator6.setMinimumSize(QSize(52, 52))
-        self.operator6.setStyleSheet(u"QPushButton {\n"
-"    background-color: qlineargradient(\n"
-"        x1: 0, y1: 0, x2: 0, y2: 1,\n"
-"        stop: 0 #73C2FB, stop: 1 #2E86C1);\n"
-"    border: 1px solid #2E86C1;\n"
-"    border-radius: 25px;\n"
-"    min-width: 50px;\n"
-"    min-height: 50px;\n"
-"    max-width: 50px;\n"
-"    max-height: 50px;\n"
-"}")
-        self.operator6.setIcon(icon8)
-        self.operator6.setIconSize(QSize(35, 35))
+        self.verticalSpacer_2 = QSpacerItem(20, 417, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
 
-        self.verticalLayout_2.addWidget(self.operator6, 0, Qt.AlignmentFlag.AlignHCenter)
+        self.gridLayout.addItem(self.verticalSpacer_2, 0, 0, 9, 1)
 
+        self.label_4 = QLabel(self.frameLay)
+        self.label_4.setObjectName(u"label_4")
+        self.label_4.setStyleSheet(u"color: rgb(85, 170, 0);\n"
+"font: 700 11pt \"Segoe UI\";")
 
-        self.gridLayout_2.addLayout(self.verticalLayout_2, 0, 0, 2, 1)
+        self.gridLayout.addWidget(self.label_4, 1, 1, 1, 1, Qt.AlignmentFlag.AlignHCenter)
 
-        self.frame_11 = QFrame(self.frameLay)
-        self.frame_11.setObjectName(u"frame_11")
-        self.frame_11.setFrameShape(QFrame.Shape.NoFrame)
-        self.frame_11.setFrameShadow(QFrame.Shadow.Raised)
-        self.horizontalLayout_9 = QHBoxLayout(self.frame_11)
-        self.horizontalLayout_9.setObjectName(u"horizontalLayout_9")
-        self.horizontalLayout_9.setContentsMargins(9, 0, 9, 0)
-        self.instruction = QTextEdit(self.frame_11)
-        self.instruction.setObjectName(u"instruction")
-        self.instruction.setEnabled(True)
-        sizePolicy.setHeightForWidth(self.instruction.sizePolicy().hasHeightForWidth())
-        self.instruction.setSizePolicy(sizePolicy)
-        self.instruction.setMinimumSize(QSize(0, 200))
-        self.instruction.setReadOnly(True)
+        self.horizontalSpacer_2 = QSpacerItem(489, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
 
-        self.horizontalLayout_9.addWidget(self.instruction)
+        self.gridLayout.addItem(self.horizontalSpacer_2, 6, 1, 1, 1)
 
-        self.zoom_3 = QPushButton(self.frame_11)
-        self.zoom_3.setObjectName(u"zoom_3")
-        self.zoom_3.setIcon(icon4)
+        self.horizontalSpacer_3 = QSpacerItem(489, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
 
-        self.horizontalLayout_9.addWidget(self.zoom_3)
+        self.gridLayout.addItem(self.horizontalSpacer_3, 0, 1, 1, 1)
 
+        self.horizontalSpacer = QSpacerItem(489, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
 
-        self.gridLayout_2.addWidget(self.frame_11, 0, 1, 2, 1)
+        self.gridLayout.addItem(self.horizontalSpacer, 3, 1, 1, 1)
 
+        self.label_2 = QLabel(self.frameLay)
+        self.label_2.setObjectName(u"label_2")
+        self.label_2.setStyleSheet(u"color: rgb(85, 170, 0);\n"
+"font: 700 11pt \"Segoe UI\";")
 
-        self.gridLayout.addLayout(self.gridLayout_2, 2, 0, 1, 1)
+        self.gridLayout.addWidget(self.label_2, 7, 1, 1, 1, Qt.AlignmentFlag.AlignHCenter)
 
         self.frame_5 = QFrame(self.frameLay)
         self.frame_5.setObjectName(u"frame_5")
+        sizePolicy2 = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
+        sizePolicy2.setHorizontalStretch(0)
+        sizePolicy2.setVerticalStretch(0)
+        sizePolicy2.setHeightForWidth(self.frame_5.sizePolicy().hasHeightForWidth())
+        self.frame_5.setSizePolicy(sizePolicy2)
         self.frame_5.setFrameShadow(QFrame.Shadow.Raised)
-        self.verticalLayout_22 = QVBoxLayout(self.frame_5)
-        self.verticalLayout_22.setObjectName(u"verticalLayout_22")
-        self.verticalLayout_22.setContentsMargins(-1, 0, -1, -1)
-        self.horizontalSpacer_5 = QSpacerItem(473, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
-
-        self.verticalLayout_22.addItem(self.horizontalSpacer_5)
-
-        self.horizontalLayout_5 = QHBoxLayout()
+        self.horizontalLayout_5 = QHBoxLayout(self.frame_5)
         self.horizontalLayout_5.setObjectName(u"horizontalLayout_5")
         self.groupH1 = QGroupBox(self.frame_5)
         self.groupH1.setObjectName(u"groupH1")
@@ -930,22 +923,14 @@ class Ui_Form(object):
         self.horizontalLayout_5.addWidget(self.groupH5)
 
 
-        self.verticalLayout_22.addLayout(self.horizontalLayout_5)
-
-
-        self.gridLayout.addWidget(self.frame_5, 5, 0, 1, 1)
+        self.gridLayout.addWidget(self.frame_5, 8, 1, 3, 1)
 
         self.frame_4 = QFrame(self.frameLay)
         self.frame_4.setObjectName(u"frame_4")
+        sizePolicy2.setHeightForWidth(self.frame_4.sizePolicy().hasHeightForWidth())
+        self.frame_4.setSizePolicy(sizePolicy2)
         self.frame_4.setFrameShadow(QFrame.Shadow.Raised)
-        self.verticalLayout_21 = QVBoxLayout(self.frame_4)
-        self.verticalLayout_21.setObjectName(u"verticalLayout_21")
-        self.verticalLayout_21.setContentsMargins(-1, -1, -1, 0)
-        self.horizontalSpacer_7 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
-
-        self.verticalLayout_21.addItem(self.horizontalSpacer_7)
-
-        self.horizontalLayout_4 = QHBoxLayout()
+        self.horizontalLayout_4 = QHBoxLayout(self.frame_4)
         self.horizontalLayout_4.setObjectName(u"horizontalLayout_4")
         self.groupA_new = QGroupBox(self.frame_4)
         self.groupA_new.setObjectName(u"groupA_new")
@@ -1023,23 +1008,17 @@ class Ui_Form(object):
         self.horizontalLayout_4.addWidget(self.groupE_new)
 
 
-        self.verticalLayout_21.addLayout(self.horizontalLayout_4)
-
-
-        self.gridLayout.addWidget(self.frame_4, 3, 0, 1, 1)
+        self.gridLayout.addWidget(self.frame_4, 5, 1, 1, 1)
 
         self.frame_3 = QFrame(self.frameLay)
         self.frame_3.setObjectName(u"frame_3")
-        sizePolicy.setHeightForWidth(self.frame_3.sizePolicy().hasHeightForWidth())
-        self.frame_3.setSizePolicy(sizePolicy)
+        sizePolicy3 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
+        sizePolicy3.setHorizontalStretch(0)
+        sizePolicy3.setVerticalStretch(0)
+        sizePolicy3.setHeightForWidth(self.frame_3.sizePolicy().hasHeightForWidth())
+        self.frame_3.setSizePolicy(sizePolicy3)
         self.frame_3.setFrameShadow(QFrame.Shadow.Raised)
-        self.verticalLayout_20 = QVBoxLayout(self.frame_3)
-        self.verticalLayout_20.setObjectName(u"verticalLayout_20")
-        self.horizontalSpacer_3 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
-
-        self.verticalLayout_20.addItem(self.horizontalSpacer_3)
-
-        self.horizontalLayout_3 = QHBoxLayout()
+        self.horizontalLayout_3 = QHBoxLayout(self.frame_3)
         self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
         self.groupA = QGroupBox(self.frame_3)
         self.groupA.setObjectName(u"groupA")
@@ -1117,21 +1096,35 @@ class Ui_Form(object):
         self.horizontalLayout_3.addWidget(self.groupE)
 
 
-        self.verticalLayout_20.addLayout(self.horizontalLayout_3)
+        self.gridLayout.addWidget(self.frame_3, 2, 1, 1, 1)
+
+        self.operator6 = QPushButton(self.frameLay)
+        self.operator6.setObjectName(u"operator6")
+        self.operator6.setEnabled(True)
+        sizePolicy.setHeightForWidth(self.operator6.sizePolicy().hasHeightForWidth())
+        self.operator6.setSizePolicy(sizePolicy)
+        self.operator6.setMinimumSize(QSize(52, 52))
+        self.operator6.setStyleSheet(u"QPushButton {\n"
+"    background-color: qlineargradient(\n"
+"        x1: 0, y1: 0, x2: 0, y2: 1,\n"
+"        stop: 0 #73C2FB, stop: 1 #2E86C1);\n"
+"    border: 1px solid #2E86C1;\n"
+"    border-radius: 25px;\n"
+"    min-width: 50px;\n"
+"    min-height: 50px;\n"
+"    max-width: 50px;\n"
+"    max-height: 50px;\n"
+"}")
+        self.operator6.setIcon(icon8)
+        self.operator6.setIconSize(QSize(35, 35))
+
+        self.gridLayout.addWidget(self.operator6, 9, 0, 1, 1)
 
 
-        self.gridLayout.addWidget(self.frame_3, 0, 0, 1, 1)
-
-        self.horizontalSpacer_2 = QSpacerItem(473, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
-
-        self.gridLayout.addItem(self.horizontalSpacer_2, 1, 0, 1, 1)
-
-
-        self.gridLayout_4.addWidget(self.frameLay, 0, 2, 2, 1)
+        self.gridLayout_2.addWidget(self.frameLay, 0, 2, 1, 1)
 
         self.frame_10 = QFrame(Form)
         self.frame_10.setObjectName(u"frame_10")
-        self.frame_10.setMinimumSize(QSize(0, 100))
         self.frame_10.setFrameShape(QFrame.Shape.Box)
         self.frame_10.setFrameShadow(QFrame.Shadow.Raised)
         self.horizontalLayout_8 = QHBoxLayout(self.frame_10)
@@ -1155,10 +1148,27 @@ class Ui_Form(object):
         self.horizontalLayout_8.addWidget(self.finish)
 
 
-        self.gridLayout_4.addWidget(self.frame_10, 1, 0, 1, 2)
+        self.gridLayout_2.addWidget(self.frame_10, 1, 0, 1, 2)
+
+        self.frame_11 = QFrame(Form)
+        self.frame_11.setObjectName(u"frame_11")
+        self.frame_11.setFrameShape(QFrame.Shape.Box)
+        self.frame_11.setFrameShadow(QFrame.Shadow.Raised)
+        self.verticalLayout_3 = QVBoxLayout(self.frame_11)
+        self.verticalLayout_3.setObjectName(u"verticalLayout_3")
+        self.textEdit = QTextEdit(self.frame_11)
+        self.textEdit.setObjectName(u"textEdit")
+        self.textEdit.setMinimumSize(QSize(0, 78))
+        self.textEdit.setFrameShape(QFrame.Shape.NoFrame)
+        self.textEdit.setReadOnly(True)
+
+        self.verticalLayout_3.addWidget(self.textEdit)
 
 
-        self.verticalLayout_3.addLayout(self.gridLayout_4)
+        self.gridLayout_2.addWidget(self.frame_11, 1, 2, 1, 1)
+
+
+        self.verticalLayout_2.addLayout(self.gridLayout_2)
 
         self.navLayout = QHBoxLayout()
         self.navLayout.setObjectName(u"navLayout")
@@ -1231,7 +1241,7 @@ class Ui_Form(object):
         self.navLayout.addWidget(self.btnNextBlock)
 
 
-        self.verticalLayout_3.addLayout(self.navLayout)
+        self.verticalLayout_2.addLayout(self.navLayout)
 
 
         self.retranslateUi(Form)
@@ -1296,6 +1306,16 @@ class Ui_Form(object):
         self.label_9.setText(QCoreApplication.translate("Form", u"Current block", None))
         self.labelRound.setText(QCoreApplication.translate("Form", u"Round:", None))
         self.labelStep.setText(QCoreApplication.translate("Form", u"Step:", None))
+        self.label_5.setText(QCoreApplication.translate("Form", u"Instruction algorithm:", None))
+        self.instruction.setHtml(QCoreApplication.translate("Form", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"hr { height: 1px; border-width: 0; }\n"
+"li.unchecked::marker { content: \"\\2610\"; }\n"
+"li.checked::marker { content: \"\\2612\"; }\n"
+"</style></head><body style=\" font-family:'Segoe UI'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>", None))
+        self.zoom_3.setText(QCoreApplication.translate("Form", u"zoom in", None))
         self.groupIntermRes.setTitle(QCoreApplication.translate("Form", u"Intermediate results", None))
         self.labelValueInterm.setText("")
         self.groupF.setTitle(QCoreApplication.translate("Form", u"F", None))
@@ -1311,16 +1331,9 @@ class Ui_Form(object):
         self.labelSC_A.setText("")
         self.operator5.setText("")
         self.operator2.setText("")
-        self.operator6.setText("")
-        self.instruction.setHtml(QCoreApplication.translate("Form", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"hr { height: 1px; border-width: 0; }\n"
-"li.unchecked::marker { content: \"\\2610\"; }\n"
-"li.checked::marker { content: \"\\2612\"; }\n"
-"</style></head><body style=\" font-family:'Segoe UI'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>", None))
-        self.zoom_3.setText(QCoreApplication.translate("Form", u"zoom in", None))
+        self.label_3.setText(QCoreApplication.translate("Form", u"New values of buffer for next step", None))
+        self.label_4.setText(QCoreApplication.translate("Form", u"The value of buffer in the current step", None))
+        self.label_2.setText(QCoreApplication.translate("Form", u"The buffer is initialized at the beginning of each block", None))
         self.groupH1.setTitle(QCoreApplication.translate("Form", u"H1", None))
         self.labelValueH1.setText("")
         self.groupH2.setTitle(QCoreApplication.translate("Form", u"H2", None))
@@ -1351,8 +1364,17 @@ class Ui_Form(object):
         self.labelValueD.setText("")
         self.groupE.setTitle(QCoreApplication.translate("Form", u"E", None))
         self.labelValueE.setText("")
+        self.operator6.setText("")
         self.label_7.setText(QCoreApplication.translate("Form", u"Hash value (hex):", None))
         self.finish.setText(QCoreApplication.translate("Form", u"finish process", None))
+        self.textEdit.setHtml(QCoreApplication.translate("Form", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"hr { height: 1px; border-width: 0; }\n"
+"li.unchecked::marker { content: \"\\2610\"; }\n"
+"li.checked::marker { content: \"\\2612\"; }\n"
+"</style></head><body style=\" font-family:'Segoe UI'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">SHA-1 was published by NIST in 1995 as an improved version of the earlier SHA-0, producing a 160-bit hash to secure digital signatures and data integrity. Although widely adopted in SSL/TLS and software distribution, practical collision attacks discovered in the mid-2000s have led to its deprecation in favor of stronger hashes like SHA-256.</p></body></html>", None))
         self.btnDetailStep.setText(QCoreApplication.translate("Form", u"Detail step", None))
         self.btnStepByStep.setText(QCoreApplication.translate("Form", u"Step by step", None))
         self.btnPreviousStep.setText(QCoreApplication.translate("Form", u"Previous Step", None))

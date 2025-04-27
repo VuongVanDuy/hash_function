@@ -36,16 +36,22 @@ class ContainerControl(Ui_Form, QWidget):
     
     def show_zoom_plaintext(self):
         content = self.plaintext.text()
+        if not content:
+            return
         self.customDialog_1 = QCustomDialog(content=content, title="Plaintext", type="Plaintext")
         self.customDialog_1.show()
 
     def show_zoom_plaintext_with_padding(self):
         content = self.plaintext_with_padding.text()
+        if not content:
+            return
         self.customDialog_2 = QCustomDialog(content=content, title="Plaintext with padding")
         self.customDialog_2.show()
 
     def show_zoom_instruction(self):
         content = self.instruction.toPlainText()
+        if not content:
+            return
         customDialog = QCustomDialog(content=content, title="Instruction algorithm md5")
         customDialog.exec_()
 
