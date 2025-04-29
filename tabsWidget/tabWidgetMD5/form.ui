@@ -951,7 +951,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
            </size>
           </property>
           <property name="title">
-           <string>F</string>
+           <string>F: (B &amp;&amp; C) | ((~B) &amp;&amp; D)</string>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_8">
            <item>

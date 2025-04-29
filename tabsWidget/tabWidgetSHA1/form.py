@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'formgBTsvR.ui'
+## Form generated from reading UI file 'formBhIqmj.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.9.0
 ##
@@ -25,7 +25,7 @@ class Ui_Form(object):
     def setupUi(self, Form):
         if not Form.objectName():
             Form.setObjectName(u"Form")
-        Form.resize(1472, 808)
+        Form.resize(1492, 808)
         sizePolicy = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -624,7 +624,7 @@ class Ui_Form(object):
         self.groupF.setObjectName(u"groupF")
         sizePolicy.setHeightForWidth(self.groupF.sizePolicy().hasHeightForWidth())
         self.groupF.setSizePolicy(sizePolicy)
-        self.groupF.setMinimumSize(QSize(150, 72))
+        self.groupF.setMinimumSize(QSize(170, 72))
         self.verticalLayout_8 = QVBoxLayout(self.groupF)
         self.verticalLayout_8.setObjectName(u"verticalLayout_8")
         self.labelValueF = QLabel(self.groupF)
@@ -1318,7 +1318,7 @@ class Ui_Form(object):
         self.zoom_3.setText(QCoreApplication.translate("Form", u"zoom in", None))
         self.groupIntermRes.setTitle(QCoreApplication.translate("Form", u"Intermediate results", None))
         self.labelValueInterm.setText("")
-        self.groupF.setTitle(QCoreApplication.translate("Form", u"F", None))
+        self.groupF.setTitle(QCoreApplication.translate("Form", u"F: (B && C) | (~B && D)", None))
         self.labelValueF.setText("")
         self.groupSC_B.setTitle(QCoreApplication.translate("Form", u"Shift constant (SC) - B", None))
         self.labelSC_B.setText("")

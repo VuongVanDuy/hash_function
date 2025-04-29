@@ -246,20 +246,6 @@
             </layout>
            </item>
            <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_4">
-             <item>
-              <widget class="QLabel" name="labelRound">
-               <property name="text">
-                <string>Round:</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QSpinBox" name="round"/>
-             </item>
-            </layout>
-           </item>
-           <item>
             <layout class="QHBoxLayout" name="horizontalLayout_5">
              <item>
               <widget class="QLabel" name="labelStep">
@@ -269,7 +255,7 @@
               </widget>
              </item>
              <item>
-              <widget class="QSpinBox" name="stepRound">
+              <widget class="QSpinBox" name="step">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
                  <horstretch>0</horstretch>
@@ -950,7 +936,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
             </widget>
            </item>
            <item row="3" column="0">
-            <widget class="QGroupBox" name="groupBox">
+            <widget class="QGroupBox" name="groupIntermRes">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                <horstretch>0</horstretch>
@@ -968,7 +954,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_12">
               <item>
-               <widget class="QLabel" name="label_2">
+               <widget class="QLabel" name="labelValueInterm">
                 <property name="text">
                  <string/>
                 </property>
@@ -1166,7 +1152,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
             </widget>
            </item>
            <item row="2" column="0">
-            <widget class="QGroupBox" name="groupAC_3">
+            <widget class="QGroupBox" name="groupAC">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                <horstretch>0</horstretch>
@@ -1184,7 +1170,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_24">
               <item>
-               <widget class="QLabel" name="labelAC_3">
+               <widget class="QLabel" name="labelAC">
                 <property name="text">
                  <string/>
                 </property>
@@ -1340,7 +1326,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_20">
               <item>
-               <widget class="QLabel" name="labelValueH1_4">
+               <widget class="QLabel" name="labelValueH7">
                 <property name="text">
                  <string/>
                 </property>
@@ -1396,7 +1382,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_21">
               <item>
-               <widget class="QLabel" name="labelValueH1_5">
+               <widget class="QLabel" name="labelValueH8">
                 <property name="text">
                  <string/>
                 </property>
@@ -1698,7 +1684,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
             </widget>
            </item>
            <item row="1" column="1">
-            <widget class="QGroupBox" name="groupE_2">
+            <widget class="QGroupBox" name="groupF">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                <horstretch>0</horstretch>
@@ -1716,7 +1702,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_34">
               <item>
-               <widget class="QLabel" name="labelValueE_4">
+               <widget class="QLabel" name="labelValueF">
                 <property name="text">
                  <string/>
                 </property>
@@ -1726,7 +1712,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
             </widget>
            </item>
            <item row="1" column="2">
-            <widget class="QGroupBox" name="groupE_3">
+            <widget class="QGroupBox" name="groupG">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                <horstretch>0</horstretch>
@@ -1744,7 +1730,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_35">
               <item>
-               <widget class="QLabel" name="labelValueE_5">
+               <widget class="QLabel" name="labelValueG">
                 <property name="text">
                  <string/>
                 </property>
@@ -1754,7 +1740,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
             </widget>
            </item>
            <item row="1" column="3">
-            <widget class="QGroupBox" name="groupE_4">
+            <widget class="QGroupBox" name="groupH">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                <horstretch>0</horstretch>
@@ -1772,7 +1758,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_36">
               <item>
-               <widget class="QLabel" name="labelValueE_7">
+               <widget class="QLabel" name="labelValueH">
                 <property name="text">
                  <string/>
                 </property>
@@ -2241,12 +2227,12 @@ li.checked::marker { content: &quot;\2612&quot;; }
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="btnPreviousRound">
+      <widget class="QPushButton" name="btnStartOfBlock">
        <property name="enabled">
         <bool>false</bool>
        </property>
        <property name="text">
-        <string>Previous Round</string>
+        <string>Start Of Block</string>
        </property>
        <property name="icon">
         <iconset resource="../../resources.qrc">
@@ -2255,12 +2241,12 @@ li.checked::marker { content: &quot;\2612&quot;; }
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="btnNextRound">
+      <widget class="QPushButton" name="btnEndOfBlock">
        <property name="enabled">
         <bool>false</bool>
        </property>
        <property name="text">
-        <string>Next Round</string>
+        <string>End Of Block</string>
        </property>
        <property name="icon">
         <iconset resource="../../resources.qrc">

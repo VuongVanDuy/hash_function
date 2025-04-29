@@ -1,13 +1,13 @@
 from PySide6.QtWidgets import QApplication, QWidget, QGraphicsView, QGraphicsScene, QVBoxLayout
 from PySide6.QtCore import Qt
-from .controller import FormContainer
+from .controller import ContainerControl
 
 class QTabWidgetSHA256(QWidget):
     def __init__(self):
         super().__init__()
 
         # Tạo form và scene
-        self.form = FormContainer()
+        self.form = ContainerControl()
         self.scene = QGraphicsScene(self)
         self.proxy = self.scene.addWidget(self.form)
 

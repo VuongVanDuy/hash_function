@@ -131,7 +131,12 @@ class SHA256:
                 "buffers_state": {
                     "int_big_endian": [],
                     "hex_big_endian": []
-                }
+                },
+                "end_of_block": {
+                    "int_big_endian": [],
+                    "hex_big_endian": []
+                },
+                "intermediate_results": {}
             }
             words = self.generate_words(block)
             self.addWordsToBlockCache(self.cache[f"block_{k}"]["words_of_block"], words)
@@ -141,27 +146,41 @@ class SHA256:
 
             # Step 6: Compression function main loop
             for i in range(64):
+                interm_res = []
                 S1 = self.SIGMA_1(e)
                 ch = self.__f_functions[1](e, f, g)
 
                 temp1 = self.add_operator(h, S1)
+                interm_res.append(temp1)
                 temp1 = self.add_operator(temp1, ch)
+                interm_res.append(temp1)
                 temp1 = self.add_operator(temp1, self.__K[i])
+                interm_res.append(temp1)
                 temp1 = self.add_operator(temp1, words[i])
+                interm_res.append(temp1)
                 S0 = self.SIGMA_0(a)
                 maj = self.__f_functions[0](a, b, c)
                 # tính T2 = Σ₀(a) + Maj(a,b,c)
                 temp2 = self.add_operator(S0, maj)
+                interm_res.append(temp2)
+
+                self.addIntermediateResultsToCache(self.cache[f"block_{k}"]["intermediate_results"],
+                                                   step=i,
+                                                   results=interm_res)
 
                 # Cập nhật các biến làm việc theo đúng định nghĩa:
                 h = g
                 g = f
                 f = e
                 e = self.add_operator(d, temp1)
-                d = c  # Không cộng thêm T2
+                d = c
                 c = b
                 b = a
                 a = self.add_operator(temp1, temp2)
+
+                self.addNewStateToCache(self.cache[f"block_{k}"]["buffers_state"],
+                                        states=[a, b, c, d, e, f, g, h,
+                                                S1, S0, maj, ch, temp1, temp2, self.__K[i]])
 
             # Step 7: Add the compressed chunk to the current hash value
             H[0] = self.add_operator(H[0], a)
@@ -172,12 +191,21 @@ class SHA256:
             H[5] = self.add_operator(H[5], f)
             H[6] = self.add_operator(H[6], g)
             H[7] = self.add_operator(H[7], h)
-            self.addNewStateToCache(self.cache[f"block_{k}"]["buffers_state"], [H[0], H[1], H[2], H[3], H[4], H[5], H[6], H[7]])
+            self.addEndOfBlockToCache(self.cache[f"block_{k}"]["end_of_block"], [H[0], H[1], H[2], H[3], H[4], H[5], H[6], H[7]])
             k += 1
 
         # Step 8: Produce the final hash value
         self.hash_bin = ''.join([h.to01() for h in H])
         self.hash_hex = ' '.join([bin_to_hex(h) for h in H])
+
+    def addIntermediateResultsToCache(self, cache: dict, step: int, results: list[bitarray]) -> None:
+        cache[f"step_{step}"] = {
+            "int_big_endian": [],
+            "hex_big_endian": []
+        }
+        for result in results:
+            cache[f"step_{step}"]["int_big_endian"].append(ba2int(result))
+            cache[f"step_{step}"]["hex_big_endian"].append(bin_to_hex(result))
 
     def addEndOfBlockToCache(self, cache: dict, states: list[bitarray]) -> None:
         for state in states:

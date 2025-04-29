@@ -176,14 +176,10 @@ class ContainerControl(Ui_Form, QWidget):
         self.next_step()
 
     def set_name_group_f(self, round):
-        if round == 1:
-            self.groupF.setTitle("F")
-        elif round == 2:
-            self.groupF.setTitle("G")
-        elif round == 3:
-            self.groupF.setTitle("H")
-        elif round == 4:
-            self.groupF.setTitle("I")
+        def set_name_group_f(self, round):
+            titles = {1: "F: (B && C) | ((~B) && D)", 2: "G: (B && D) | (C && (~D))",
+                      3: "H: B ^ C ^ D", 4: "I: C ^ (B | (~D))"}
+            self.groupF.setTitle(titles.get(round, ""))
 
     def next_step(self):
         curr_block = self.currentBlock.value()

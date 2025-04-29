@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'formdzqaRM.ui'
+## Form generated from reading UI file 'formGAuRJN.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.9.0
 ##
@@ -1168,7 +1168,7 @@ class Ui_Form(object):
         self.groupIntermRes.setTitle(QCoreApplication.translate("Form", u"Intermediate results", None))
         self.labelValueInterm.setText("")
         self.operator4.setText("")
-        self.groupF.setTitle(QCoreApplication.translate("Form", u"F", None))
+        self.groupF.setTitle(QCoreApplication.translate("Form", u"F: (B && C) | ((~B) && D)", None))
         self.labelValueF.setText("")
         self.groupSC.setTitle(QCoreApplication.translate("Form", u"Shift constant (SC)", None))
         self.labelSC.setText("")

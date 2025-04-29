@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1472</width>
+    <width>1492</width>
     <height>808</height>
    </rect>
   </property>
@@ -992,12 +992,12 @@ li.checked::marker { content: &quot;\2612&quot;; }
           </property>
           <property name="minimumSize">
            <size>
-            <width>150</width>
+            <width>170</width>
             <height>72</height>
            </size>
           </property>
           <property name="title">
-           <string>F</string>
+           <string>F: (B &amp;&amp; C) | (~B &amp;&amp; D)</string>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_8">
            <item>

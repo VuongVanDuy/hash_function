@@ -52,7 +52,7 @@ class ContainerControl(Ui_Form, QWidget):
         content = self.instruction.toPlainText()
         if not content:
             return
-        customDialog = QCustomDialog(content=content, title="Instruction algorithm md5")
+        customDialog = QCustomDialog(content=content, title="Instruction algorithm SHA1")
         customDialog.exec_()
 
     def change_radio_btn_file(self):
@@ -96,58 +96,32 @@ class ContainerControl(Ui_Form, QWidget):
         self.finish.setEnabled(True)
 
     def clear_inputs(self):
-        self.plaintext.clear()
-        self.plaintext_with_padding.clear()
-        self.hash_hex.clear()
-        self.currentBlock.setValue(0)
-        self.round.setValue(1)
-        self.stepRound.setValue(1)
-        self.labelValueH1.setText("")
-        self.labelValueH2.setText("")
-        self.labelValueH3.setText("")
-        self.labelValueH4.setText("")
-        self.labelValueH5.setText("")
-        self.labelValueA.setText("")
-        self.labelValueB.setText("")
-        self.labelValueC.setText("")
-        self.labelValueD.setText("")
-        self.labelValueE.setText("")
-        self.labelValueA_new.setText("")
-        self.labelValueB_new.setText("")
-        self.labelValueC_new.setText("")
-        self.labelValueD_new.setText("")
-        self.labelValueE_new.setText("")
-        self.labelValueF.setText("")
-        self.labelWord1.setText("")
-        self.labelWord2.setText("")
-        self.labelWord3.setText("")
-        self.labelWord4.setText("")
-        self.labelWord5.setText("")
-        self.labelWord6.setText("")
-        self.labelWord7.setText("")
-        self.labelWord8.setText("")
-        self.labelWord9.setText("")
-        self.labelWord10.setText("")
-        self.labelWord11.setText("")
-        self.labelWord12.setText("")
-        self.labelWord13.setText("")
-        self.labelWord14.setText("")
-        self.labelWord15.setText("")
-        self.labelWord16.setText("")
-        self.labelAC.setText("")
-        self.labelSC_A.setText("")
-        self.labelSC_B.setText("")
-        self.set_enable_btns(
-            list_btns=[self.Ok,
-                       self.start,
-                       self.finish,
-                       self.btnDetailStep,
-                       self.btnNextStep,
-                       self.btnNextRound,
-                       self.btnNextBlock,
-                       self.btnPreviousStep,
-                       self.btnPreviousRound,
-                       self.btnPreviousBlock], active=False)
+       # Reset numeric fields
+       self.currentBlock.setValue(0)
+       self.round.setValue(1)
+       self.stepRound.setValue(1)
+
+       # Clear label values
+       labels_to_clear = [
+           self.plaintext, self.plaintext_with_padding, self.hash_hex,
+           self.labelValueH1, self.labelValueH2, self.labelValueH3, self.labelValueH4, self.labelValueH5,
+           self.labelValueA, self.labelValueB, self.labelValueC, self.labelValueD, self.labelValueE,
+           self.labelValueA_new, self.labelValueB_new, self.labelValueC_new, self.labelValueD_new,
+           self.labelValueE_new, self.labelValueF, self.labelWord1, self.labelWord2, self.labelWord3,
+           self.labelWord4, self.labelWord5, self.labelWord6, self.labelWord7, self.labelWord8,
+           self.labelWord9, self.labelWord10, self.labelWord11, self.labelWord12, self.labelWord13,
+           self.labelWord14, self.labelWord15, self.labelWord16, self.labelWord17, self.labelWord18,
+           self.labelWord19, self.labelWord20, self.labelAC, self.labelSC_A, self.labelSC_B
+       ]
+       for label in labels_to_clear:
+           label.setText("")
+
+       # Disable buttons
+       buttons_to_disable = [
+           self.Ok, self.start, self.finish, self.btnDetailStep, self.btnNextStep,
+           self.btnNextRound, self.btnNextBlock, self.btnPreviousStep, self.btnPreviousRound, self.btnPreviousBlock
+       ]
+       self.set_enable_btns(list_btns=buttons_to_disable, active=False)
 
     def start_round(self):
         initialize_SHA_buffer = self.sha1Control.cache["initialize_SHA_buffer"]
@@ -177,19 +151,14 @@ class ContainerControl(Ui_Form, QWidget):
             buffer_H = self.steps_of_block[-2]["end_of_block"]
         else:
             buffer_H = self.sha1Control.cache["initialize_SHA_buffer"]
-        self.set_MD_buffer_H12345(buffer_H["int_big_endian"], buffer_H["hex_big_endian"])
+        self.set_SHA_buffer_H12345(buffer_H["int_big_endian"], buffer_H["hex_big_endian"])
         self.stepRound.setValue(19)
         self.next_step()
 
     def set_name_group_f(self, round):
-        if round == 1:
-            self.groupF.setTitle("F")
-        elif round == 2:
-            self.groupF.setTitle("G")
-        elif round == 3:
-            self.groupF.setTitle("H")
-        elif round == 4:
-            self.groupF.setTitle("I")
+        titles = {1: "F: (B && C) | (~B && D)", 2: "G: B ^ C ^ D",
+                  3: "H: (B && C) | (B && D) | (C && D)", 4: "G: B ^ C ^ D"}
+        self.groupF.setTitle(titles.get(round, ""))
 
     def next_step(self):
         curr_block = self.currentBlock.value()
@@ -202,7 +171,7 @@ class ContainerControl(Ui_Form, QWidget):
                 self.set_enable_btns(list_btns=[self.btnNextStep, self.btnNextRound, self.btnNextBlock],
                                      active=False)
                 return
-            self.next_block()
+            self.next_block(effect_on=False)
         else:
             if (step + 1) % 20 == 0:
                 newRound = current_round + 1
@@ -243,16 +212,16 @@ class ContainerControl(Ui_Form, QWidget):
             else:
                 curr_block -= 1
                 self.currentBlock.setValue(curr_block)
-                self.set_words_of_block(curr_block)
+                self.set_words_of_block(block=curr_block, round=4)
                 if curr_block == 0:
                     buffer_H = self.sha1Control.cache["initialize_SHA_buffer"]
-                    self.set_MD_buffer_H12345(buffer_H["int_big_endian"], buffer_H["hex_big_endian"])
+                    self.set_SHA_buffer_H12345(buffer_H["int_big_endian"], buffer_H["hex_big_endian"])
                 else:
                     buffer_H = {
                         "int_big_endian": self.steps_of_block[curr_block - 1]["end_of_block"]["int_big_endian"],
                         "hex_big_endian": self.steps_of_block[curr_block - 1]["end_of_block"]["hex_big_endian"]
                     }
-                    self.set_MD_buffer_H12345(buffer_H["int_big_endian"], buffer_H["hex_big_endian"])
+                    self.set_SHA_buffer_H12345(buffer_H["int_big_endian"], buffer_H["hex_big_endian"])
                 self.round.setValue(4)
                 self.stepRound.setValue(19)
                 self.next_step()
@@ -261,7 +230,7 @@ class ContainerControl(Ui_Form, QWidget):
                 self.start_round()
             else:
                 self.currentBlock.setValue(curr_block + 1)
-                self.pre_block()
+                self.pre_block(effect_on=False)
         else:
             if step % 20 == 0:
                 newRound = current_round - 1
@@ -329,16 +298,16 @@ class ContainerControl(Ui_Form, QWidget):
             else:
                 curr_block -= 1
                 self.currentBlock.setValue(curr_block)
-                self.set_words_of_block(curr_block)
+                self.set_words_of_block(block=curr_block, round=4)
                 if curr_block == 0:
                     buffer_H = self.sha1Control.cache["initialize_SHA_buffer"]
-                    self.set_MD_buffer_H12345(buffer_H["int_big_endian"], buffer_H["hex_big_endian"])
+                    self.set_SHA_buffer_H12345(buffer_H["int_big_endian"], buffer_H["hex_big_endian"])
                 else:
                     buffer_H = {
                         "int_big_endian": self.steps_of_block[curr_block - 1]["end_of_block"]["int_big_endian"],
                         "hex_big_endian": self.steps_of_block[curr_block - 1]["end_of_block"]["hex_big_endian"]
                     }
-                    self.set_MD_buffer_H12345(buffer_H["int_big_endian"], buffer_H["hex_big_endian"])
+                    self.set_SHA_buffer_H12345(buffer_H["int_big_endian"], buffer_H["hex_big_endian"])
                 self.round.setValue(3)
                 self.next_round()
         elif current_round == 2:
@@ -440,32 +409,28 @@ class ContainerControl(Ui_Form, QWidget):
             self.currentBlock.setValue(curr_block)
         self.set_words_of_block(block=curr_block, round=round)
         self.set_buffer_constant(buffer_AC["int_big_endian"], buffer_AC["hex_big_endian"])
-        self.set_MD_buffer_ABCDEF(buffers_ABCDF["int_big_endian"], buffers_ABCDF["hex_big_endian"])
+        self.set_SHA_buffer_ABCDEF(buffers_ABCDF["int_big_endian"], buffers_ABCDF["hex_big_endian"])
         if buffer_Hi:
-            self.set_MD_buffer_H12345(buffer_Hi["int_big_endian"], buffer_Hi["hex_big_endian"])
+            self.set_SHA_buffer_H12345(buffer_Hi["int_big_endian"], buffer_Hi["hex_big_endian"])
 
     def set_buffer_constant(self, integer_big_endian, hex_big_endian):
         self.labelAC.setText(str(integer_big_endian) + '\n' + hex_big_endian)
 
-    def set_MD_buffer_H12345(self, integers_big_endian, hexs_big_endian):
-        self.labelValueH1.setText(str(integers_big_endian[0]) + '\n' + hexs_big_endian[0])
-        self.labelValueH2.setText(str(integers_big_endian[1]) + '\n' + hexs_big_endian[1])
-        self.labelValueH3.setText(str(integers_big_endian[2]) + '\n' + hexs_big_endian[2])
-        self.labelValueH4.setText(str(integers_big_endian[3]) + '\n' + hexs_big_endian[3])
-        self.labelValueH5.setText(str(integers_big_endian[4]) + '\n' + hexs_big_endian[4])
+    def set_SHA_buffer_H12345(self, integers_big_endian, hexs_big_endian):
+        labels = [
+            self.labelValueH1, self.labelValueH2, self.labelValueH3, self.labelValueH4, self.labelValueH5
+        ]
+        for i, label in enumerate(labels):
+            label.setText(f"{integers_big_endian[i]}\n{hexs_big_endian[i]}")
 
-    def set_MD_buffer_ABCDEF(self, integers_big_endian, hexs_big_endian):
-        self.labelValueA.setText(str(integers_big_endian[0]) + '\n' + hexs_big_endian[0])
-        self.labelValueB.setText(str(integers_big_endian[1]) + '\n' + hexs_big_endian[1])
-        self.labelValueC.setText(str(integers_big_endian[2]) + '\n' + hexs_big_endian[2])
-        self.labelValueD.setText(str(integers_big_endian[3]) + '\n' + hexs_big_endian[3])
-        self.labelValueE.setText(str(integers_big_endian[4]) + '\n' + hexs_big_endian[4])
-        self.labelValueA_new.setText(str(integers_big_endian[5]) + '\n' + hexs_big_endian[5])
-        self.labelValueB_new.setText(str(integers_big_endian[6]) + '\n' + hexs_big_endian[6])
-        self.labelValueC_new.setText(str(integers_big_endian[7]) + '\n' + hexs_big_endian[7])
-        self.labelValueD_new.setText(str(integers_big_endian[8]) + '\n' + hexs_big_endian[8])
-        self.labelValueE_new.setText(str(integers_big_endian[9]) + '\n' + hexs_big_endian[9])
-        self.labelValueF.setText(str(integers_big_endian[10]) + '\n' + hexs_big_endian[10])
+    def set_SHA_buffer_ABCDEF(self, integers_big_endian, hexs_big_endian):
+        labels = [
+            self.labelValueA, self.labelValueB, self.labelValueC, self.labelValueD, self.labelValueE,
+            self.labelValueA_new, self.labelValueB_new, self.labelValueC_new, self.labelValueD_new,
+            self.labelValueE_new, self.labelValueF
+        ]
+        for i, label in enumerate(labels):
+            label.setText(f"{integers_big_endian[i]}\n{hexs_big_endian[i]}")
 
     def set_enable_btns(self, list_btns: list[QPushButton], active=True):
         for btn in list_btns:
@@ -478,29 +443,34 @@ class ContainerControl(Ui_Form, QWidget):
         hexs_big_endian = words_of_block["hex_big_endian"][(round - 1) * 20: round * 20]
         return integers_big_endian, hexs_big_endian
 
+    def set_name_groupBox_of_word(self, round):
+        num_word = (round - 1) * 20 + 1
+        groups = [
+            self.group_1, self.group_2, self.group_3, self.group_4,
+            self.group_5, self.group_6, self.group_7, self.group_8,
+            self.group_9, self.group_10, self.group_11, self.group_12,
+            self.group_13, self.group_14, self.group_15, self.group_16,
+            self.group_17, self.group_18, self.group_19, self.group_20
+        ]
+        for i, group in enumerate(groups):
+            group.setTitle(str(num_word + i))
+
     def set_words_of_block(self, block, round):
-        # set words in round of block
+        """
+        Updates the labels for the words in the current block and round.
+        """
         integers_big_endian, hexs_big_endian = self.get_words_in_round_of_block(block, round)
-        self.labelWord1.setText(str(integers_big_endian[0]) + '\n' + hexs_big_endian[0])
-        self.labelWord2.setText(str(integers_big_endian[1]) + '\n' + hexs_big_endian[1])
-        self.labelWord3.setText(str(integers_big_endian[2]) + '\n' + hexs_big_endian[2])
-        self.labelWord4.setText(str(integers_big_endian[3]) + '\n' + hexs_big_endian[3])
-        self.labelWord5.setText(str(integers_big_endian[4]) + '\n' + hexs_big_endian[4])
-        self.labelWord6.setText(str(integers_big_endian[5]) + '\n' + hexs_big_endian[5])
-        self.labelWord7.setText(str(integers_big_endian[6]) + '\n' + hexs_big_endian[6])
-        self.labelWord8.setText(str(integers_big_endian[7]) + '\n' + hexs_big_endian[7])
-        self.labelWord9.setText(str(integers_big_endian[8]) + '\n' + hexs_big_endian[8])
-        self.labelWord10.setText(str(integers_big_endian[9]) + '\n' + hexs_big_endian[9])
-        self.labelWord11.setText(str(integers_big_endian[10]) + '\n' + hexs_big_endian[10])
-        self.labelWord12.setText(str(integers_big_endian[11]) + '\n' + hexs_big_endian[11])
-        self.labelWord13.setText(str(integers_big_endian[12]) + '\n' + hexs_big_endian[12])
-        self.labelWord14.setText(str(integers_big_endian[13]) + '\n' + hexs_big_endian[13])
-        self.labelWord15.setText(str(integers_big_endian[14]) + '\n' + hexs_big_endian[14])
-        self.labelWord16.setText(str(integers_big_endian[15]) + '\n' + hexs_big_endian[15])
-        self.labelWord17.setText(str(integers_big_endian[16]) + '\n' + hexs_big_endian[16])
-        self.labelWord18.setText(str(integers_big_endian[17]) + '\n' + hexs_big_endian[17])
-        self.labelWord19.setText(str(integers_big_endian[18]) + '\n' + hexs_big_endian[18])
-        self.labelWord20.setText(str(integers_big_endian[19]) + '\n' + hexs_big_endian[19])
+        labels = [
+            self.labelWord1, self.labelWord2, self.labelWord3, self.labelWord4, self.labelWord5,
+            self.labelWord6, self.labelWord7, self.labelWord8, self.labelWord9, self.labelWord10,
+            self.labelWord11, self.labelWord12, self.labelWord13, self.labelWord14, self.labelWord15,
+            self.labelWord16, self.labelWord17, self.labelWord18, self.labelWord19, self.labelWord20
+        ]
+
+        for i, label in enumerate(labels):
+            label.setText(f"{integers_big_endian[i]}\n{hexs_big_endian[i]}")
+
+        self.set_name_groupBox_of_word(round)
 
 
     def visual_state_change_step(self):
@@ -514,35 +484,34 @@ class ContainerControl(Ui_Form, QWidget):
         QTimer.singleShot(timeSkip, lambda: groupBoxWord.setStyleSheet(states.GroupDeFault))
 
     def visual_state_change_block(self, notStart=True, effect_on=True):
+        """
+        Updates the visual state of UI elements for a block transition.
+        """
         if not effect_on:
             return
+
         states = StateWidget()
-        if notStart:
-            self.operator6.setStyleSheet(states.OperatorActive)
-        self.groupH1.setStyleSheet(states.GroupRes)
-        self.groupH2.setStyleSheet(states.GroupRes)
-        self.groupH3.setStyleSheet(states.GroupRes)
-        self.groupH4.setStyleSheet(states.GroupRes)
-        self.groupH5.setStyleSheet(states.GroupRes)
-        self.groupA.setStyleSheet(states.GroupRes)
-        self.groupB.setStyleSheet(states.GroupRes)
-        self.groupC.setStyleSheet(states.GroupRes)
-        self.groupD.setStyleSheet(states.GroupRes)
-        self.groupE.setStyleSheet(states.GroupRes)
+        elements_to_update = [
+            (self.operator6, states.OperatorActive, states.OperatorDefault) if notStart else None,
+            (self.groupH1, states.GroupRes, states.GroupDeFault),
+            (self.groupH2, states.GroupRes, states.GroupDeFault),
+            (self.groupH3, states.GroupRes, states.GroupDeFault),
+            (self.groupH4, states.GroupRes, states.GroupDeFault),
+            (self.groupH5, states.GroupRes, states.GroupDeFault),
+            (self.groupA, states.GroupRes, states.GroupDeFault),
+            (self.groupB, states.GroupRes, states.GroupDeFault),
+            (self.groupC, states.GroupRes, states.GroupDeFault),
+            (self.groupD, states.GroupRes, states.GroupDeFault),
+            (self.groupE, states.GroupRes, states.GroupDeFault)
+        ]
+
+        for element, style, _ in elements_to_update:
+            if style:
+                element.setStyleSheet(style)
 
         timeSkip = states.timeSkip // 2
-        if notStart:
-            QTimer.singleShot(timeSkip, lambda: self.operator6.setStyleSheet(states.OperatorDefault))
-        QTimer.singleShot(timeSkip, lambda: self.groupH1.setStyleSheet(states.GroupDeFault))
-        QTimer.singleShot(timeSkip, lambda: self.groupH2.setStyleSheet(states.GroupDeFault))
-        QTimer.singleShot(timeSkip, lambda: self.groupH3.setStyleSheet(states.GroupDeFault))
-        QTimer.singleShot(timeSkip, lambda: self.groupH4.setStyleSheet(states.GroupDeFault))
-        QTimer.singleShot(timeSkip, lambda: self.groupH5.setStyleSheet(states.GroupDeFault))
-        QTimer.singleShot(timeSkip, lambda: self.groupA.setStyleSheet(states.GroupDeFault))
-        QTimer.singleShot(timeSkip, lambda: self.groupB.setStyleSheet(states.GroupDeFault))
-        QTimer.singleShot(timeSkip, lambda: self.groupC.setStyleSheet(states.GroupDeFault))
-        QTimer.singleShot(timeSkip, lambda: self.groupD.setStyleSheet(states.GroupDeFault))
-        QTimer.singleShot(timeSkip, lambda: self.groupE.setStyleSheet(states.GroupDeFault))
+        for element, _, style in elements_to_update:
+            QTimer.singleShot(timeSkip, lambda el=element, s=style: el.setStyleSheet(s))
 
     def cancel_detail_step(self):
         self.stop_flag = True
@@ -697,45 +666,12 @@ class ContainerControl(Ui_Form, QWidget):
             object.setStyleSheet(StateWidget().OperatorDefault)
 
     def get_groupBox_of_word(self, step):
-        word = step + 1
-
-        if word == 1:
-            return self.group_1
-        elif word == 2:
-            return self.group_2
-        elif word == 3:
-            return self.group_3
-        elif word == 4:
-            return self.group_4
-        elif word == 5:
-            return self.group_5
-        elif word == 6:
-            return self.group_6
-        elif word == 7:
-            return self.group_7
-        elif word == 8:
-            return self.group_8
-        elif word == 9:
-            return self.group_9
-        elif word == 10:
-            return self.group_10
-        elif word == 11:
-            return self.group_11
-        elif word == 12:
-            return self.group_12
-        elif word == 13:
-            return self.group_13
-        elif word == 14:
-            return self.group_14
-        elif word == 15:
-            return self.group_15
-        elif word == 16:
-            return self.group_16
-        elif word == 17:
-            return self.group_17
-        elif word == 18:
-            return self.group_18
-        elif word == 19:
-            return self.group_19
-        elif word == 20:
-            return self.group_20
+        group_boxes = [
+            self.group_1, self.group_2, self.group_3, self.group_4, self.group_5,
+            self.group_6, self.group_7, self.group_8, self.group_9, self.group_10,
+            self.group_11, self.group_12, self.group_13, self.group_14, self.group_15,
+            self.group_16, self.group_17, self.group_18, self.group_19, self.group_20
+        ]
+        if 0 <= step < len(group_boxes):
+            return group_boxes[step]
+        return None
